@@ -1,0 +1,109 @@
+<h2 class="fw-bold mb-2 text-uppercase">Create a service account</h2>
+<p class="text-white-50 mb-5">Please enter your details!</p>
+<form  (ngSubmit)="onSubmit()">
+  <div class="form-outline form-white mb-4">
+    <input
+      type="text"
+      name="fname"
+      class="form-control form-control-lg"
+      [(ngModel)]="fname"
+    />
+    <label class="form-label mt-2">First Name</label>
+  </div>
+  <div class="form-outline form-white mb-4">
+    <input
+      type="text"
+      name="lname"
+      class="form-control form-control-lg"
+      [(ngModel)]="lname"
+    />
+    <label class="form-label mt-2">Last Name</label>
+  </div>
+  <div class="form-outline form-white mb-4">
+    <input
+      type="email"
+      name="email"
+      class="form-control form-control-lg"
+      [(ngModel)]="email"
+    />
+    <label class="form-label mt-2">Email</label>
+  </div>
+  <div class="form-outline form-white mb-4">
+    <input
+      type="password"
+      name="password"
+      class="form-control form-control-lg"
+      [(ngModel)]="pass"
+    />
+    <label class="form-label mt-2" for="typePasswordX">Enter Password</label>
+  </div>
+  <div class="form-outline form-white mb-4">
+    <input
+      type="password"
+      name="Repassword"
+      class="form-control form-control-lg"
+      [(ngModel)]="repass"
+    />
+    <label class="form-label mt-2" for="typeRepasswordX"
+      >Re-enter Password</label
+    >
+  </div>
+  <div class="form-outline form-white mb-4">
+    <input
+      type="text"
+      name="phone"
+      class="form-control form-control-lg"
+      [(ngModel)]="phone"
+    />
+    <label class="form-label mt-2">Phone Number</label>
+  </div>
+
+  <div class="form-outline form-white mb-4">
+    <input
+      type="text"
+      name="pan"
+      class="form-control form-control-lg"
+      [(ngModel)]="pan"
+    />
+    <label class="form-label mt-2">PAN Number</label>
+  </div>
+  <div class="form-outline form-white mb-4">
+    <input
+      type="text"
+      name="aadhar"
+      class="form-control form-control-lg"
+      [(ngModel)]="aadhar"
+    />
+    <label class="form-label mt-2">Aadhar Number</label>
+  </div>
+  <div class="form-outline form-white mb-4">
+    <input
+      type="file"
+      name="image"
+      class="form-control form-control-lg"
+      (change)="expSubmit($event)"
+    />
+    <label class="form-label mt-2">Experience Certificate</label>
+  </div>
+  <div class="form-outline form-white mb-4">
+    <input
+      type="text"
+      name="city"
+      class="form-control form-control-lg"
+      [(ngModel)]="city"
+    />
+    <label class="form-label mt-2">City</label>
+  </div>
+  <div class="form-outline form-white mb-4">
+    <input
+      type="text"
+      name="state"
+      class="form-control form-control-lg"
+      [(ngModel)]="state"
+    />
+    <label class="form-label mt-2">State</label>
+  </div>
+  <button class="btn btn-outline-light btn-lg px-5" type="submit">
+    Submit
+  </button>
+</form>

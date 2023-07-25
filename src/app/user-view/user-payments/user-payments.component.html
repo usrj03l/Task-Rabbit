@@ -1,0 +1,33 @@
+<section class="py-5 header">
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-md-3">
+                <!-- Tabs nav -->
+                <div class="nav flex-column nav-pills nav-pills-custom" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a (click)="changeTab('transaction')" class="nav-link mb-3 p-3 shadow active" id="v-pills-home-tab" data-toggle="pill"  role="tab" aria-controls="v-pills-home" aria-selected="true">
+                        <i class="fa fa-user-circle-o mr-2"></i>
+                        <span class="font-weight-bold small text-uppercase">Transactions</span></a>
+                    <a (click)="changeTab('bill')" class="nav-link mb-3 p-3 shadow active" id="v-pills-home-tab" data-toggle="pill"  role="tab" aria-controls="v-pills-home" aria-selected="true">
+                        <i class="fa fa-user-circle-o mr-2"></i>
+                        <span class="font-weight-bold small text-uppercase">Bills</span></a>
+                    </div>
+            </div>
+
+
+            <div class="col-md-9">
+                <!-- Tabs content -->
+                <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade shadow rounded bg-white show active p-5" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                        <ng-template [ngIf]="isBill" [ngIfElse]="bill">
+                            <app-user-transactions></app-user-transactions>
+                        </ng-template>
+
+                        <ng-template #bill>
+                            <app-user-bill ></app-user-bill>
+                        </ng-template>
+                    </div>     
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

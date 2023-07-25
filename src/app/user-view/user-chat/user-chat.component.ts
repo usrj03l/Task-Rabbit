@@ -25,7 +25,7 @@ export class UserChatComponent {
     //this users list is for test
     this.data = this.http.get('http://localhost:3000/user/getUsers');
 
-    this.chatService.message$.subscribe(data => console.log(data));
+    // this.chatService.message$.subscribe(data => console.log(data));
 
     this.chatService.getNewMessage().subscribe((message: string) => {
       this.receiveList.push(message);
@@ -34,9 +34,12 @@ export class UserChatComponent {
   }
 
   sendMessage() {
-    this.sendList.push(this.newMessage);
-    this.chatService.sendMessage(this.newMessage, this.uid, 'user');
-    this.newMessage = '';
+    if (this.uid) {
+      this.sendList.push(this.newMessage);
+      this.chatService.sendMessage(this.newMessage, this.uid, 'user');
+      this.newMessage = '';
+    }
+
   }
 
   sub(item: any) {

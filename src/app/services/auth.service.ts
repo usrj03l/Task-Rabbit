@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
 
-uid:any
+  uid: any
 
   constructor(private auth: Auth, private http: HttpClient, private router: Router) { }
 
@@ -40,18 +40,18 @@ uid:any
     return await signInWithEmailAndPassword(this.auth, email, pass);
   }
 
-  async logOff(userType:string) {
-    if(userType === 'user'){
-      (await this.getId().then(uid => this.http.post('http://localhost:3000/user/removeSocket',{'uid':uid}))).subscribe();
+  async logOff(userType: string) {
+    if (userType === 'user') {
+      const uid = await this.getId();
+      this.http.post('http://localhost:3000/user/removeSocket', { 'uid': uid }).subscribe();
     }
-    
-    await signOut(this.auth)
-      .then(() => {
-        this.http.post('http://localhost:3000/user/removeSocket',{'uid':''})
-        this.router.navigate(['/registration']);
-      });
 
+    await signOut(this.auth).then(()=>{
+      this.router.navigate(['/registration']);
+    })
+    
     location.reload();
+
   }
 
   getId(): Promise<string | null> {

@@ -20,22 +20,15 @@ export class ChatService {
     this.setSocket(id);
   }
 
-  getSessionId() {
-    return localStorage.getItem('sessionId')
-  }
-
   usr: any;
-  session: any
   socket = io('http://localhost:3000');
 
   public async sendMessage(message: any, uid: any, userType: any) {
-    let sender;
-    await this.auth.getId().then(data => sender = data);
+    const sender = await this.auth.getId();
 
     this.socket.emit('privateMessage', {
       senderId: sender,
       recipientId: uid,
-      session: this.getSessionId(),
       message: message,
       userType: userType
     });
@@ -49,19 +42,13 @@ export class ChatService {
 
     return this.message$.asObservable();
   };
+
   setSocket(id: any) {
-    // this.socket.on('connect', () => {
-    //   console.log(id,'-->',this.socket.io.engine.id);
-
-    //   this.http.post('http://localhost:3000/user/setSocket', { soc: String(this.socket.id), id: String(id) }).subscribe();
-    // });
-
-    this.socket.on('handshake', (sessionId: string) => {
-      if (!this.getSessionId()) {
-        localStorage.setItem('sessionId', sessionId);
-        this.http.post('http://localhost:3000/user/setSocket', { soc: String(sessionId), id: String(id) }).subscribe();
-      }
+    this.socket.on('connect', () => {
+      this.http.post('http://localhost:3000/user/setSocket', { soc: String(this.socket.id), id: String(id) }).subscribe();
     });
+
+   
   }
 
 

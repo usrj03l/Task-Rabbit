@@ -46,11 +46,6 @@ export class ChatService {
   setSocket(id: any) {
     this.socket.on('connect', () => {
       this.http.post('http://localhost:3000/user/setSocket', { soc: String(this.socket.id), id: String(id) }).subscribe();
-    });
-
-   
+    });   
   }
-
-
-
 }

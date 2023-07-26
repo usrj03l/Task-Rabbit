@@ -7,6 +7,7 @@ import { ProviderTransactionComponent } from './provider-transaction/provider-tr
 import { ProviderAppointmentsComponent } from './provider-appointments/provider-appointments.component';
 import { ProviderReviewsComponent } from './provider-reviews/provider-reviews.component';
 import { ProviderChatComponent } from './provider-chat/provider-chat.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { ProviderChatComponent } from './provider-chat/provider-chat.component';
     imports: [
         CommonModule,
         ViewRoutingModule,
+        FormsModule
     ]
 })
 export class ViewModule { }

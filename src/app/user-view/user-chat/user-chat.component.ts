@@ -25,11 +25,11 @@ export class UserChatComponent {
   currentUserView!: string | null;
 
   constructor(private auth: AuthService, private chatService: ChatService, private http: HttpClient) {
-    
+
   }
 
   ngOnInit() {
-    this.chatService.soc('user');
+    
     this.loadMessage();
 
     this.chatService.getNewMessage().subscribe((data: any) => {
@@ -78,7 +78,6 @@ export class UserChatComponent {
       this.data = this.http.post('http://localhost:3000/user/getUsers', { 'users': this.userIdList });
     });
 
-    
   }
 
   async sub(item: any) {

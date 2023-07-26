@@ -11,18 +11,24 @@ export class ChatService {
 
   public message$: BehaviorSubject<string> = new BehaviorSubject('');
 
-  constructor(private http: HttpClient, private auth: AuthService) {
-    
-  }
-
-
-  async soc(userType:String) {
-    const id = await this.auth.getId()
-    this.setSocket(id,userType);
-  }
-
   usr: any;
   socket = io('http://localhost:3000');
+
+  constructor(private http: HttpClient, private auth: AuthService) {
+    this.soc();
+  }
+
+  async soc() {
+    const id = await this.auth.getId()
+    this.http.get('http://localhost:3000/user/' + id).subscribe(data => {
+      if(data){
+        this.setSocket(id,'user');
+      }else{
+        this.setSocket(id,'provider');
+      }
+    });
+    
+  }
 
   public async sendMessage(message: any, uid: any, userType: any) {
     const sender = await this.auth.getId();
@@ -51,7 +57,9 @@ export class ChatService {
     }else{
       URL='http://localhost:3000/provider/setSocket';   
     }
-    this.socket.on('connect', () => {
+    
+    this.socket.on('connect', () => {      
+      console.log(this.socket.id,URL);
         this.http.post(URL, { soc: String(this.socket.id), id: String(id) }).subscribe(); 
     });
   }

@@ -28,7 +28,6 @@ export class ProviderChatComponent {
   }
 
   ngOnInit() {
-    this.chatService.soc('provider');
     this.loadMessage();
 
     this.chatService.getNewMessage().subscribe((data: any) => {

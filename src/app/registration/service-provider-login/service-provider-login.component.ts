@@ -10,7 +10,7 @@ export class ServiceProviderLoginComponent {
   password: string = ''
 
   onSubmit() {
-    console.log('heloo');
+    
 
   }
 }

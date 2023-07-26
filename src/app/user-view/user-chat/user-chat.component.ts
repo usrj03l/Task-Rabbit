@@ -64,12 +64,6 @@ export class UserChatComponent {
     }
   }
 
-  scrollDown() {
-    setTimeout(() => {
-      this.scrollDiv.nativeElement.scrollTop = this.scrollDiv.nativeElement.scrollHeight;
-    }, 0);
-  }
-
   getDateTime() {
     const date = this.dateTime.toLocaleString('default', { month: 'long', day: '2-digit' });
     const time = this.dateTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
@@ -95,7 +89,14 @@ export class UserChatComponent {
           data.messages
             .filter((users: { receiverUid: string; }) => users.receiverUid === item.uid)
             .map(((user: { messageList: any; }) => user.messageList))[0];
+            this.scrollDown();
       });
   }
 
+  scrollDown() {
+    setTimeout(() => {
+      this.scrollDiv.nativeElement.scrollTop = this.scrollDiv.nativeElement.scrollHeight;
+    }, 0);
+  }
+  
 }

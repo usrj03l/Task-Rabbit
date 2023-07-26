@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
 
-  uid: any
+  
 
   constructor(private auth: Auth, private http: HttpClient, private router: Router) { }
 

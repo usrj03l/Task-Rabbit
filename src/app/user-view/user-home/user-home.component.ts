@@ -15,7 +15,7 @@ export class UserHomeComponent {
   }
 
   ngOnInit() {
-    this.chat.soc();
+    // this.chat.soc();
   }
 
   

@@ -21,7 +21,7 @@ export class UserChatComponent {
   }
 
   ngOnInit() {
-
+    
     //this users list is for test
     this.data = this.http.get('http://localhost:3000/user/getUsers');
 
@@ -39,7 +39,6 @@ export class UserChatComponent {
       this.chatService.sendMessage(this.newMessage, this.uid, 'user');
       this.newMessage = '';
     }
-
   }
 
   sub(item: any) {

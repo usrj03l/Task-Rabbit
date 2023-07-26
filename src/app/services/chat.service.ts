@@ -12,7 +12,9 @@ export class ChatService {
 
   public message$: BehaviorSubject<string> = new BehaviorSubject('');
 
-  constructor(private http: HttpClient, private auth: AuthService) { }
+  constructor(private http: HttpClient, private auth: AuthService) { 
+    this.soc();
+  }
 
 
   async soc() {

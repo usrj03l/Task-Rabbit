@@ -25,11 +25,11 @@ export class UserChatComponent {
   currentUserView!: string | null;
 
   constructor(private auth: AuthService, private chatService: ChatService, private http: HttpClient) {
-
+    
   }
 
   ngOnInit() {
-
+    this.chatService.soc('user');
     this.loadMessage();
 
     this.chatService.getNewMessage().subscribe((data: any) => {

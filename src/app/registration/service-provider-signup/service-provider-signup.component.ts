@@ -17,15 +17,20 @@ export class ServiceProviderSignupComponent {
   pass = '';
   repass = '';
   phone!: Number;
-  pan:Number | undefined;
-  image:File | undefined;
+  pan: Number | undefined;
+  image: File | undefined;
   city = '';
   state = '';
   aadhar: Number | undefined;
+  serviceType: string = 'electrician';
 
-  expSubmit(event:any){
+  expSubmit(event: any) {
     this.image = event.target.files[0];
-    console.log(this.image);
+  }
+
+  service(event: any) {
+    this.serviceType = event.target.value;
+    console.log(this.serviceType);
     
   }
 
@@ -41,11 +46,12 @@ export class ServiceProviderSignupComponent {
     formData.append('image', this.image as File);
     formData.append('city', this.city);
     formData.append('state', this.state);
+    formData.append('serviceType', this.serviceType);
 
     if (this.pass === this.repass) {
-      this.auth.createUser(formData, { email: this.email, pass: this.pass },'service')
+      this.auth.createUser(formData, { email: this.email, pass: this.pass }, 'service')
         .then(() => {
-          // this.router.navigate(['/home']);
+          this.router.navigate(['/view']);
         })
     }
 

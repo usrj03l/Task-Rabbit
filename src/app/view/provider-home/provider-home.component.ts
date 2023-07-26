@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-provider-home',
@@ -7,6 +8,8 @@ import { Component } from '@angular/core';
 })
 export class ProviderHomeComponent {
   isView = 'profile';
+
+  constructor(private auth:AuthService){ }
 
   changeView(viewType: String) {
     if (viewType === 'profile') {
@@ -17,6 +20,8 @@ export class ProviderHomeComponent {
     }
   }
 
-  
+  logOut() {
+    this.auth.logOff('provider');
+  }
 
 }

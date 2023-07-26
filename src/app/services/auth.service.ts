@@ -15,8 +15,6 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
 
-  
-
   constructor(private auth: Auth, private http: HttpClient, private router: Router) { }
 
   async createUser(userData: any, creds: any, type = 'user') {
@@ -41,9 +39,11 @@ export class AuthService {
   }
 
   async logOff(userType: string) {
+    const uid = await this.getId();
     if (userType === 'user') {
-      const uid = await this.getId();
       this.http.post('http://localhost:3000/user/removeSocket', { 'uid': uid }).subscribe();
+    }else{
+      this.http.post('http://localhost:3000/provider/removeSocket', { 'uid': uid }).subscribe();
     }
 
     await signOut(this.auth).then(()=>{

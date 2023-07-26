@@ -3,7 +3,6 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { io } from "socket.io-client";
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
-import { user } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -12,14 +11,14 @@ export class ChatService {
 
   public message$: BehaviorSubject<string> = new BehaviorSubject('');
 
-  constructor(private http: HttpClient, private auth: AuthService) { 
-    this.soc();
+  constructor(private http: HttpClient, private auth: AuthService) {
+    
   }
 
 
-  async soc() {
+  async soc(userType:String) {
     const id = await this.auth.getId()
-    this.setSocket(id);
+    this.setSocket(id,userType);
   }
 
   usr: any;
@@ -45,9 +44,15 @@ export class ChatService {
     return this.message$.asObservable();
   };
 
-  setSocket(id: any) {
+  setSocket(id: any, userType: String) {
+    let URL='';
+    if(userType === 'user'){
+      URL = 'http://localhost:3000/user/setSocket';
+    }else{
+      URL='http://localhost:3000/provider/setSocket';   
+    }
     this.socket.on('connect', () => {
-      this.http.post('http://localhost:3000/user/setSocket', { soc: String(this.socket.id), id: String(id) }).subscribe();
-    });   
+        this.http.post(URL, { soc: String(this.socket.id), id: String(id) }).subscribe(); 
+    });
   }
 }

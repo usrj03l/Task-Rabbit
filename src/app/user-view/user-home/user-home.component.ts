@@ -14,10 +14,6 @@ export class UserHomeComponent {
     this.auth.logOff('user');
   }
 
-  ngOnInit() {
-    // this.chat.soc();
-  }
-
-  
+  ngOnInit() { }
 
 }

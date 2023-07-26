@@ -44,14 +44,6 @@
       </div>
       <div class="mesgs">
         <div class="msg_history">
-          <!-- <div class="incoming_msg">
-            <div class="incoming_msg_img">
-              <img
-                src="https://ptetutorials.com/images/user-profile.png"
-                alt="sunil"
-              />
-            </div>
-          </div> -->
           <div class="message_history"  #scroll *ngFor="let item of allMessages">
             <div class="received_msg" *ngIf="item.messageType === 'received'">
               <div class="received_withd_msg">

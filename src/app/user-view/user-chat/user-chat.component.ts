@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { message } from 'src/app/model/model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -11,8 +11,6 @@ import { ChatService } from 'src/app/services/chat.service';
   styleUrls: ['./user-chat.component.css']
 })
 export class UserChatComponent {
-
-  @ViewChild('scroll', { static: true }) scroll: any;
 
   newMessage = '';
   data: any

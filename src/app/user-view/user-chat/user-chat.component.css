@@ -183,5 +183,5 @@ img {
 }
 .msg_history {
   height: 516px;
-  overflow: auto;
+  overflow-y: scroll;
 }

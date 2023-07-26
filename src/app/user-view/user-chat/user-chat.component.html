@@ -43,7 +43,7 @@
         </div>
       </div>
       <div class="mesgs">
-        <div class="msg_history">
+        <div class="msg_history" #scrollDiv>
           <div class="message_history"  #scroll *ngFor="let item of allMessages">
             <div class="received_msg" *ngIf="item.messageType === 'received'">
               <div class="received_withd_msg">

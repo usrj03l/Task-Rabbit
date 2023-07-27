@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-service-provider-login',
@@ -6,11 +8,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./service-provider-login.component.css']
 })
 export class ServiceProviderLoginComponent {
-  email: string = ''
-  password: string = ''
+  email: string = '';
+  password: string = '';
+
+  constructor(private auth: AuthService, private router: Router) { }
 
   onSubmit() {
-    
+    this.auth.login(this.email, this.password)
+      .then(() => {
+        this.router.navigate(['view']);
+      })
 
   }
 }

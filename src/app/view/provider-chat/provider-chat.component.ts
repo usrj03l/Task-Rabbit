@@ -67,13 +67,16 @@ export class ProviderChatComponent {
     const time = this.dateTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
     return { date: date, time: time }
   }
+
   async loadMessage() {
     this.currentUser = await this.auth.getId();
 
     this.userMessageList = this.http.post('http://localhost:3000/user/getMessages', { 'uid': this.currentUser })
     this.userMessageList.subscribe((data: any) => {
-      this.userIdList = data.messages.map((item: { receiverUid: any; }) => item.receiverUid);
-      this.data = this.http.post('http://localhost:3000/user/getUsers', { 'users': this.userIdList });
+      if (data) {
+        this.userIdList = data.messages.map((item: { receiverUid: any; }) => item.receiverUid);
+        this.data = this.http.post('http://localhost:3000/user/getUsers', { 'users': this.userIdList });
+      }
     });
 
 

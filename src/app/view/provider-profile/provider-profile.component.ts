@@ -6,5 +6,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./provider-profile.component.css']
 })
 export class ProviderProfileComponent {
+  openModel = false
+  updateProfile(event:any){
 
+  }
+
+  modelView(){
+    this.openModel = true;
+  }
+
+  submit(){
+    console.log('pic submitted');
+    
+  }
 }

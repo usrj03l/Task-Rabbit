@@ -1,6 +1,6 @@
 export interface user {
     fname: String,
-    lanme: String,
+    lname: String,
     email: String,
     phone: Number,
     street: String,

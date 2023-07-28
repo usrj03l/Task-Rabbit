@@ -28,7 +28,7 @@ export class SignUpComponent {
 
     const userData: user = {
       fname: this.fname,
-      lanme: this.lname,
+      lname: this.lname,
       email: this.email,
       phone: this.phone,
       street: this.street,

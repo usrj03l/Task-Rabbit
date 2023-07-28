@@ -11,10 +11,9 @@ import Swal from 'sweetalert2';
 export class UserProfileComponent {
   defaultProfile = 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp';
   profile: any;
+  profileData: any;
 
   constructor(private auth: AuthService, private http: HttpClient) { }
-
-  profileData: any;
 
   ngOnInit() {
     this.loadProfile();
@@ -40,6 +39,7 @@ export class UserProfileComponent {
         'aria-label': 'Upload your profile picture'
       }
     })
+
     if (file) {
       const id = await this.auth.getId();
       const formData = new FormData();

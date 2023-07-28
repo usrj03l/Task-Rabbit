@@ -26,7 +26,7 @@ export class AuthService {
       })
 
     if (type === 'user') {
-      const sendData = { uid: uid, ...userData };
+      const sendData = { uid: uid, ...userData }; 
       return this.http.post("http://localhost:3000/user/add", sendData).subscribe();
     } else {
       userData.append('uid', uid);

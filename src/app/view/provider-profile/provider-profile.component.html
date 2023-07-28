@@ -6,12 +6,12 @@
         <div class="card mb-4">
           <div class="card-body text-center">
             <img
-              src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+              [src]="profile"
               alt="avatar"
               class="rounded-circle img-fluid"
               style="width: 150px"
             />
-            <i (click)="modelView()"
+            <i (click)="imageUpload()"
               class="edit_profile fa-solid fa-pen-to-square"
               style="cursor: pointer"
             ></i>

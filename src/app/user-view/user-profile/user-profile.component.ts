@@ -40,7 +40,6 @@ export class UserProfileComponent {
         'aria-label': 'Upload your profile picture'
       }
     })
-
     if (file) {
       const id = await this.auth.getId();
       const formData = new FormData();

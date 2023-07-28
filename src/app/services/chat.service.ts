@@ -59,7 +59,6 @@ export class ChatService {
     }
     
     this.socket.on('connect', () => {      
-      console.log(this.socket.id,URL);
         this.http.post(URL, { soc: String(this.socket.id), id: String(id) }).subscribe(); 
     });
   }

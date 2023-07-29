@@ -7,14 +7,19 @@
           <div class="search">
             <input
               type="text"
-              class="search-input"
-              placeholder="Search..."
+              class="search-input pb-1"
+              placeholder="Looking for someone specific ?"
               name="search-box"
               [(ngModel)]="searchQuery"
               (keyup)="$event.keyCode == 13 && sendQuery()"
             />
-            <a (click)="sendQuery()" class="search-icon"style="cursor: pointer;" (click)="navigateToResultsSection()">
-              <i class="fa fa-search" ></i>
+            <a
+              (click)="sendQuery()"
+              class="search-icon"
+              style="cursor: pointer"
+              (click)="navigateToResultsSection()"
+            >
+              <i class="fa-solid fa-magnifying-glass"></i>
             </a>
           </div>
         </div>
@@ -38,7 +43,7 @@
             aria-label="Default select example"
             (change)="selectCity($event)"
           >
-            <option  value="" selected>City</option>
+            <option value="" selected>City</option>
             <option value="alappuzha">alappuzha</option>
             <option value="2">Two</option>
             <option value="3">Three</option>
@@ -50,7 +55,7 @@
             (change)="selectService($event)"
             aria-placeholder="Service"
           >
-            <option value="" >Service</option>
+            <option value="">Service</option>
             <option value="Electrician">Electrician</option>
             <option value="2">Two</option>
             <option value="3">Three</option>
@@ -60,10 +65,18 @@
     </div>
   </div>
 
-  <div class="row mt-5 g-1 px-4 mb-5 d-flex justify-content-center" *ngIf="result">
-    <h2 id="results" class="pb-5 pt-5 mt-3" >Search Results:</h2>
-    <div class="col-lg-12 col-md-6 col-sm-3" >
-      <app-card [data]="result"></app-card>
+  <div
+    class="row mt-5 g-1 px-4 mb-5 d-flex justify-content-center"
+    *ngIf="result"
+  >
+    <h2 id="results" class="pb-5 pt-5 mt-3">Search Results:</h2>
+    <div class="col-lg-12 col-md-6 col-sm-3 d-flex justify-content-center">
+      <ng-template [ngIf]="result!== 'No docs'" [ngIfElse]="noRes">
+        <app-card [data]="result"></app-card>
+      </ng-template>
+      <ng-template #noRes>
+        <h3>Sorry no results found</h3>
+      </ng-template>
     </div>
   </div>
 </div>

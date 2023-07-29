@@ -12,6 +12,7 @@ import { UserPaymentsComponent } from './user-payments/user-payments.component';
 import { UserAppointmentsComponent } from './user-appointments/user-appointments.component';
 import { UserChatComponent } from './user-chat/user-chat.component';
 import { FormsModule } from '@angular/forms';
+import { ServicesInfoComponent } from './services-info/services-info.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { FormsModule } from '@angular/forms';
     UserBillComponent,
     UserPaymentsComponent,
     UserAppointmentsComponent,
-    UserChatComponent
+    UserChatComponent,
+    ServicesInfoComponent
   ],
   imports: [
     CommonModule,

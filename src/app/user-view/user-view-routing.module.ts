@@ -8,6 +8,7 @@ import { UserBillComponent } from './user-bill/user-bill.component';
 import { UserPaymentsComponent } from './user-payments/user-payments.component';
 import { UserAppointmentsComponent } from './user-appointments/user-appointments.component';
 import { UserChatComponent } from './user-chat/user-chat.component';
+import { ServicesInfoComponent } from './services-info/services-info.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,9 @@ const routes: Routes = [
       },
       {
         path:"chat",component:UserChatComponent
+      },
+      {
+        path:'service-info',component:ServicesInfoComponent
       }
     ]
   }

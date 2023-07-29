@@ -27,9 +27,7 @@ export class ProviderProfileComponent {
     this.http.get('http://localhost:3000/provider/getUser/' + id).subscribe(
       data => {
         this.profileData = data;
-        if (this.profileData.profilePic) {
-          this.profile = 'http://localhost:3000/images/' + this.profileData.profilePic?.split('\\').pop();
-        }
+        // this.profile = 'http://localhost:3000/images/' + this.profileData.profilePic?.split('\\').pop();
       });
   }
 

@@ -1,10 +1,10 @@
-<div class="card" style="width: 58rem;">
-    <img class="card-img" src="" alt="Card image cap">
+<div class="card" style="width: 58rem;" *ngFor="let item of data">
+    <img class="card-img" [src]="getImage(item) || defaultProfile">
     <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">Job</p>
-      <p class="card-text">City</p>
-      <p class="card-text">Ratings</p>
+      <h5 class="card-title"> {{ item.orgName }} </h5>
+      <p class="card-text"> {{ item.serviceType }} </p>
+      <p class="card-text"> {{ item.city }} </p>
+      <p class="card-text" *ngIf="item.ratings"> {{ item.ratings }} </p>
       <a href="#" class="btn btn-primary">Go somewhere</a>
     </div>
   </div>

@@ -25,7 +25,7 @@ export class UserProfileComponent {
       (data:any) => {
         this.profileData = data[0];
         if (this.profileData.profilePic) {
-          this.profile = 'http://localhost:3000/images/' + this.profileData.profilePic?.split('\\').pop();
+          this.profile = 'http://localhost:3000/images/' + this.profileData.profilePic.split('\\').pop();
         }
       });
   }

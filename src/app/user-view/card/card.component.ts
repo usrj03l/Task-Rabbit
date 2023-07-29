@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-card',
@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class CardComponent {
 
+  @Input() data: any;
+  profileImage!:string;
+  defaultProfile = 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp';
+  
+  getImage(item:any){
+    return 'http://localhost:3000/images/' + item.profilePic.split('\\').pop()
+  }
 }

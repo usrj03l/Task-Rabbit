@@ -1,0 +1,74 @@
+.top-head {
+  min-height: 100px;
+  width: 50rem;
+  border: 1px solid rgb(183, 183, 183);
+  border-radius: 10px;
+}
+
+.ratings {
+  display: inline-flex;
+}
+
+.rating_value {
+  font-size: medium;
+  border-radius: 1px;
+  margin: 5px;
+  color: whitesmoke;
+}
+
+.rating_number {
+  background-color: rgb(171, 61, 215);
+  border-radius: 5px;
+}
+
+.stars {
+  margin-left: 1rem;
+}
+
+.chat,
+.rate {
+  cursor: pointer;
+  border: 1px solid rgb(181, 180, 180);
+  border-radius: 5px;
+  padding: 2px 10px;
+}
+
+.chat:hover,
+.rate:hover {
+  background-color: rgb(244, 244, 244);
+}
+
+.middle {
+  margin-top: 2rem;
+  min-height: 100px;
+  width: 50rem;
+  border: 1px solid rgb(183, 183, 183);
+  border-radius: 10px 10px 0px 0px;
+}
+
+.reviews {
+  min-height: 100px;
+  width: 50rem;
+  border: 1px solid rgb(183, 183, 183);
+  border-radius: 0px 0px 10px 10px;
+}
+
+.single-star {
+  display: inline-block;
+  padding: 7px;
+}
+
+.fa-star:hover{
+    color: rgb(239, 132, 38);
+}
+
+.rate-number {
+  border: 1px solid rgb(155, 155, 155);
+  border-radius: 7px;
+  background-color: rgb(54, 126, 54);
+}
+
+.rate-number-value {
+  padding: 3px 9px;
+  color: whitesmoke;
+}

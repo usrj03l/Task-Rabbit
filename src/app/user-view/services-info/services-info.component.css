@@ -1,3 +1,7 @@
+.container{
+  margin: 20px 250px;
+}
+
 .top-head {
   min-height: 100px;
   width: 50rem;
@@ -46,11 +50,12 @@
   border-radius: 10px 10px 0px 0px;
 }
 
-.reviews {
+.reviews,
+.about-us {
   min-height: 100px;
   width: 50rem;
   border: 1px solid rgb(183, 183, 183);
-  border-radius: 0px 0px 10px 10px;
+  border-radius: 0px 
 }
 
 .single-star {
@@ -58,8 +63,9 @@
   padding: 7px;
 }
 
-.fa-star:hover{
-    color: rgb(239, 132, 38);
+.fa-star:hover,
+.highlighted {
+  color: rgb(239, 132, 38);
 }
 
 .rate-number {
@@ -71,4 +77,36 @@
 .rate-number-value {
   padding: 3px 9px;
   color: whitesmoke;
+}
+
+.col.ratings-value {
+  border: 1px solid rgb(144, 143, 143);
+  border-top: 0;
+  border-left: 0;
+  border-bottom: 0;
+}
+
+.options {
+  margin: 25px 9px;
+  border: 1px solid rgb(177, 177, 177);
+  border-radius: 5px;
+  background-color: rgb(245, 245, 245);
+  display: inline-flex;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.options:hover {
+  background-color: rgb(242, 242, 242);
+}
+
+.options > p {
+  padding: 1px 12px;
+}
+
+.freq-questions{
+  min-height: 100px;
+  width: 50rem;
+  border: 1px solid rgb(183, 183, 183);
+  border-radius: 0px 0px 10px 10px
 }

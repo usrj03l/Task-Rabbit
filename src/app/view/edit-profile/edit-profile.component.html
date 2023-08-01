@@ -1,0 +1,152 @@
+<div class="container">
+  <h1>Edit Profile</h1>
+  <hr />
+  <div class="row">
+    <div class="col-md-9 personal-info">
+      <div class="alert alert-info alert-dismissable">
+        <a class="panel-close close" data-dismiss="alert">×</a>
+        <i class="fa fa-coffee"></i>
+        This is an <strong>.alert</strong>. Use this to show important messages
+        to the user.
+      </div>
+      <h3>Personal info</h3>
+
+      <form
+        [formGroup]="contactForm"
+        class="form-horizontal"
+        (ngSubmit)="onSubmit()"
+        novalidate
+      >
+        <div class="form-group">
+          <label class="col-lg-3 control-label">First name:</label>
+          <div class="col-lg-8">
+            <input
+              class="form-control"
+              type="text"
+              name="fname"
+              formControlName="fname"
+            />
+          </div>
+          <div
+            *ngIf="
+              contactForm.controls.fname.errors &&
+              contactForm.controls.fname.touched &&
+              contactForm.controls.fname.dirty
+            "
+          >
+            <div
+              *ngIf="contactForm.controls.fname.errors?.['required']"
+              class="alert alert-danger"
+              role="alert"
+            >
+              <p>Enter your first name</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Last name:</label>
+          <div class="col-lg-8">
+            <input
+              class="form-control"
+              type="text"
+              name="lname"
+              formControlName="lname"
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Email:</label>
+          <div class="col-lg-8">
+            <input
+              class="form-control"
+              type="text"
+              name="email"
+              formControlName="email"
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Organization Name:</label>
+          <div class="col-lg-8">
+            <input
+              class="form-control"
+              type="text"
+              name="orgName"
+              formControlName="orgName"
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Year of establishment</label>
+          <div class="col-lg-8">
+            <input
+              class="form-control"
+              type="number"
+              name="establishmentYear"
+              formControlName="establishmentYear"
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Aadhar Card</label>
+          <div class="col-lg-8">
+            <input
+              class="form-control"
+              type="number"
+              name="aadhar"
+              formControlName="aadhar"
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Pan Card</label>
+          <div class="col-lg-8">
+            <input
+              class="form-control"
+              type="number"
+              name="pan"
+              formControlName="pan"
+            />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Open and close timings:</label>
+          <div class="col-lg-8">
+            <div class="ui-select d-flex">
+              <div class="cs-form">
+                <input
+                  type="time"
+                  class="form-control"
+                  value="openTime"
+                  formControlName="openTime"
+                />
+              </div>
+              <div class="cs-form px-4">
+                <input
+                  type="time"
+                  class="form-control"
+                  value="closeTime"
+                  formControlName="closeTime"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label"></label>
+          <div class="col-md-8">
+            <input
+              [disabled]="!contactForm.valid"
+              type="submit"
+              class="btn btn-primary"
+              value="Save Changes"
+            />
+            <span></span>
+            <input type="reset" class="btn btn-default" value="Cancel" />
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<hr />

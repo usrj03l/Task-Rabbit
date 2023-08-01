@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 
@@ -14,7 +15,7 @@ export class ProviderProfileComponent {
   profile: any;
   bio: string = "Write something about yourself";
 
-  constructor(private auth: AuthService, private http: HttpClient) { }
+  constructor(private auth: AuthService, private http: HttpClient, private router:Router) { }
 
   profileData: any;
 
@@ -67,5 +68,9 @@ export class ProviderProfileComponent {
       this.http.post("http://localhost:3000/provider/setBio", { 'bio': text, 'uid': id }).subscribe();
       this.bio = text
     }
+  }
+
+  editProfile(){
+    this.router.navigate(['/view/edit-profile']);
   }
 }

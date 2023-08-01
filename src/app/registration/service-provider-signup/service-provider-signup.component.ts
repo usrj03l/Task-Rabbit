@@ -23,7 +23,7 @@ export class ServiceProviderSignupComponent {
   state = '';
   aadhar: Number | undefined;
   serviceType: string = 'electrician';
-
+  orgName: string = '';
   expSubmit(event: any) {
     this.image = event.target.files[0];
   }
@@ -31,7 +31,7 @@ export class ServiceProviderSignupComponent {
   service(event: any) {
     this.serviceType = event.target.value;
     console.log(this.serviceType);
-    
+
   }
 
   onSubmit() {
@@ -47,7 +47,7 @@ export class ServiceProviderSignupComponent {
     formData.append('city', this.city);
     formData.append('state', this.state);
     formData.append('serviceType', this.serviceType);
-
+    formData.append('orgName', this.orgName);
     if (this.pass === this.repass) {
       this.auth.createUser(formData, { email: this.email, pass: this.pass }, 'service')
         .then(() => {

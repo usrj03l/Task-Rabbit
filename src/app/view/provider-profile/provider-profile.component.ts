@@ -24,11 +24,7 @@ export class ProviderProfileComponent {
 
   async loadProfile() {
     const id = await this.auth.getId();
-    this.http.get('http://localhost:3000/provider/getUser/' + id).subscribe(
-      data => {
-        this.profileData = data;
-        // this.profile = 'http://localhost:3000/images/' + this.profileData.profilePic?.split('\\').pop();
-      });
+    this.http.get('http://localhost:3000/provider/getUser/' + id).subscribe(data => this.profileData = data);
   }
 
   async imageUpload() {

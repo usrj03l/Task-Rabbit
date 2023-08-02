@@ -1,0 +1,34 @@
+<div class="col-lg-8 pb-4">
+  <div *ngIf="control.errors && control.touched && control.dirty">
+    <p
+      class="alertMsg px-2 pt-1"
+      *ngIf="control.errors?.['required']"
+      style="color: red"
+    >
+      *Value is required
+    </p>
+    <p
+      *ngIf="control.errors?.['pattern']"
+      class="alertMsg px-2 pt-1"
+      style="color: red"
+    >
+      *Invalid format
+    </p>
+    <p
+      class="alertMsg px-2 pt-1"
+      *ngIf="control.errors?.['minlength']"
+      style="color: red"
+    >
+      *Value should have a minimum length of
+      {{ control.errors["minlength"].requiredLength }}
+    </p>
+    <p
+      class="alertMsg px-2 pt-1"
+      *ngIf="control.errors?.['maxlength']"
+      style="color: red"
+    >
+      *Value exceeded maximum length of
+      {{ control.errors["maxlength"].requiredLength }}
+    </p>
+  </div>
+</div>

@@ -56,3 +56,10 @@
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
     -webkit-box-shadow 0.15s ease-in-out;
 }
+
+.about-us{
+  min-height: 10rem;
+  min-width: 50rem;
+  border: 1px solid gainsboro;
+  border-radius: 5px;
+}

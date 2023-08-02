@@ -9,6 +9,7 @@ import { ProviderReviewsComponent } from './provider-reviews/provider-reviews.co
 import { ProviderChatComponent } from './provider-chat/provider-chat.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { SharedComponentsModule } from '../shared-components/shared-components.module';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
         CommonModule,
         ViewRoutingModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        SharedComponentsModule
     ]
 })
 export class ViewModule { }

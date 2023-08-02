@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit-profile',
@@ -8,33 +9,67 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class EditProfileComponent {
 
-  constructor(private fb:FormBuilder) { }
+  constructor(private fb: FormBuilder) { }
 
   contactForm = this.fb.group({
-    fname:['',[Validators.required,Validators.maxLength(2)]],
-    lname:['',[Validators.required,Validators.maxLength(20)]],
-    email:['',[Validators.required,Validators.email]],
-    establishmentYear:[null,[Validators.required,Validators.minLength(4),Validators.pattern(/\-?\d*\.?\d{1,2}/)]],
-    orgName:['',[Validators.required,Validators.minLength(20)]],
-    aadhar:[null,[Validators.required,Validators.minLength(12)]],
-    pan:[null,[Validators.required,Validators.minLength(10)]],
-    openTime:['',[Validators.required]],
-    closeTime:['',[Validators.required]]
+    fname: ['', [Validators.required, Validators.maxLength(64)]],
+    lname: ['', [Validators.required, Validators.maxLength(64)]],
+    email: ['', [Validators.required, Validators.email]],
+    establishmentYear: [null,
+      [
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(4),
+        Validators.pattern(/\-?\d*\.?\d{1,2}/)
+      ]],
+    orgName: ['', [
+      Validators.required,
+      Validators.maxLength(50)
+    ]],
+    aadhar: ['', [
+      Validators.required,
+      Validators.minLength(12),
+      Validators.maxLength(12),
+      Validators.pattern(/^[0-9]\d*$/)
+    ]],
+    pan: ['', [
+      Validators.required,
+      Validators.minLength(10),
+      Validators.maxLength(10),
+      Validators.pattern(/^[0-9]\d*$/)
+    ]],
+    openTime: ['', [Validators.required]],
+    closeTime: ['', [Validators.required]],
+    aboutUs: this.fb.array([this.about()],[Validators.required]),
+    fQues: this.fb.array([])
   });
 
-  ngOnInit(){
-      
+
+  ngOnInit() {
+
   }
 
-  onSubmit(){
-    console.log('triggered');
-    
-    console.log('-->',this.contactForm.value);
-    
+  about():FormGroup {
+    return this.fb.group({
+      title: ['',[Validators.required]],
+      content:['',[Validators.required]]
+    }); 
   }
 
-  frm(){
-    return this.contactForm.controls;
+  get aboutInfo() {    
+    return (<FormArray> this.contactForm.get('aboutUs')).controls;
   }
 
+  onSubmit() {
+    console.log('-->', this.contactForm.value);
+  }
+
+  addAbout() {
+    (<FormArray>this.contactForm.get('aboutUs')).push(this.about());
+  }
+
+  removeInfo(index:number){
+    (<FormArray>this.contactForm.get('aboutUs')).removeAt(index);
+  }
 }
+

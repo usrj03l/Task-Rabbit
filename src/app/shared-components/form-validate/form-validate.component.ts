@@ -8,6 +8,6 @@ import { FormControl } from '@angular/forms';
 })
 export class FormValidateComponent {
   
-@Input() control!: FormControl;
+@Input() control!: FormControl ;
 
 }

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import Swal from 'sweetalert2';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-profile',
@@ -40,25 +39,13 @@ export class EditProfileComponent {
     ]],
     openTime: ['', [Validators.required]],
     closeTime: ['', [Validators.required]],
-    aboutUs: this.fb.array([], [Validators.required]),
+    aboutUs: this.fb.array([]),
     fQues: this.fb.array([])
   });
 
-
-  ngOnInit() {
-
-  }
-
-  about(): FormGroup {return this.fb.group({
-    title: ['', [Validators.required,Validators.minLength(1),Validators.maxLength(35)]],
-    content: ['', [Validators.required,Validators.minLength(10),Validators.maxLength(20)]]
-  });
-}
+  ngOnInit() { }
 
   get aboutInfo() {
-    return (<FormArray>this.contactForm.get('aboutUs')).controls;
-  }
-  get tst(){
     return (<FormArray>this.contactForm.get('aboutUs'));
   }
 
@@ -67,11 +54,31 @@ export class EditProfileComponent {
   }
 
   addAbout() {
-    (<FormArray>this.contactForm.get('aboutUs')).push(this.about());
+    const newGroup = this.fb.group({
+      'title': ['', Validators.required],
+      'content': ['', Validators.required]
+    });
+
+    (<FormArray>this.contactForm.get('aboutUs')).push(newGroup);
+
   }
 
   removeInfo(index: number) {
     (<FormArray>this.contactForm.get('aboutUs')).removeAt(index);
   }
+
+  addFreq(){
+    const newGroup = this.fb.group({
+      'question': ['', Validators.required],
+      'answer': ['', Validators.required]
+    });
+
+    (<FormArray>this.contactForm.get('fQues')).push(newGroup);
+  }
+
+  removeQues(index: number) {
+    (<FormArray>this.contactForm.get('fQues')).removeAt(index);
+  }
+
 }
 

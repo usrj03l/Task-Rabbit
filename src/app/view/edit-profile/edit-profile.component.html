@@ -159,51 +159,76 @@
 
           <div
             formArrayName="aboutUs"
-            *ngFor="let info of aboutInfo; let i = index"
+            *ngFor="
+              let info of contactForm.controls.aboutUs.controls;
+              let i = index
+            "
           >
             <div [formGroupName]="i">
-              <label class="col-lg-3 control-label"
-                >Title:</label
-              >
+              <label class="col-lg-3 control-label">Title:</label>
               <input
                 class="form-control"
                 type="text"
                 name="title"
                 formControlName="title"
               />
-              
-              <!-- <app-form-validate [control]="tst.controls[i].get('title')"></app-form-validate> -->
               <label class="col-lg-3 control-label mt-3">Content:</label>
               <textarea
                 class="form-control"
                 formControlName="content"
                 rows="3"
               ></textarea>
-              <button (click)="removeInfo(i)" class="btn btn-sm btn-danger" style="margin: 10px 39rem;">
+              <button
+                (click)="removeInfo(i)"
+                class="btn btn-sm btn-danger"
+                style="margin: 10px 39rem"
+              >
                 Remove
               </button>
             </div>
           </div>
-
-          <!-- <app-form-validate [control]="contactForm.controls.aadhar"></app-form-validate> -->
         </div>
 
         <div class="form-group my-4">
           <h3 class="col control-label">
             Frequently asked questions<button
-              (click)="addAbout()"
+              (click)="addFreq()"
               class="btn btn-outline-primary btn-sm mx-3"
             >
               Add
             </button>
           </h3>
-          <div class="about-us">
-            <div class="title"></div>
-            <div class="content"></div>
+          <div
+            formArrayName="fQues"
+            *ngFor="
+              let info of contactForm.controls.fQues.controls;
+              let i = index
+            "
+          >
+            <div [formGroupName]="i">
+              <label class="col-lg-3 control-label">Title:</label>
+              <input
+                class="form-control"
+                type="text"
+                name="title"
+                formControlName="question"
+              />
+              <label class="col-lg-3 control-label mt-3">Content:</label>
+              <textarea
+                class="form-control"
+                formControlName="answer"
+                rows="3"
+              ></textarea>
+              <button
+                (click)="removeQues(i)"
+                class="btn btn-sm btn-danger"
+                style="margin: 10px 39rem"
+              >
+                Remove
+              </button>
+            </div>
           </div>
-          <!-- <app-form-validate [control]="contactForm.controls.aadhar"></app-form-validate> -->
         </div>
-
         <div class="form-group">
           <label class="col-md-3 control-label"></label>
           <div class="col-md-8">

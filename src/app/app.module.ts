@@ -9,10 +9,12 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { HttpClientModule } from '@angular/common/http';
 import { ViewModule } from './view/view.module';
 import { UserViewModule } from './user-view/user-view.module';
+import { FormControlPipe } from './pipes/form-control.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
+    FormControlPipe,
   ],
   imports: [
     UserViewModule,

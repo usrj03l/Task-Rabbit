@@ -40,7 +40,7 @@ export class EditProfileComponent {
     ]],
     openTime: ['', [Validators.required]],
     closeTime: ['', [Validators.required]],
-    aboutUs: this.fb.array([this.about()],[Validators.required]),
+    aboutUs: this.fb.array([], [Validators.required]),
     fQues: this.fb.array([])
   });
 
@@ -49,15 +49,17 @@ export class EditProfileComponent {
 
   }
 
-  about():FormGroup {
-    return this.fb.group({
-      title: ['',[Validators.required]],
-      content:['',[Validators.required]]
-    }); 
-  }
+  about(): FormGroup {return this.fb.group({
+    title: ['', [Validators.required,Validators.minLength(1),Validators.maxLength(35)]],
+    content: ['', [Validators.required,Validators.minLength(10),Validators.maxLength(20)]]
+  });
+}
 
-  get aboutInfo() {    
-    return (<FormArray> this.contactForm.get('aboutUs')).controls;
+  get aboutInfo() {
+    return (<FormArray>this.contactForm.get('aboutUs')).controls;
+  }
+  get tst(){
+    return (<FormArray>this.contactForm.get('aboutUs'));
   }
 
   onSubmit() {
@@ -68,7 +70,7 @@ export class EditProfileComponent {
     (<FormArray>this.contactForm.get('aboutUs')).push(this.about());
   }
 
-  removeInfo(index:number){
+  removeInfo(index: number) {
     (<FormArray>this.contactForm.get('aboutUs')).removeAt(index);
   }
 }

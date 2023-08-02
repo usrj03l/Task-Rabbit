@@ -146,36 +146,50 @@
           </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group my-3">
           <h3 class="col-lg-6 control-label">
             About us
-            <button (click)="addAbout()" class="btn btn-outline-primary btn-sm mx-3">Add</button>
+            <button
+              (click)="addAbout()"
+              class="btn btn-outline-primary btn-sm mx-3"
+            >
+              Add
+            </button>
           </h3>
-          
-          
-            <div formArrayName="aboutUs" *ngFor="let info of aboutInfo; let i = index">
-              <div [formGroupName]="i">
-                <input
-                        class="form-control"
-                        type="text"
-                        name="title"
-                        formControlName="title"
-                      />
-                      <textarea class="form-control my-3" formControlName="content" rows="3"></textarea>
-                      <button (click)="removeInfo(i)" class="btn btn-sm btn-danger">Remove</button>
-              </div>
-            </div>
-          
-              
-            
-          
 
-          
+          <div
+            formArrayName="aboutUs"
+            *ngFor="let info of aboutInfo; let i = index"
+          >
+            <div [formGroupName]="i">
+              <label class="col-lg-3 control-label"
+                >Title:</label
+              >
+              <input
+                class="form-control"
+                type="text"
+                name="title"
+                formControlName="title"
+              />
+              
+              <!-- <app-form-validate [control]="tst.controls[i].get('title')"></app-form-validate> -->
+              <label class="col-lg-3 control-label mt-3">Content:</label>
+              <textarea
+                class="form-control"
+                formControlName="content"
+                rows="3"
+              ></textarea>
+              <button (click)="removeInfo(i)" class="btn btn-sm btn-danger" style="margin: 10px 39rem;">
+                Remove
+              </button>
+            </div>
+          </div>
+
           <!-- <app-form-validate [control]="contactForm.controls.aadhar"></app-form-validate> -->
         </div>
 
-        <div class="form-group">
-          <h3 class="col-lg-6 control-label">
+        <div class="form-group my-4">
+          <h3 class="col control-label">
             Frequently asked questions<button
               (click)="addAbout()"
               class="btn btn-outline-primary btn-sm mx-3"
@@ -183,8 +197,8 @@
               Add
             </button>
           </h3>
-          <div class="about-us" >
-            <div class="title">  </div>
+          <div class="about-us">
+            <div class="title"></div>
             <div class="content"></div>
           </div>
           <!-- <app-form-validate [control]="contactForm.controls.aadhar"></app-form-validate> -->

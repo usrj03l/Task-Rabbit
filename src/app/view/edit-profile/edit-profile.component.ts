@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ApiService } from 'src/app/services/api.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -8,7 +10,7 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Valida
 })
 export class EditProfileComponent {
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,private api:ApiService, private auth:AuthService) { }
 
   contactForm = this.fb.group({
     fname: ['', [Validators.maxLength(64)]],
@@ -45,8 +47,13 @@ export class EditProfileComponent {
     return (<FormArray>this.contactForm.get('aboutUs'));
   }
 
-  onSubmit() {
-    console.log('-->', this.contactForm.value);
+  async onSubmit() {
+    const id = await this.auth.getId();
+
+    if(!this.contactForm.pristine){
+      this.api.sendData(this.contactForm.value,id);
+    }
+    
   }
 
   addAbout() {

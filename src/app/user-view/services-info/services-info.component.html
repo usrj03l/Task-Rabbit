@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="top-head">
-      <h3 class="mt-3">Jmj Electrical works</h3>
+      <h3 class="mt-3"> {{ providerData.orgName }} </h3>
       <div class="ratings">
         <div class="rating_number"><p class="rating_value">4.5</p></div>
         <div class="stars">⭐⭐⭐⭐⭐</div>
@@ -13,7 +13,7 @@
       </div>
       <div class="info d-flex mt-3">
         <div class="location"><strong>Mavelikara,Allapuzha</strong></div>
-        <div class="time mx-3">Open until 11:00 PM</div>
+        <div class="time mx-3">Open until {{ providerData.orgDetails.closeTime}} </div>
         <div class="since">13yrs in buisiness</div>
       </div>
       <div class="response d-flex mt-3">

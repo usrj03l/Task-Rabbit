@@ -20,8 +20,8 @@ export class CardComponent {
   }
 
   gotoService(item:any){
-    this.api.serviceId$.next(item);
-    console.log(item);
+    
+    localStorage.setItem('serviceData',JSON.stringify(item));
     
     this.router.navigate(['/user/service-info']);
   }

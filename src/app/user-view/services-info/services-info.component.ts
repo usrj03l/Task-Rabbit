@@ -1,6 +1,7 @@
 import { JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-services-info',
@@ -13,7 +14,7 @@ export class ServicesInfoComponent {
   time: any = [];
   bYears:any;
   
-  constructor(private api: ApiService) { }
+  constructor(private api: ApiService, private auth:AuthService) { }
 
   ngOnInit() {
     this.providerData = JSON.parse(localStorage.getItem('serviceData') || '');
@@ -30,9 +31,18 @@ export class ServicesInfoComponent {
     this.hoveredIndex = index;
   }
 
-  rating(hoveredIndex: number) {
+ async rating(hoveredIndex: number) {
     const rating = hoveredIndex + 1;
-    console.log(rating);
+    const userReview = await this.api.textArea();
+    const id = await this.auth.getId();
+  
+    const reviews = {
+      rating:rating,
+      review:userReview,
+      senderId:id,
+      recepientId:this.providerData.uid
+    }
+    this.api.sendReviews(reviews);
   }
 
   formatTime(timeString: string) {

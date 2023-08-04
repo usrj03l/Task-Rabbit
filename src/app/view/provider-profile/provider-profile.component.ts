@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 
@@ -13,9 +14,9 @@ export class ProviderProfileComponent {
 
   defaultProfile = 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp';
   profile: any;
-  bio: string = "Write something about yourself";
+  bio: string  = "Write something about yourself";
 
-  constructor(private auth: AuthService, private http: HttpClient, private router:Router) { }
+  constructor(private auth: AuthService, private http: HttpClient, private router:Router,private api:ApiService) { }
 
   profileData: any;
 
@@ -29,6 +30,7 @@ export class ProviderProfileComponent {
   }
 
   async imageUpload() {
+    
     const { value: file } = await Swal.fire({
       title: 'Select image',
       input: 'file',
@@ -53,21 +55,10 @@ export class ProviderProfileComponent {
   }
 
   async updateBio() {
-    const { value: text } = await Swal.fire({
-      input: 'textarea',
-      inputLabel: 'Message',
-      inputPlaceholder: 'Type your message here...',
-      inputAttributes: {
-        'aria-label': 'Type your message here'
-      },
-      showCancelButton: true
-    })
-
-    if (text) {
+    const text = await this.api.textArea();
       const id = await this.auth.getId();
       this.http.post("http://localhost:3000/provider/setBio", { 'bio': text, 'uid': id }).subscribe();
-      this.bio = text
-    }
+      this.profileData.bio = text;
   }
 
   editProfile(){

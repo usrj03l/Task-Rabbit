@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable,of } from 'rxjs';
 import Swal from 'sweetalert2';
 
 
@@ -9,15 +10,15 @@ import Swal from 'sweetalert2';
 
 export class ApiService {
 
-  URL = 'http://localhost:3000/';
+  url = 'http://localhost:3000/';
   constructor(private http: HttpClient) { }
 
   sendData(data: any, id: string | null) {
-    this.http.post(this.URL + 'provider/editProfile', { data, id }).subscribe();
+    this.http.post(this.url + 'provider/editProfile', { data, id }).subscribe();
   }
 
-  sendReviews(data: any) {    
-    this.http.post(this.URL + 'review/addReviews', data).subscribe();
+  sendReviews(data: any) {        
+    this.http.post(this.url + 'review/addReviews', data).subscribe();
   }
 
   async textArea(): Promise<string> {
@@ -37,4 +38,9 @@ export class ApiService {
       }
     });
   }
+
+  getReviews(id:string){
+    return this.http.get(this.url + `review/getReviews?id=${id}`);
+  }
+  
 }

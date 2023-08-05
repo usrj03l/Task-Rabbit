@@ -8,6 +8,8 @@ import {
 import { user } from '../model/model';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { ApiService } from './api.service';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -15,7 +17,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
 
-  constructor(private auth: Auth, private http: HttpClient, private router: Router) { }
+  constructor(private auth: Auth, private http: HttpClient, private router: Router,private api:ApiService) { }
 
   async createUser(userData: any, creds: any, type = 'user') {
     let uid;
@@ -65,4 +67,5 @@ export class AuthService {
       });
     });
   }
+
 }

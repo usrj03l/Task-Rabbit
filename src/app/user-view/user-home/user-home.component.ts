@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { ChatService } from 'src/app/services/chat.service';
@@ -8,12 +9,23 @@ import { ChatService } from 'src/app/services/chat.service';
   styleUrls: ['./user-home.component.css']
 })
 export class UserHomeComponent {
-  constructor(private auth: AuthService, private chat: ChatService) {  }
+  constructor(private auth: AuthService, private chat: ChatService,private http:HttpClient) {  }
 
   logOut() {
     this.auth.logOff('user');
   }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    this.loadUser();
+  }
+
+  async loadUser(){
+    const id = await this.auth.getId();
+    this.http.post('http://localhost:3000/user/getUsers',{'users':id}).subscribe(
+      (data:any) => {
+        const profileData = data[0];
+        localStorage.setItem('userProfile',JSON.stringify(profileData));
+      });
+  }
 
 }

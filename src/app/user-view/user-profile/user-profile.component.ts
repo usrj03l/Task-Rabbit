@@ -20,14 +20,11 @@ export class UserProfileComponent {
   }
 
   async loadProfile() {
-    const id = await this.auth.getId();
-    this.http.post('http://localhost:3000/user/getUsers',{'users':id}).subscribe(
-      (data:any) => {
-        this.profileData = data[0];
-        if (this.profileData.profilePic) {
-          this.profile = 'http://localhost:3000/images/' + this.profileData.profilePic.split('\\').pop();
-        }
-      });
+    this.profileData = JSON.parse(localStorage.getItem('userProfile') || '');
+    if (this.profileData.profilePic) {
+      this.profile = 'http://localhost:3000/images/' + this.profileData.profilePic.split('\\').pop();
+    }
+    
   }
 
   async imageUpload() {

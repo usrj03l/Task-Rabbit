@@ -32,12 +32,15 @@
         <div class="chat mx-3">
           <i class="fa-regular fa-comment mt-2"></i> Chat
         </div>
-        <div class="rate">
+        <div (click)="scroll()" class="rate">
           <i class="fa-solid fa-star mt-2" style="color: #fff700"></i> Tap to
           rate
         </div>
+        <div class="chat mx-3">
+          Book an appointment
+        </div>
         <button type="button" class="btn btn-primary mx-auto">
-          Enquire Now
+          Enquire
         </button>
       </div>
     </div>
@@ -62,7 +65,7 @@
     </div>
   </div>
   <div class="container-flow row reviews py-3" *ngIf="reviewData">
-    <h4 class="mb-5">Ratings & Reviews</h4>
+    <h4 class="mb-5" #target>Ratings & Reviews</h4>
     <div class="col ratings-value">
       <div class="rating-info d-flex justify-content-center mt-4">
         <div class="rate-number">
@@ -72,8 +75,8 @@
       </div>
     </div>
     <div class="col">
-      <div class="rating-info">
-        <h5 class="">Rate Us</h5>
+      <div class="rating-info" >
+        <h5 style="padding-left: 110px;">Rate Us</h5>
         <div
           class="single-star mt-2"
           *ngFor="let i of [].constructor(5); let index = index"
@@ -110,11 +113,11 @@
               <h5 class="" style="width: 150px;"> {{ review.name | titlecase }} </h5>
               <p style="margin-left: 25rem;"> {{ review.reviewDate }} </p>
             </div>
-            <p><i class="fa-solid fa-star mt-2" style="color: #dbd40c"></i></p>
+            <p><i class="fa-solid fa-star mt-2 mx-1" style="color: #dbd40c" *ngFor="let i of [].constructor(review.userRating)"></i></p>
           </div>
         </div>
         <div class="user-review-desc mx-3">
-          <p> 
+          <p class="" style="padding-left: 60px;"> 
             {{ review.review }}
           </p>
         </div>

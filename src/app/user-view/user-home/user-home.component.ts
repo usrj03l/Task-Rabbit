@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { take } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { ChatService } from 'src/app/services/chat.service';
 
@@ -21,7 +22,7 @@ export class UserHomeComponent {
 
   async loadUser(){
     const id = await this.auth.getId();
-    this.http.post('http://localhost:3000/user/getUsers',{'users':id}).subscribe(
+    this.http.post('http://localhost:3000/user/getUsers',{'users':id}).pipe(take(1)).subscribe(
       (data:any) => {
         const profileData = data[0];
         localStorage.setItem('userProfile',JSON.stringify(profileData));

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -14,7 +15,11 @@ export class ServicesInfoComponent {
   time: any = [];
   bYears: any;
   reviewData: any
+  unSubscribe$ = new Subject();
   constructor(private api: ApiService, private auth: AuthService) { }
+
+  @ViewChild('target')
+  target = new ElementRef<any>('');
 
   ngOnInit() {
     this.providerData = JSON.parse(localStorage.getItem('serviceData') || '');
@@ -53,7 +58,9 @@ export class ServicesInfoComponent {
   }
 
   loadReviews() {
-    this.api.getReviews(this.providerData.uid).subscribe(data => {
+    this.api.getReviews(this.providerData.uid)
+    .pipe(takeUntil(this.unSubscribe$))
+    .subscribe(data => {
       this.reviewData = data;
     });
   }
@@ -83,9 +90,18 @@ export class ServicesInfoComponent {
     return 0;
   }
 
-  sortHighToLow(){
-    this.reviewData.reviewList.sort((a:any,b:any)=>{
+  sortHighToLow() {
+    this.reviewData.reviewList.sort((a: any, b: any) => {
       return b.userRating - a.userRating;
     })
+  }
+
+  scroll() {
+    this.target.nativeElement.scrollIntoView();
+  }
+
+  ngOnDestroy(){
+    this.unSubscribe$.next(null);
+    this.unSubscribe$.complete();
   }
 }

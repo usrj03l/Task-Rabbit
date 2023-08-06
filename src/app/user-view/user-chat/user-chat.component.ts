@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { message } from 'src/app/model/model';
 import { AuthService } from 'src/app/services/auth.service';
 import { ChatService } from 'src/app/services/chat.service';
@@ -23,13 +23,11 @@ export class UserChatComponent {
   dateTime = new Date()
   currentUser!: string | null;
   currentUserView!: string | null;
+  unSubscribe$ = new Subject();
 
-  constructor(private auth: AuthService, private chatService: ChatService, private http: HttpClient) {
-
-  }
+  constructor(private auth: AuthService, private chatService: ChatService, private http: HttpClient) {  }
 
   ngOnInit() {
-    
     this.loadMessage();
 
     this.chatService.getNewMessage().subscribe((data: any) => {
@@ -69,11 +67,11 @@ export class UserChatComponent {
     const time = this.dateTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
     return { date: date, time: time }
   }
+
   async loadMessage() {
     this.currentUser = await this.auth.getId();
-
     this.userMessageList = this.http.post('http://localhost:3000/user/getMessages', { 'uid': this.currentUser })
-    this.userMessageList.subscribe((data: any) => {
+    this.userMessageList.pipe(takeUntil(this.unSubscribe$)).subscribe((data: any) => {
       this.userIdList = data.messages.map((item: { receiverUid: any; }) => item.receiverUid);
       this.data = this.http.post('http://localhost:3000/user/getUsers', { 'users': this.userIdList });
     });
@@ -98,4 +96,8 @@ export class UserChatComponent {
     }, 0);
   }
   
+ngOnDestroy(){
+  this.unSubscribe$.next(null);
+  this.unSubscribe$.complete();
+}
 }

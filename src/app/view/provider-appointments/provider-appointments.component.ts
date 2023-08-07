@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { appointment } from 'src/app/model/model';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-provider-appointments',
@@ -7,6 +10,22 @@ import { Component } from '@angular/core';
 })
 export class ProviderAppointmentsComponent {
 
+  currentUser:any;
+  appointmentData$ = new Observable<appointment | null>();
 
-  
+  constructor(private api: ApiService) { }
+
+  ngOnInit() {
+    this.loadCurrentUser();
+    this.loadAppointments();
+  }
+
+  loadCurrentUser(){
+    this.currentUser = JSON.parse(localStorage.getItem('userProfile') || '');
+  }
+
+  loadAppointments() {
+    this.appointmentData$ = this.api.getAppointments(this.currentUser.uid);
+  }
+
 }

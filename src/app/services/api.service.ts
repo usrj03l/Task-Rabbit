@@ -2,8 +2,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, take } from 'rxjs';
 import Swal from 'sweetalert2';
+import { appointment } from '../model/model';
 
-interface appointment {
+interface appointmentData {
   userUid: string,
   name: string,
   booked: boolean,
@@ -67,8 +68,12 @@ export class ApiService {
     return this.http.get(this.url + `review/getReviews?id=${id}`);
   }
 
-  bookAppointment(id: string, appointmentData:appointment) {
-    return this.http.post(this.url + 'appointment/bookAppointment',{id,appointmentData})
+  bookAppointment(id: string, appointmentData:appointmentData) {
+    return this.http.post(this.url + 'appointment/bookAppointment',{id,appointmentData});
+  }
+
+  getAppointments(id:string): Observable<appointment | null> {
+    return this.http.get<appointment | null>(this.url + `appointment/getAppointments?id=${id}` );
   }
 
   enquire(id: string) {

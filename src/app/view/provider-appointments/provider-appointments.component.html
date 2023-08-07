@@ -25,51 +25,49 @@
                 <thead>
                   <tr>
                     <th class="text-center" scope="col">Date</th>
-                    <th scope="col">Speakers</th>
-                    <th scope="col">Session</th>
-                    <th scope="col">Venue</th>
-                    <th scope="col">Action</th>
+                    <th class="text-center" scope="col">Client</th>
+                    <th scope="col">Location</th>
+                    <th class="text-center" scope="col">Action</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr class="inner-box">
+                <tbody *ngIf="appointmentData$ | async as data">
+                  <tr class="inner-box" *ngFor=" let item of data.userDetails ">
                     <th scope="row"> 
                       <div class="event-date">
-                        <span>16</span>
-                        <p>Novembar</p>
+                        <span> {{ item.date }} </span>
+                        <p> {{ item.date }} </p>
                       </div>
                     </th>
-                    <td>
-                      <div class="event-img">
-                        <img
-                          src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                          alt=""
-                        />
-                      </div>
-                    </td>
-                    <td>
-                      <div class="event-wrap">
-                        <h3><a href="#">Harman Kardon</a></h3>
-                        <div class="meta">
-                          <div class="organizers">
-                            <a href="#">Aslan Lingker</a>
-                          </div>
-                          <div class="categories">
-                            <a href="#">Inspire</a>
-                          </div>
-                          <div class="time">
-                            <span>05:35 AM - 08:00 AM 2h 25'</span>
+                    
+                      <td class="d-flex ">
+                        <div class="event-img ">
+                          <img
+                          [src]=" (item.profilePic)? 'http://localhost:3000/images/' + item.profilePic : 'https://bootdey.com/img/Content/avatar/avatar1.png'"                           
+                            alt=""
+                            style="height: 180px; width: 200px;"
+                          />
+                        </div>
+                        <div class="event-wrap" style="padding-left: 100px;">
+                          <h3> {{ item.name | titlecase  }} </h3>
+                          <div class="meta">
+                            <div class="time">
+                              <span>05:35 AM - 08:00 AM 2h 25'</span>
+                            </div>
+                            <div class="">
+                              <a class=" link-opacity-100" style="cursor: pointer; text-decoration: none;" >Time</a>                        
+                              <!-- <a>Inspire</a> -->
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </td>
+                      </td>
+                    
                     <td>
                       <div class="r-no">
-                        <span>Room B3</span>
+                        <span> {{ item.address }} </span>
                       </div>
                     </td>
                     <td>
-                      <div class="d-flex" *ngIf="true">
+                      <div class="d-flex justify-content-center" *ngIf="true">
                         <button class="btn btn-outline-success mx-2" >Confirm</button>
                         <button class="btn btn-outline-danger mx-2">Reject</button>
                       </div>
@@ -77,86 +75,6 @@
                         <button class="btn btn-outline-danger mx-2" >Cancel</button>
                         <button class="btn btn-outline-success mx-2">Job Complete</button>
                       </div>
-                    </td>
-                  </tr>
-                  <tr class="inner-box">
-                    <th scope="row">
-                      <div class="event-date">
-                        <span>20</span>
-                        <p>Novembar</p>
-                      </div>
-                    </th>
-                    <td>
-                      <div class="event-img">
-                        <img
-                          src="https://bootdey.com/img/Content/avatar/avatar2.png"
-                          alt=""
-                        />
-                      </div>
-                    </td>
-                    <td>
-                      <div class="event-wrap">
-                        <h3><a href="#">Toni Duggan</a></h3>
-                        <div class="meta">
-                          <div class="organizers">
-                            <a href="#">Aslan Lingker</a>
-                          </div>
-                          <div class="categories">
-                            <a href="#">Inspire</a>
-                          </div>
-                          <div class="time">
-                            <span>05:35 AM - 08:00 AM 2h 25'</span>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="r-no">
-                        <span>Room D3</span>
-                      </div>
-                    </td>
-                    <td>
-                      
-                    </td>
-                  </tr>
-                  <tr class="inner-box border-bottom-0">
-                    <th scope="row">
-                      <div class="event-date">
-                        <span>18</span>
-                        <p>Novembar</p>
-                      </div>
-                    </th>
-                    <td>
-                      <div class="event-img">
-                        <img
-                          src="https://bootdey.com/img/Content/avatar/avatar3.png"
-                          alt=""
-                        />
-                      </div>
-                    </td>
-                    <td>
-                      <div class="event-wrap">
-                        <h3><a href="#">Billal Hossain</a></h3>
-                        <div class="meta">
-                          <div class="organizers">
-                            <a href="#">Aslan Lingker</a>
-                          </div>
-                          <div class="categories">
-                            <a href="#">Inspire</a>
-                          </div>
-                          <div class="time">
-                            <span>05:35 AM - 08:00 AM 2h 25'</span>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="r-no">
-                        <span>Room A3</span>
-                      </div>
-                    </td>
-                    <td>
-                      
                     </td>
                   </tr>
                 </tbody>

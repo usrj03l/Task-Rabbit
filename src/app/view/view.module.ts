@@ -10,6 +10,7 @@ import { ProviderChatComponent } from './provider-chat/provider-chat.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { SharedComponentsModule } from '../shared-components/shared-components.module';
+import { DateModalComponent } from '../shared-components/date-modal/date-modal.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { SharedComponentsModule } from '../shared-components/shared-components.m
         ViewRoutingModule,
         FormsModule,
         ReactiveFormsModule,
-        SharedComponentsModule
+        SharedComponentsModule,
+        DateModalComponent
     ]
 })
 export class ViewModule { }

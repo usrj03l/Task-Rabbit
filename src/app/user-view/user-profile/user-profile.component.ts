@@ -22,11 +22,7 @@ export class UserProfileComponent {
   }
 
   async loadProfile() {
-    this.profileData = JSON.parse(localStorage.getItem('userProfile') || '');
-    if (this.profileData.profilePic) {
-      this.profile = 'http://localhost:3000/images/' + this.profileData.profilePic.split('\\').pop();
-    }
-    
+    this.profileData = JSON.parse(localStorage.getItem('userProfile') || '');    
   }
 
   async imageUpload() {

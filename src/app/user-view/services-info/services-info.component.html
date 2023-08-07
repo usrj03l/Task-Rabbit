@@ -36,10 +36,10 @@
           <i class="fa-solid fa-star mt-2" style="color: #fff700"></i> Tap to
           rate
         </div>
-        <div class="chat mx-3">
+        <div (click)="bookAppointment()" class="chat mx-3">
           Book an appointment
         </div>
-        <button type="button" class="btn btn-primary mx-auto">
+        <button (click)="enquire()" type="button" class="btn btn-primary mx-auto">
           Enquire
         </button>
       </div>
@@ -101,7 +101,7 @@
       <div class="reviews-details mt-4" *ngFor="let review of reviewData.reviewList">
         <div class="user-info d-flex">
           <img *ngIf="review.profilePic"
-            [src]=" 'http://localhost:3000/images/' + review.profilePic.split('\\').pop()"
+            [src]=" 'http://localhost:3000/images/' + review.profilePic"
             style="height: 50px; width: 50px; border-radius: 50%"
           />
           <img *ngIf="!review.profilePic"

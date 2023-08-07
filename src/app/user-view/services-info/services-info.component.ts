@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, take, takeUntil } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -16,10 +16,9 @@ export class ServicesInfoComponent {
   bYears: any;
   reviewData: any
   unSubscribe$ = new Subject();
-  constructor(private api: ApiService, private auth: AuthService) { }
-
   @ViewChild('target')
   target = new ElementRef<any>('');
+  constructor(private api: ApiService, private auth: AuthService) { }
 
   ngOnInit() {
     this.providerData = JSON.parse(localStorage.getItem('serviceData') || '');
@@ -59,10 +58,10 @@ export class ServicesInfoComponent {
 
   loadReviews() {
     this.api.getReviews(this.providerData.uid)
-    .pipe(takeUntil(this.unSubscribe$))
-    .subscribe(data => {
-      this.reviewData = data;
-    });
+      .pipe(takeUntil(this.unSubscribe$))
+      .subscribe(data => {
+        this.reviewData = data;
+      });
   }
 
   latest() {
@@ -100,7 +99,36 @@ export class ServicesInfoComponent {
     this.target.nativeElement.scrollIntoView();
   }
 
-  ngOnDestroy(){
+  bookAppointment() {
+    const currentUser = JSON.parse(localStorage.getItem('userProfile') || '');
+    const appointmentData = {
+      userUid: currentUser.uid,
+      name: currentUser.fname + ' ' + currentUser.lname,
+      profilePic:currentUser.profilePic,
+      booked: false,
+      time: '',
+      address: currentUser.street + ', ' + currentUser.street2 + ', ' + currentUser.city + ', ' + currentUser.state + ', ' + currentUser.zip,
+      completed:false,
+      cancelled:false
+    }
+
+    this.api.bookAppointment(this.providerData.uid, appointmentData)
+    .pipe(takeUntil(this.unSubscribe$))
+    .subscribe(data => {
+      if(data === 'pending'){
+        this.api.infoMessage('Your request is pending wait for confirmation.');
+      }
+      if(data === 'success'){
+        this.api.successMessage('Your request is sent successfully! Please check your appointments for confirmation.');      
+      }
+    });
+  }
+
+  enquire() {
+    this.api.enquire(this.providerData.uid);
+  }
+
+  ngOnDestroy() {
     this.unSubscribe$.next(null);
     this.unSubscribe$.complete();
   }

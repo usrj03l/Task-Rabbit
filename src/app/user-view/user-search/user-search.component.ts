@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-user-search',
@@ -20,6 +21,7 @@ export class UserSearchComponent {
 
   sendQuery() {
     this.http.get(`http://localhost:3000/provider/search?q=${this.searchQuery}&serviceType=${this.serviceType}&city=${this.city}`)
+    .pipe(take(1))
       .subscribe(data => this.result = data);
   }
 
@@ -32,7 +34,6 @@ export class UserSearchComponent {
   }
   
   navigateToResultsSection(): void {
-    // Navigate to the '/user' route with the fragment 'results'
     this.router.navigate(['/user'], { fragment: 'results' });
   }
 }

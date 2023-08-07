@@ -25,7 +25,7 @@ export class UserChatComponent {
   currentUserView!: string | null;
   unSubscribe$ = new Subject();
 
-  constructor(private auth: AuthService, private chatService: ChatService, private http: HttpClient) {  }
+  constructor(private auth: AuthService, private chatService: ChatService, private http: HttpClient) { }
 
   ngOnInit() {
     this.loadMessage();
@@ -72,21 +72,23 @@ export class UserChatComponent {
     this.currentUser = await this.auth.getId();
     this.userMessageList = this.http.post('http://localhost:3000/user/getMessages', { 'uid': this.currentUser })
     this.userMessageList.pipe(takeUntil(this.unSubscribe$)).subscribe((data: any) => {
-      this.userIdList = data.messages.map((item: { receiverUid: any; }) => item.receiverUid);
-      this.data = this.http.post('http://localhost:3000/user/getUsers', { 'users': this.userIdList });
+      if (data) {
+        this.userIdList = data.messages.map((item: { receiverUid: any; }) => item.receiverUid);
+        this.data = this.http.post('http://localhost:3000/user/getUsers', { 'users': this.userIdList });
+      }
     });
-
   }
 
-  async sub(item: any) {
+  async viewAllMessages(item: any) {
     this.uid = item.uid;
     this.userMessageList
+      .pipe(takeUntil(this.unSubscribe$))
       .subscribe((data: any) => {
         this.allMessages =
           data.messages
             .filter((users: { receiverUid: string; }) => users.receiverUid === item.uid)
             .map(((user: { messageList: any; }) => user.messageList))[0];
-            this.scrollDown();
+        this.scrollDown();
       });
   }
 
@@ -95,9 +97,9 @@ export class UserChatComponent {
       this.scrollDiv.nativeElement.scrollTop = this.scrollDiv.nativeElement.scrollHeight;
     }, 0);
   }
-  
-ngOnDestroy(){
-  this.unSubscribe$.next(null);
-  this.unSubscribe$.complete();
-}
+
+  ngOnDestroy() {
+    this.unSubscribe$.next(null);
+    this.unSubscribe$.complete();
+  }
 }

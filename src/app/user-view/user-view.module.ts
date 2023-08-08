@@ -13,6 +13,7 @@ import { UserAppointmentsComponent } from './user-appointments/user-appointments
 import { UserChatComponent } from './user-chat/user-chat.component';
 import { FormsModule } from '@angular/forms';
 import { ServicesInfoComponent } from './services-info/services-info.component';
+import { SharedComponentsModule } from '../shared-components/shared-components.module';
 
 
 @NgModule({
@@ -26,12 +27,16 @@ import { ServicesInfoComponent } from './services-info/services-info.component';
     UserPaymentsComponent,
     UserAppointmentsComponent,
     UserChatComponent,
-    ServicesInfoComponent
+    ServicesInfoComponent,
+    
   ],
   imports: [
     CommonModule,
     UserViewRoutingModule,
-    FormsModule
+    SharedComponentsModule,
+    FormsModule,
+    
+    
   ]
 })
 export class UserViewModule { }

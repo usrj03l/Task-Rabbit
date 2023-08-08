@@ -99,14 +99,15 @@ export class ServicesInfoComponent {
     this.target.nativeElement.scrollIntoView();
   }
 
-  bookAppointment() {
+  bookAppointment(time:any) {
     const currentUser = JSON.parse(localStorage.getItem('userProfile') || '');
     const appointmentData = {
       userUid: currentUser.uid,
       name: currentUser.fname + ' ' + currentUser.lname,
       profilePic:currentUser.profilePic,
       booked: false,
-      time: '',
+      date:time.day + ' ' + time.month,
+      time: time.openTime + ' - ' + time.closeTime,
       address: currentUser.street + ', ' + currentUser.street2 + ', ' + currentUser.city + ', ' + currentUser.state + ', ' + currentUser.zip,
       completed:false,
       cancelled:false
@@ -123,6 +124,10 @@ export class ServicesInfoComponent {
       }
     });
   }
+
+  setDateTime(event:any){    
+    this.bookAppointment(event)
+ }
 
   enquire() {
     this.api.enquire(this.providerData.uid);

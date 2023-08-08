@@ -1,24 +1,73 @@
-
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-outline-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Set date and time
-  </button>
-  
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Set date & time</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<button
+  type="button"
+  class="btn btn-outline-primary btn-md mx-3"
+  data-bs-toggle="modal"
+  data-bs-target="#exampleModal"
+>
+  Book an appointment
+</button>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Set date & time</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body modal-class">
+        <div class="group">
+          <div class="col-lg-8">
+            <h6>Set time</h6>
+            <div class="ui-select d-flex">
+              <div (change)="setOpenTime($event)" class="cs-form">
+                <input type="time" class="form-control" value="openTime"/>
+              </div>
+              <div (change)="setCloseTime($event)" class="cs-form px-4">
+                <input type="time" class="form-control" value="closeTime" />
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="modal-body">
-          
+        <div class="date mt-4">
+          <div class="date-selector">
+            <label for="month">Select Month:</label>
+            <select class="mx-2" id="month" (change)="selectMonth($event)">
+              <option *ngFor="let month of months" [value]="month">
+                {{ month }}
+              </option>
+            </select>
+            <label for="day">Select Day:</label>
+            <select class="mx-2" id="day" (change)="setDay($event)">
+              <option
+                class="w-25"
+                *ngFor="let day of [].constructor(days); let i = index"
+                [value]="i + 1"
+              >
+                {{ i + 1 }}
+              </option>
+            </select>
+          </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button (click)="setDateTime()" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
       </div>
     </div>
   </div>
+</div>

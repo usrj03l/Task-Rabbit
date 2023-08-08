@@ -72,8 +72,12 @@ export class ApiService {
     return this.http.post(this.url + 'appointment/bookAppointment',{id,appointmentData});
   }
 
-  getAppointments(id:string): Observable<appointment | null> {
-    return this.http.get<appointment | null>(this.url + `appointment/getAppointments?id=${id}` );
+  getAppointments(id='',userUid=''): Observable<appointment | null> {
+    return this.http.get<appointment | null>(this.url + `appointment/getAppointments?id=${id}&userUid=${userUid}` );
+  }
+
+  editAppointment(id:string,userUid:string,data:any){
+    this.http.post(this.url + 'appointment/editAppointment',{id,userUid,data}).pipe(take(1)).subscribe();
   }
 
   enquire(id: string) {

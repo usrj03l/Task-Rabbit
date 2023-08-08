@@ -45,7 +45,7 @@ export class ServicesInfoComponent {
       senderId: currentUser.uid,
       recepientId: this.providerData.uid,
       profilePic: currentUser.profilePic,
-      name: currentUser.fname + ' ' + currentUser.lname
+      name: currentUser.fname + ' ' + currentUser.lname,
     }
     this.api.sendReviews(reviews);
   }
@@ -103,6 +103,7 @@ export class ServicesInfoComponent {
     const currentUser = JSON.parse(localStorage.getItem('userProfile') || '');
     const appointmentData = {
       userUid: currentUser.uid,
+      providerName:this.providerData.orgName,
       name: currentUser.fname + ' ' + currentUser.lname,
       profilePic:currentUser.profilePic,
       booked: false,

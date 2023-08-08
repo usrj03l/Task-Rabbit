@@ -1,6 +1,5 @@
 <section style="background-color: #90cbea">
   <div class="container py-5">
-    <button (click)="editProfile()" class="btn btn-primary">Edit</button>
     <div class="row" *ngIf="profileData">
       <div class="col-lg-4" >
         <div class="card mb-4">
@@ -26,8 +25,8 @@
               {{ profileData.state + "," + profileData.city | titlecase }}
             </p>
             <div class="d-flex justify-content-center mb-2">
-              <!-- <button type="button" class="btn btn-primary">Follow</button>
-                  <button type="button" class="btn btn-outline-primary ms-1">Message</button> -->
+              <button (click)="editProfile()" type="button" class="btn btn-primary">Edit Profile</button>
+                  <!-- <button type="button" class="btn btn-outline-primary ms-1">Message</button> -->
             </div>
           </div>
         </div>

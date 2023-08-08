@@ -1,12 +1,12 @@
 export interface user {
-    fname: String,
-    lname: String,
-    email: String,
+    fname: string,
+    lname: string,
+    email: string,
     phone: Number,
-    street: String,
-    street2: String,
-    city: String,
-    state: String,
+    street: string,
+    street2: string,
+    city: string,
+    state: string,
     zip: Number,
     socketId: string
 }
@@ -19,7 +19,8 @@ export interface message {
 }
 
 export interface appointment {
-    uid: String,
+    uid: string,
+    providerName:string,
     userDetails: [
         {
             userUid: string,

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { appointment } from 'src/app/model/model';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -32,12 +32,17 @@ export class ProviderAppointmentsComponent {
 
   confirm(item:any){
     item.booked = true;
+    this.api.editAppointment(this.currentUser.uid,item.userUid,{booked:item.booked});
   }
 
   cancel(item:any){
-    item.cancelled = true;
+    item.cancelled = true;    
+    this.api.editAppointment(this.currentUser.uid,item.userUid,{cancelled:item.cancelled});
   }
 
+  jobComplete(){
+
+  }
   
 
 }

@@ -21,8 +21,8 @@ export class UserProfileComponent {
     this.loadProfile();
   }
 
-  async loadProfile() {
-    this.profileData = JSON.parse(localStorage.getItem('userProfile') || '');    
+   loadProfile() {
+    this.profileData = JSON.parse(localStorage.getItem('userProfile') || '');      
   }
 
   async imageUpload() {
@@ -36,14 +36,13 @@ export class UserProfileComponent {
     })
 
     if (file) {
-      const id = await this.auth.getId();
+      const id = this.profileData.uid;
       const formData = new FormData();
-      formData.append('uid', String(id));
+      formData.append('uid', id);
       formData.append('image', file as File);
       this.http.post('http://localhost:3000/user/profilePic', formData).pipe(takeUntil(this.unSubscribe$)).subscribe(
-        image => {
-          const imgPath = image;
-          this.profile = 'http://localhost:3000/images/' + imgPath;
+        data => {
+          this.profileData = data;          
         }
       );
     }

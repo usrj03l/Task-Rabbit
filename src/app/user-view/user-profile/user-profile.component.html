@@ -8,12 +8,12 @@
               [src]=" (profileData.profilePic)? 'http://localhost:3000/images/' + profileData.profilePic : defaultProfile"
               alt="avatar"
               class="rounded-circle img-fluid"
-              style="width: 150px"
+              style="height: 150px; width: 150px"
             />
             <i
               (click)="imageUpload()"
               class="edit_profile fa-solid fa-pen-to-square"
-              style="cursor: pointer"
+              style="cursor: pointer; padding-left: 20px;"
             ></i>
             <h5 class="my-3">
               {{ profileData.fname | titlecase }}

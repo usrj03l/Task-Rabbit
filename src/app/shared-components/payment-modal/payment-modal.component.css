@@ -1,0 +1,14 @@
+.bill-row > *{
+    padding: 20px 50px;
+}
+
+.show-data > *, .input-box > *{
+    padding:  30px;
+}
+
+.input-box > td > input{
+    border: 1px solid gray;
+    border-radius: 5px;
+    text-indent: 20px;
+}
+

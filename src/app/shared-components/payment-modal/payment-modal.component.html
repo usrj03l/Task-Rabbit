@@ -1,0 +1,76 @@
+<button
+  type="button"
+  class="btn btn-outline-success"
+  data-bs-toggle="modal"
+  data-bs-target="#staticBackdrop"
+>
+  Payment
+</button>
+
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Generate Bill</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body d-flex justify-content-center">
+
+        <div class="payment">
+            <table class="mb-5">
+                <thead class="bill-head">
+                    <tr class="bill-row">
+                        <th class="text-center" scope="col">SL No.</th>
+                        <th class="text-center" scope="col">Description</th>
+                        <th class="text-center" scope="col">Quantity</th>
+                        <th class="text-center" scope="col">Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="show-data" *ngFor="let item of data; let i = index;">
+                        <td class="text-center">{{ i + 1 }}.</td>
+                        <td class="text-center"> {{ item.desc | titlecase }} </td>
+                        <td class="text-center"> {{ item.qty }} </td>
+                        <td class="text-center"> {{ item.price }} </td>
+                        <td><button (click)="remove(item)" class="btn btn-sm btn-danger">Remove</button></td>
+                    </tr>
+                    <tr class="input-box">
+                        <td></td>
+                        <td><input (keyup)="openButton()" type="text" name="desc" [(ngModel)]="desc"></td>
+                        <td><input (keyup)="openButton()" type="number" name="qty" [(ngModel)]="qty"></td>
+                        <td><input type="number" name="price" [(ngModel)]="price"></td>
+                        <td><button (click)="addItem()" class="btn btn-sm btn-primary" [disabled]="addButton" style="width: 68px;">Add</button></td>
+                    </tr>
+                    <tr class="total-cost">
+                        <td></td>
+                        <td></td>
+                        <td class="text-center"><strong>Total Cost</strong></td>
+                        <td class="text-center"><strong> {{ totalCost }} </strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-success">Continue</button>
+      </div>
+    </div>
+  </div>
+</div>

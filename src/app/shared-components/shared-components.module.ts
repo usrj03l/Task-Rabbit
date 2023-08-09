@@ -4,13 +4,14 @@ import { SharedComponentsRoutingModule } from './shared-components-routing.modul
 import { FormValidateComponent } from './form-validate/form-validate.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DateModalComponent } from './date-modal/date-modal.component';
-
+import { PaymentModalComponent } from './payment-modal/payment-modal.component';
 
 
 @NgModule({
   declarations: [
     FormValidateComponent,
-    DateModalComponent
+    DateModalComponent,
+    PaymentModalComponent
   ],
   imports: [
     CommonModule,
@@ -18,7 +19,10 @@ import { DateModalComponent } from './date-modal/date-modal.component';
     ReactiveFormsModule,
     FormsModule, 
   ],
-  exports:[FormValidateComponent ,
-     DateModalComponent]
+  exports:[
+    FormValidateComponent ,
+     DateModalComponent,
+     PaymentModalComponent
+    ]
 })
 export class SharedComponentsModule { }

@@ -85,21 +85,21 @@
                           <button
                             (click)="cancel(item)"
                             class="btn btn-outline-danger mx-2"
+                            *ngIf="!item.completed"
                           >
                             Cancel
                           </button>
-                          <app-payment-modal></app-payment-modal>
-                          <!-- <button
-                            (click)="jobComplete()"
-                            class="btn btn-outline-success mx-2"
-                          >
-                            Job Complete
-                          </button> -->
+                          <app-payment-modal [user]="item" (completed)="jobComplete($event,item)" *ngIf="!item.completed"></app-payment-modal>
                         </div>
                       </ng-template>
                       <ng-template #cancelled>
                         <h5 class="text-center" style="color: rgb(250, 50, 50)">
                           Appointment cancelled
+                        </h5>
+                      </ng-template>
+                      <ng-template [ngIf]="item.completed">
+                        <h5 class="text-center" style="color: rgb(89, 179, 89)">
+                          Job completed
                         </h5>
                       </ng-template>
                     </td>

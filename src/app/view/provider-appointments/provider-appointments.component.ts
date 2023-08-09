@@ -40,8 +40,9 @@ export class ProviderAppointmentsComponent {
     this.api.editAppointment(this.currentUser.uid,item.userUid,{cancelled:item.cancelled});
   }
 
-  jobComplete(){
-
+  jobComplete(event:any,item:any){
+    item.completed = event;    
+    this.api.editAppointment(this.currentUser.uid,item.userUid,{completed:item.completed});
   }
   
 

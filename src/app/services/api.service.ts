@@ -80,6 +80,10 @@ export class ApiService {
     this.http.post(this.url + 'appointment/editAppointment',{id,userUid,data}).pipe(take(1)).subscribe();
   }
 
+  setBill(providerData:any, generatedBill:any){
+    return this.http.post(this.url + 'payment/addTransaction',{providerData,generatedBill})
+  }
+
   enquire(id: string) {
     // this.http.post(this.url + 'provider/enquire',{id}).pipe(take(1)).subscribe();
   }

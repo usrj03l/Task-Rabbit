@@ -35,8 +35,6 @@ import { SharedComponentsModule } from '../shared-components/shared-components.m
     UserViewRoutingModule,
     SharedComponentsModule,
     FormsModule,
-    
-    
   ]
 })
 export class UserViewModule { }

@@ -34,8 +34,4 @@ export class UserAppointmentsComponent {
     item.cancelled = true;
     this.api.editAppointment(appointment.uid, item.userUid, { cancelled: item.cancelled });
   }
-
-  jobComplete() {
-    
-  }
 }

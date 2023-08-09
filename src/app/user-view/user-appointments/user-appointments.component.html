@@ -40,10 +40,10 @@
                                 : 'https://bootdey.com/img/Content/avatar/avatar1.png'
                             "
                             alt=""
-                            style="height: 180px; width: 200px"
+                            style="height: 100px; width: 100px"
                           />
                         </div>
-                        <div class="event-wrap time">
+                        <div class="event-wrap time mx-3">
                           <h3>{{ appointment.providerName | titlecase }}</h3>
                           <div class="meta">
                             <div class="time">
@@ -71,7 +71,7 @@
                       <td>
                           <div
                             class="d-flex justify-content-center"
-                            *ngIf="!item.booked && !item.cancelled"
+                            *ngIf="(!item.booked || item.booked) && !item.cancelled"
                           >
                             <button
                               (click)="cancel(item,appointment)"

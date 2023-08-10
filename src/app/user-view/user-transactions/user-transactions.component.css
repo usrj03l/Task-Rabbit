@@ -1,9 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato&family=Poppins&display=swap");
 
-body {
-  background-color: #777;
-  font-family: "Poppins", sans-serif;
-}
 .wrapper {
   background-color: #222;
   min-height: 100px;

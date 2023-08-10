@@ -84,6 +84,10 @@ export class ApiService {
     return this.http.post(this.url + 'payment/addTransaction',{providerData,generatedBill})
   }
 
+  getBill(id:string){
+    return this.http.get(this.url + `payment/getBill?id=${id}`);
+  }
+
   enquire(id: string) {
     // this.http.post(this.url + 'provider/enquire',{id}).pipe(take(1)).subscribe();
   }

@@ -4,13 +4,12 @@
     >
       <a class="navbar-brand" href="#"
         >Transactions
-        <p class="text-muted pl-1">Welcome to your transactions</p>
       </a>
       <button
         class="navbar-toggler"
         type="button"
-        data-toggle="collapse"
-        data-target="#navbarNav"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
         aria-controls="navbarNav"
         aria-expanded="false"
         aria-label="Toggle navigation"
@@ -20,115 +19,48 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-lg-auto ">
           
-          <li class="nav-item">
-            <a href="#"><span class="fa fa-search"></span></a>
-            <input type="search" class="dark" placeholder="Search" />
+          <li class="nav-item" style="padding-top: 15px;">
+            <a><span  class="fa fa-search"></span></a>
+            <input  (keyup)="searchBill()" type="text" class="dark" placeholder="Search" name="search" [(ngModel)]="search"/>
+            <i (click)="clear()" class="fa-solid fa-trash-can" style="color: #ee5e44; cursor: pointer;"></i>
           </li>
         </ul>
       </div>
     </nav>
     <div class="row mt-2 pt-2">
       <div class="col-md-6" id="income">
-        <div class="d-flex justify-content-start align-items-center">
-          
-          <p class="text mx-3">Income</p>
-          <p class="text-white ml-4 money">$9,758.23</p>
-        </div>
       </div>
     </div>
     <div class="d-flex justify-content-between align-items-center mt-3">
       <ul class="nav nav-tabs w-75">
         <li class="nav-item">
-          <a class="nav-link active" href="#history">History</a>
+          <h5 style="color: whitesmoke;">History</h5>
         </li>
       </ul>
-      <button class="btn btn-primary">New Transaction</button>
     </div>
     <div class="table-responsive mt-3">
       <table class="table table-dark table-borderless">
         <thead>
           <tr>
-            <th scope="col" style="text-align: center;">Activity</th>
-            <th scope="col" style="text-align: center;">Mode</th>
-            <th scope="col" style="text-align: center;">Date</th>
-            <th scope="col" style="text-align: center;">Amount</th>
+            <th scope="col" class="text-center">Activity</th>
+            <th scope="col" class="text-center">Mode</th>
+            <th scope="col" class="text-center">Date</th>
+            <th scope="col" class="text-center">Amount</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td scope="row">
-              <span class="fa fa-briefcase mr-1"></span> Coorg Trip
-            </td>
-            <td><span class="fa fa-cc-mastercard"></span></td>
-            <td class="text-muted">12 Jul 2020, 12:30 PM</td>
-            <td class="d-flex justify-content-end align-items-center">
-              <span class="fa fa-long-arrow-up mr-1"></span> $52.9
-            </td>
-          </tr>
-          <tr>
-            <td scope="row">
-              <span class="fa fa-bed mr-1"></span> Hotel Leela Palace
-            </td>
-            <td><span class="fa fa-cc-mastercard"></span></td>
-            <td class="text-muted">11 Jul 2020, 2:00 PM</td>
-            <td class="d-flex justify-content-end align-items-center">
-              <span class="fa fa-long-arrow-up mr-1"></span> $18.9
-            </td>
-          </tr>
-          <tr>
-            <td scope="row">
-              <span class="fa fa-exchange mr-1"></span> Monthly Salary
-            </td>
-            <td><span class="fa fa-cc-visa"></span></td>
-            <td class="text-muted">10 Jul 2020, 8:30 PM</td>
-            <td class="d-flex justify-content-end align-items-center">
-              <span class="fa fa-long-arrow-down mr-1"></span> $9,765.00
-            </td>
-          </tr>
-          <tr>
-            <td scope="row">
-              <span class="fa fa-exchange mr-1"></span> Xbox Purchase
-            </td>
-            <td><span class="fa fa-cc-mastercard"></span></td>
-            <td class="text-muted">12 May 2020, 4:30 PM</td>
-            <td class="d-flex justify-content-end align-items-center">
-              <span class="fa fa-long-arrow-up mr-1"></span> $198.90
-            </td>
-          </tr>
-          <tr>
-            <td scope="row">
-              <span class="fa fa-cutlery mr-1"></span> Dinner Party
-            </td>
-            <td><span class="fa fa-cc-visa"></span></td>
-            <td class="text-muted">11 May 2020, 5:30 PM</td>
-            <td class="d-flex justify-content-end align-items-center">
-              <span class="fa fa-long-arrow-up mr-1"></span> $12.90
-            </td>
-          </tr>
-          <tr>
-            <td scope="row">
-              <span class="fa fa-briefcase mr-1"></span> Nandini Hills Ride
-            </td>
-            <td><span class="fa fa-cc-mastercard"></span></td>
-            <td class="text-muted">10 May 2020, 01:30 PM</td>
-            <td class="d-flex justify-content-end align-items-center">
-              <span class="fa fa-long-arrow-up mr-1"></span> $97.9
-            </td>
-          </tr>
-          <tr>
-            <td scope="row">
-              <span class="fa fa-briefcase mr-1"></span> Goa Beach Party
-            </td>
-            <td><span class="fa fa-cc-visa"></span></td>
-            <td class="text-muted">09 May 2020, 01:30 PM</td>
-            <td class="d-flex justify-content-end align-items-center">
-              <span class="fa fa-long-arrow-up mr-1"></span> $97.9
-            </td>
-          </tr>
+        <tbody *ngIf="billDetails$ | async as billDetails">
+          <ng-container *ngFor=" let bills of billDetails">
+            <tr class="transaction-list" *ngFor="let item of bills?.bill">
+              <td class="text-center"> {{ bills.orgName | titlecase }} </td>
+              <td class="text-center"> {{ item.mode | titlecase }} </td>
+              <td class="text-center"> {{ item.date }} </td>
+              <td class="text-center">₹ {{ item.totalCost }} </td>
+            </tr>
+          </ng-container>
         </tbody>
       </table>
     </div>
-    <div class="d-flex justify-content-between align-items-center results">
+    <!-- <div class="d-flex justify-content-between align-items-center results">
       <span class="pl-md-3"
         >Showing<b class="text-white"> 1-7 0f 200 </b> trasactions</span
       >
@@ -148,6 +80,6 @@
           </ul>
         </nav>
       </div>
-    </div>
+    </div> -->
   </div>
   

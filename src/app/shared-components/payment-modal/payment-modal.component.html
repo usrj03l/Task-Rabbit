@@ -35,7 +35,7 @@
                 <th class="text-center" scope="col">SL No.</th>
                 <th class="text-center" scope="col">Description</th>
                 <th class="text-center" scope="col">Quantity</th>
-                <th class="text-center" scope="col">Price</th>
+                <th class="text-center" scope="col">Price(₹)</th>
               </tr>
             </thead>
             <tbody>
@@ -43,7 +43,7 @@
                 <td class="text-center">{{ i + 1 }}.</td>
                 <td class="text-center">{{ item.desc | titlecase }}</td>
                 <td class="text-center">{{ item.qty }}</td>
-                <td class="text-center">{{ item.price }}</td>
+                <td class="text-center">{{ '₹' + item.price }}</td>
                 <td>
                   <button (click)="remove(item)" class="btn btn-sm btn-danger">
                     Remove

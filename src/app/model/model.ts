@@ -11,6 +11,23 @@ export interface user {
     socketId: string
 }
 
+export interface currentUser {
+    _id: string,
+    uid: string,
+    fname: string,
+    lname: string,
+    email: string,
+    phone: Number,
+    street: string,
+    street2: string,
+    city: string,
+    state: string,
+    zip: Number,
+    socketId: string
+    profilePic: string
+
+}
+
 export interface message {
     message: string,
     date: string,
@@ -20,7 +37,7 @@ export interface message {
 
 export interface appointment {
     uid: string,
-    providerName:string,
+    providerName: string,
     userDetails: [
         {
             userUid: string,
@@ -34,4 +51,26 @@ export interface appointment {
             cancelled: Boolean
         }
     ]
-  }
+}
+
+export interface payment {
+    providerUid: string,
+    orgName: string,
+    bill: [
+        {
+            userUid: string,
+            name: string,
+            address: string,
+            date: string,
+            mode: string,
+            totalCost: Number,
+            itemList: [
+                {
+                    desc: string,
+                    qty: Number,
+                    price: Number
+                }
+            ]
+        }
+    ]
+}

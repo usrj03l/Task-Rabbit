@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { currentUser, payment, user } from 'src/app/model/model';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-user-payments',
@@ -7,6 +10,15 @@ import { Component } from '@angular/core';
 })
 export class UserPaymentsComponent {
   isBill = true;
+  currentUser!: currentUser;
+  billData$= new Observable<any>();
+
+  constructor(private api:ApiService){ }
+
+  ngOnInit(){
+    this.currentUser = JSON.parse( localStorage.getItem('userProfile') || '');
+    this.billData$ = this.api.getBill(this.currentUser.uid);
+  }
 
   changeTab(value: string) {
 
@@ -15,6 +27,5 @@ export class UserPaymentsComponent {
     } else {
       this.isBill = false
     }
-
   }
 }

@@ -1,1 +1,24 @@
-<h1>works </h1>
+<div class="heading">
+  <h2 style="padding: 20px 0px">Your bills</h2>
+</div>
+
+<ng-container>
+  <div>
+    <div class="row" *ngFor="let transaction of billDetails$ | async">
+      <div class="col-sm-6" *ngFor="let bill of transaction.bill">
+        <div class="card">
+          <div class="card-header">
+            {{ bill.date }}
+          </div>
+          <div class="card-body justify-content-center" style="display: flex; flex-direction: column;">
+            <h5 class="card-title text-center">{{ transaction.orgName }}</h5>
+            <p class="card-text text-center">Total: {{ bill.totalCost }}</p>
+            <a (click)="downloadBill(bill,transaction)" class="btn btn-outline-success "
+              >Download bill</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container> 

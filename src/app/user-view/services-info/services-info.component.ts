@@ -110,6 +110,8 @@ export class ServicesInfoComponent {
       date:time.day + ' ' + time.month,
       time: time.openTime + ' - ' + time.closeTime,
       address: currentUser.street + ', ' + currentUser.street2 + ', ' + currentUser.city + ', ' + currentUser.state + ', ' + currentUser.zip,
+      phone:currentUser.phone,
+      email:currentUser.email,
       completed:false,
       cancelled:false
     }

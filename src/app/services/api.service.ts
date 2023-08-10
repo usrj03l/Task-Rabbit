@@ -64,6 +64,10 @@ export class ApiService {
     )
   }
 
+  getProviderInfo(id:string){
+    return this.http.get(this.url + 'provider/getUser/'+id);
+  }
+
   getReviews(id: string) {
     return this.http.get(this.url + `review/getReviews?id=${id}`);
   }

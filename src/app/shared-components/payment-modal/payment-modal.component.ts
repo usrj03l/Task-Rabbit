@@ -25,7 +25,7 @@ export class PaymentModalComponent {
   modeCash = true;
   currentUser: any;
 
-  constructor(private api:ApiService) { }
+  constructor(private api: ApiService) { }
 
   openButton() {
     if (this.desc.length > 0 && this.qty > 0) {
@@ -65,22 +65,27 @@ export class PaymentModalComponent {
     const date = new Date();
 
     const provider = {
-      uid:this.currentUser.uid,
-      orgName:this.currentUser.orgName
-    }
-    
-    const generatedBill = {
-      userUid:this.user.userUid,
-      name:this.user.name,
-      address:this.user.address,
-      date:date.getDate() + '-' + date.getMonth() + '-' + date.getFullYear(),
-      mode: (this.modeCash)? 'cash':'upi',
-      totalCost:this.totalCost,
-      itemList:this.data
+      uid: this.currentUser.uid,
+      orgName: this.currentUser.orgName
     }
 
-    this.api.setBill(provider, generatedBill).pipe(take(1)).subscribe(data=>{
-      if(data === 'success'){
+    console.log(this.user);
+    
+
+    const generatedBill = {
+      userUid: this.user.userUid,
+      name: this.user.name,
+      address: this.user.address,
+      phone: this.user.phone,
+      email: this.user.email,
+      date: date.getDate() + '-' + ( date.getMonth() + 1 ) + '-' + date.getFullYear(),
+      mode: (this.modeCash) ? 'cash' : 'upi',
+      totalCost: this.totalCost,
+      itemList: this.data
+    }
+
+    this.api.setBill(provider, generatedBill).pipe(take(1)).subscribe(data => {
+      if (data === 'success') {
         this.api.successMessage('Bill generated');
         this.completed.emit(true);
       }

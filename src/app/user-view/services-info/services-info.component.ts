@@ -1,4 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subject, take, takeUntil } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -18,7 +19,7 @@ export class ServicesInfoComponent {
   unSubscribe$ = new Subject();
   @ViewChild('target')
   target = new ElementRef<any>('');
-  constructor(private api: ApiService, private auth: AuthService) { }
+  constructor(private api: ApiService, private auth: AuthService,private router:Router) { }
 
   ngOnInit() {
     this.providerData = JSON.parse(localStorage.getItem('serviceData') || '');
@@ -130,6 +131,11 @@ export class ServicesInfoComponent {
 
   setDateTime(event:any){    
     this.bookAppointment(event)
+ }
+
+ chat(providerData:any){
+  this.api.checkUsers.next(providerData);
+  this.router.navigate(['/user/chat']);
  }
 
   enquire() {

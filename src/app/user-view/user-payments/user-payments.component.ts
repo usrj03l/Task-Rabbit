@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { currentUser, payment, user } from 'src/app/model/model';
+import { currentUser } from 'src/app/model/model';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({

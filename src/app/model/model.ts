@@ -25,7 +25,8 @@ export interface currentUser {
     state: string,
     zip: Number,
     socketId: string
-    profilePic: string
+    profilePic: string,
+    userType:string
 
 }
 

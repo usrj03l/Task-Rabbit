@@ -29,7 +29,7 @@
         <div class="phone">
           <i class="fa-solid fa-phone mt-2"></i> {{ providerData.phone }}
         </div>
-        <div class="chat mx-3">
+        <div (click)="chat(providerData)" class="chat mx-3">
           <i class="fa-regular fa-comment mt-2"></i> Chat
         </div>
         <div (click)="scroll()" class="rate">

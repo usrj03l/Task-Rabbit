@@ -1,6 +1,6 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, take } from 'rxjs';
+import { Observable, take, BehaviorSubject } from 'rxjs';
 import Swal from 'sweetalert2';
 import { appointment } from '../model/model';
 
@@ -18,6 +18,8 @@ interface appointmentData {
 })
 
 export class ApiService {
+
+  checkUsers = new BehaviorSubject<any>(null);
 
   url = 'http://localhost:3000/';
   constructor(private http: HttpClient) { }

@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
-import { Observable, Subject, concatAll, map, merge, switchMap, takeUntil, toArray } from 'rxjs';
+import { Observable, Subject, concatAll, map, merge, switchMap, takeUntil, tap, toArray,combineLatest, shareReplay, startWith } from 'rxjs';
 import { message } from 'src/app/model/model';
+import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { ChatService } from 'src/app/services/chat.service';
 
@@ -17,7 +18,8 @@ export class UserChatComponent {
   newMessage = '';
   data1$ = new Observable<any>();
   data2$ = new Observable<any>();
-  data:any;
+  data = new Observable<any>();
+  allUsersdata$ = new Observable<any>();
   uid: any;
   userMessageList: Observable<any> = new Observable();
   allMessages: message[] = []
@@ -28,11 +30,11 @@ export class UserChatComponent {
   unSubscribe$ = new Subject();
   userType!:string;
 
-  constructor(private auth: AuthService, private chatService: ChatService, private http: HttpClient) { }
+  constructor(private auth: AuthService, private chatService: ChatService, private http: HttpClient, private api:ApiService) { }
 
   ngOnInit() {
     this.loadMessage();
-
+    
     this.chatService.getNewMessage().subscribe((data: any) => {
       const dateTime = this.getDateTime();
       const receivedMessage = {
@@ -44,6 +46,7 @@ export class UserChatComponent {
 
       if (this.uid === data.sender) {
         this.allMessages.push(receivedMessage);
+        this.scrollDown();
       }
     })
   }
@@ -73,7 +76,7 @@ export class UserChatComponent {
 
   async loadMessage() {
     this.currentUser = await this.auth.getId();
-    this.userMessageList = this.http.post('http://localhost:3000/message/getMessages', { 'uid': this.currentUser })
+    this.userMessageList = this.http.post('http://localhost:3000/message/getMessages', { 'uid': this.currentUser }).pipe(shareReplay(1))
 
     this.data1$ = this.userMessageList.pipe(
       map(data => data.messages.map((item: { receiverUid: any; }) => item.receiverUid)),
@@ -85,12 +88,14 @@ export class UserChatComponent {
       switchMap(userIdList => this.http.post('http://localhost:3000/provider/getUsersList', { 'users': userIdList })) 
     )
 
-    this.data = merge(this.data1$,this.data2$).pipe(concatAll(),toArray());   
+    this.allUsersdata$ = this.data = merge(this.data1$,this.data2$).pipe(concatAll(),toArray(),tap(()=>this.checkNewUsers()));   
   }
 
   async viewAllMessages(item: any) {
     this.userType = item.userType;    
     this.uid = item.uid;
+    console.log(this.userType,this.uid);
+    
     this.userMessageList
       .pipe(takeUntil(this.unSubscribe$))
       .subscribe((data: any) => {
@@ -100,6 +105,15 @@ export class UserChatComponent {
             .map(((user: { messageList: any; }) => user.messageList))[0];
         this.scrollDown();
       });
+  }
+
+  checkNewUsers(){
+    if(this.api.checkUsers.getValue()){
+      const newUser = this.api.checkUsers.getValue();
+      this.api.checkUsers.next(null);
+      
+      this.allUsersdata$ = this.data.pipe(startWith([newUser]),concatAll(),toArray());    
+    }
   }
 
   scrollDown() {

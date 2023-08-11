@@ -45,8 +45,8 @@
       <div class="mesgs">
         <div class="msg_history" #scrollDiv>
           <div class="message_history"  #scroll *ngFor="let user of allMessages">
-            <div class="received_msg" *ngIf="user.messageType === 'received'">
-              <div class="received_withd_msg">
+            <div class="received_msg"  *ngIf="user.messageType === 'received'">
+              <div class="received_withd_msg" style="margin-bottom: 20px;">
                 <p>{{ user.message }}</p>
                 <span class="time_date">
                   {{ user.time + " | " + user.date }}

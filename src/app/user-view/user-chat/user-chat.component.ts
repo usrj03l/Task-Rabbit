@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { Observable, Subject, concatAll, map, merge, switchMap, takeUntil, toArray } from 'rxjs';
 import { message } from 'src/app/model/model';
 import { AuthService } from 'src/app/services/auth.service';
 import { ChatService } from 'src/app/services/chat.service';
@@ -15,7 +15,9 @@ export class UserChatComponent {
   @ViewChild('scrollDiv') scrollDiv: any;
 
   newMessage = '';
-  data: any
+  data1$ = new Observable<any>();
+  data2$ = new Observable<any>();
+  data:any;
   uid: any;
   userMessageList: Observable<any> = new Observable();
   allMessages: message[] = []
@@ -24,6 +26,7 @@ export class UserChatComponent {
   currentUser!: string | null;
   currentUserView!: string | null;
   unSubscribe$ = new Subject();
+  userType!:string;
 
   constructor(private auth: AuthService, private chatService: ChatService, private http: HttpClient) { }
 
@@ -55,7 +58,7 @@ export class UserChatComponent {
         messageType: 'sent'
       }
       this.allMessages.push(sentMessage);
-      this.chatService.sendMessage(this.newMessage, this.uid, 'user');
+      this.chatService.sendMessage(this.newMessage, this.uid, this.userType);
       this.newMessage = '';
 
       this.scrollDown();
@@ -70,16 +73,23 @@ export class UserChatComponent {
 
   async loadMessage() {
     this.currentUser = await this.auth.getId();
-    this.userMessageList = this.http.post('http://localhost:3000/user/getMessages', { 'uid': this.currentUser })
-    this.userMessageList.pipe(takeUntil(this.unSubscribe$)).subscribe((data: any) => {
-      if (data) {
-        this.userIdList = data.messages.map((item: { receiverUid: any; }) => item.receiverUid);
-        this.data = this.http.post('http://localhost:3000/user/getUsers', { 'users': this.userIdList });
-      }
-    });
+    this.userMessageList = this.http.post('http://localhost:3000/message/getMessages', { 'uid': this.currentUser })
+
+    this.data1$ = this.userMessageList.pipe(
+      map(data => data.messages.map((item: { receiverUid: any; }) => item.receiverUid)),
+      switchMap(userIdList => this.http.post('http://localhost:3000/user/getUsers', { 'users': userIdList }))  
+    )
+
+    this.data2$ = this.userMessageList.pipe(
+      map(data => data.messages.map((item: { receiverUid: any; }) => item.receiverUid)),
+      switchMap(userIdList => this.http.post('http://localhost:3000/provider/getUsersList', { 'users': userIdList })) 
+    )
+
+    this.data = merge(this.data1$,this.data2$).pipe(concatAll(),toArray());   
   }
 
   async viewAllMessages(item: any) {
+    this.userType = item.userType;    
     this.uid = item.uid;
     this.userMessageList
       .pipe(takeUntil(this.unSubscribe$))

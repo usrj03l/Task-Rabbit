@@ -20,9 +20,9 @@
         </div>
         <div class="inbox_chat">
           <div
-            (click)="sub(item)"
+            (click)="getAllMessages(user)"
             class="chat_list active_chat"
-            *ngFor="let item of data | async"
+            *ngFor="let user of data | async"
           >
             <div class="chat_people">
               <div class="chat_img">
@@ -32,7 +32,7 @@
                 />
               </div>
               <div class="chat_ib">
-                <h5>{{ item.email }} <span class="chat_date">Dec 25</span></h5>
+                <h5>{{ user.email }} <span class="chat_date">Dec 25</span></h5>
                 <p>
                   Test, which is a new approach to have all solutions astrology
                   under one roof.
@@ -44,20 +44,20 @@
       </div>
       <div class="mesgs">
         <div class="msg_history" #scrollDiv>
-          <div class="message_history"  #scroll *ngFor="let item of allMessages">
-            <div class="received_msg" *ngIf="item.messageType === 'received'">
+          <div class="message_history"  #scroll *ngFor="let user of allMessages">
+            <div class="received_msg" *ngIf="user.messageType === 'received'">
               <div class="received_withd_msg">
-                <p>{{ item.message }}</p>
+                <p>{{ user.message }}</p>
                 <span class="time_date">
-                  {{ item.time + " | " + item.date }}
+                  {{ user.time + " | " + user.date }}
                 </span>
               </div>
             </div>
-            <div class="outgoing_msg" *ngIf="item.messageType === 'sent'">
+            <div class="outgoing_msg" *ngIf="user.messageType === 'sent'">
               <div class="sent_msg">
-                <p>{{ item.message }}</p>
+                <p>{{ user.message }}</p>
                 <span class="time_date">
-                  {{ item.time + " | " + item.date }}
+                  {{ user.time + " | " + user.date }}
                 </span>
               </div>
             </div>

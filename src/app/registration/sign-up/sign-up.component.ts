@@ -36,7 +36,8 @@ export class SignUpComponent {
       city: this.city,
       state: this.state,
       zip: this.zip,
-      socketId: ''
+      socketId: '',
+      userType:'user'
     }
 
     if (this.pass === this.repass) {

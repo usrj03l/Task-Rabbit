@@ -8,7 +8,8 @@ export interface user {
     city: string,
     state: string,
     zip: Number,
-    socketId: string
+    socketId: string,
+    userType:string
 }
 
 export interface currentUser {

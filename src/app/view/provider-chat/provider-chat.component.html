@@ -22,7 +22,7 @@
           <div
             (click)="getAllMessages(user)"
             class="chat_list active_chat"
-            *ngFor="let user of data | async"
+            *ngFor="let user of allUsersdata$ | async"
           >
             <div class="chat_people">
               <div class="chat_img">

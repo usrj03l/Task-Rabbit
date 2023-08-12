@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
-import { Observable, Subject, concatAll, map, merge, switchMap, takeUntil, tap, toArray,combineLatest, shareReplay, startWith } from 'rxjs';
+import { Observable, Subject, concatAll, map, merge, switchMap, takeUntil, tap, toArray, startWith } from 'rxjs';
 import { message } from 'src/app/model/model';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -76,7 +76,7 @@ export class UserChatComponent {
 
   async loadMessage() {
     this.currentUser = await this.auth.getId();
-    this.userMessageList = this.http.post('http://localhost:3000/message/getMessages', { 'uid': this.currentUser }).pipe(shareReplay(1))
+    this.userMessageList = this.http.post('http://localhost:3000/message/getMessages', { 'uid': this.currentUser });
 
     this.data1$ = this.userMessageList.pipe(
       map(data => data.messages.map((item: { receiverUid: any; }) => item.receiverUid)),
@@ -111,10 +111,9 @@ export class UserChatComponent {
     if(this.api.checkUsers.getValue()){
       const newUser = this.api.checkUsers.getValue();
       this.api.checkUsers.next(null);
-      
       this.allUsersdata$ = this.data.pipe(startWith([newUser]),concatAll(),toArray());    
     }
-  }
+  } 
 
   scrollDown() {
     setTimeout(() => {

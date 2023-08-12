@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
-import { Observable, concatAll, map, merge, switchMap, toArray } from 'rxjs';
+import { Observable, concatAll, map, merge, startWith, switchMap, toArray } from 'rxjs';
 import { message } from 'src/app/model/model';
+import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { ChatService } from 'src/app/services/chat.service';
 
@@ -14,9 +15,10 @@ export class ProviderChatComponent {
   @ViewChild('scrollDiv') scrollDiv: any;
 
   newMessage = '';
-  data1$ = new Observable();
+  data1$ = new Observable<any>();
   data2$ = new Observable<any>();
-  data:any;
+  data = new Observable<any>();
+  allUsersdata$ = new Observable<any>();
   uid: any;
   userMessageList: Observable<any> = new Observable();
   allMessages: message[] = [];
@@ -25,7 +27,7 @@ export class ProviderChatComponent {
   currentUser!: string | null;
   currentUserView!: string | null;
 
-  constructor(private auth: AuthService, private chatService: ChatService, private http: HttpClient) { }
+  constructor(private auth: AuthService, private chatService: ChatService, private http: HttpClient,private api:ApiService) { }
 
   ngOnInit() {
     this.loadMessage();
@@ -41,6 +43,7 @@ export class ProviderChatComponent {
 
       if (this.uid === data.sender) {
         this.allMessages.push(receivedMessage);
+        this.scrollDown();
       }
     })
   }
@@ -84,7 +87,7 @@ export class ProviderChatComponent {
     
     )
 
-    this.data = merge(this.data1$,this.data2$).pipe(concatAll(),toArray());   
+    this.allUsersdata$ = this.data = merge(this.data1$,this.data2$).pipe(concatAll(),toArray());   
   }
 
   async getAllMessages(selectedUser: any) {
@@ -97,6 +100,14 @@ export class ProviderChatComponent {
             .map(((user: { messageList: any; }) => user.messageList))[0];
         this.scrollDown();
       });
+  }
+
+  checkNewUsers(){
+    if(this.api.checkUsers.getValue()){
+      const newUser = this.api.checkUsers.getValue();
+      this.api.checkUsers.next(null);
+      this.allUsersdata$ = this.data.pipe(startWith([newUser]),concatAll(),toArray());    
+    }
   }
 
   scrollDown() {

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
-import { Observable, concatAll, map, merge, startWith, switchMap, toArray } from 'rxjs';
+import { Observable, concatAll, map, merge, startWith, switchMap, tap, toArray } from 'rxjs';
 import { message } from 'src/app/model/model';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -20,17 +20,17 @@ export class ProviderChatComponent {
   data = new Observable<any>();
   allUsersdata$ = new Observable<any>();
   uid: any;
-  userMessageList: Observable<any> = new Observable();
+  userMessageList: Observable<any> = new Observable<any>();
   allMessages: message[] = [];
   userIdList: string[] = [];
   dateTime = new Date();
   currentUser!: string | null;
   currentUserView!: string | null;
 
-  constructor(private auth: AuthService, private chatService: ChatService, private http: HttpClient,private api:ApiService) { }
+  constructor(private auth: AuthService, private chatService: ChatService, private http: HttpClient, private api: ApiService) { }
 
   ngOnInit() {
-    this.loadMessage();
+    // this.loadMessage();
 
     this.chatService.getNewMessage().subscribe((data: any) => {
       const dateTime = this.getDateTime();
@@ -45,7 +45,20 @@ export class ProviderChatComponent {
         this.allMessages.push(receivedMessage);
         this.scrollDown();
       }
-    })
+    });
+
+    const user = JSON.parse(localStorage.getItem('userProfile') || '');
+    this.data = this.userMessageList = this.http.post('http://localhost:3000/message/getMessages', { 'uid': user.uid })
+    this.data.subscribe(data => {
+      if (data) {
+        this.loadMessage(this.userMessageList)
+        this.checkNewUsers()
+      } else {
+        this.checkNewUsers(false)
+      }
+    }
+    )
+
   }
 
   sendMessage() {
@@ -60,7 +73,6 @@ export class ProviderChatComponent {
       this.allMessages.push(sentMessage);
       this.chatService.sendMessage(this.newMessage, this.uid, 'user');
       this.newMessage = '';
-
       this.scrollDown();
     }
   }
@@ -71,23 +83,19 @@ export class ProviderChatComponent {
     return { date: date, time: time }
   }
 
-  async loadMessage() {
-    this.currentUser = await this.auth.getId();
-    this.userMessageList = this.http.post('http://localhost:3000/message/getMessages', { 'uid': this.currentUser })
-
+  async loadMessage(userMessageList: Observable<any>) {
     this.data1$ = this.userMessageList.pipe(
       map(data => data.messages.map((item: { receiverUid: any; }) => item.receiverUid)),
-      switchMap(userIdList => this.http.post('http://localhost:3000/user/getUsers', { 'users': userIdList }))
-    
+      switchMap(userIdList => this.http.post('http://localhost:3000/user/getUsers', { 'users': userIdList })
+      )
     )
 
     this.data2$ = this.userMessageList.pipe(
       map(data => data.messages.map((item: { receiverUid: any; }) => item.receiverUid)),
       switchMap(userIdList => this.http.post('http://localhost:3000/provider/getUsersList', { 'users': userIdList }))
-    
     )
 
-    this.allUsersdata$ = this.data = merge(this.data1$,this.data2$).pipe(concatAll(),toArray());   
+    this.allUsersdata$ = this.data = merge(this.data1$, this.data2$).pipe(concatAll(), toArray());
   }
 
   async getAllMessages(selectedUser: any) {
@@ -95,18 +103,23 @@ export class ProviderChatComponent {
     this.userMessageList
       .subscribe((data: any) => {
         this.allMessages =
-          data.messages
+          data?.messages
             .filter((users: { receiverUid: string; }) => users.receiverUid === selectedUser.uid)
             .map(((user: { messageList: any; }) => user.messageList))[0];
         this.scrollDown();
       });
   }
 
-  checkNewUsers(){
-    if(this.api.checkUsers.getValue()){
-      const newUser = this.api.checkUsers.getValue();
+  checkNewUsers(check = true) {
+    const newUser = this.api.checkUsers.getValue();
+    if (newUser && check) {
       this.api.checkUsers.next(null);
-      this.allUsersdata$ = this.data.pipe(startWith([newUser]),concatAll(),toArray());    
+      this.allUsersdata$ = this.data.pipe(startWith([newUser]), concatAll(), toArray());
+    }
+
+    if (newUser && !check) {
+      this.api.checkUsers.next(null);
+      this.allUsersdata$ = this.allUsersdata$.pipe(startWith([newUser]));
     }
   }
 

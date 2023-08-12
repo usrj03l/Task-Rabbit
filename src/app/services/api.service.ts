@@ -10,7 +10,7 @@ interface appointmentData {
   booked: boolean,
   time: string,
   address: string,
-  completed:boolean
+  completed: boolean
 }
 
 @Injectable({
@@ -50,7 +50,7 @@ export class ApiService {
     });
   }
 
-  successMessage(message:string){
+  successMessage(message: string) {
     Swal.fire(
       'Great!',
       message,
@@ -58,7 +58,7 @@ export class ApiService {
     )
   }
 
-  infoMessage(message:string){
+  infoMessage(message: string) {
     Swal.fire(
       'Please be patient',
       message,
@@ -66,38 +66,44 @@ export class ApiService {
     )
   }
 
-  getProviderInfo(id:string){
-    return this.http.get(this.url + 'provider/getUser/'+id);
+  getProviderInfo(id: string) {
+    return this.http.get(this.url + 'provider/getUser/' + id);
   }
 
   getReviews(id: string) {
     return this.http.get(this.url + `review/getReviews?id=${id}`);
   }
 
-  bookAppointment(id: string, appointmentData:appointmentData) {
-    return this.http.post(this.url + 'appointment/bookAppointment',{id,appointmentData});
+  bookAppointment(id: string, appointmentData: appointmentData) {
+    return this.http.post(this.url + 'appointment/bookAppointment', { id, appointmentData });
   }
 
-  getAppointments(id='',userUid=''): Observable<appointment | null> {
-    return this.http.get<appointment | null>(this.url + `appointment/getAppointments?id=${id}&userUid=${userUid}` );
+  getAppointments(id = '', userUid = ''): Observable<appointment | null> {
+    return this.http.get<appointment | null>(this.url + `appointment/getAppointments?id=${id}&userUid=${userUid}`);
   }
 
-  editAppointment(id:string,userUid:string,data:any){
-    this.http.post(this.url + 'appointment/editAppointment',{id,userUid,data}).pipe(take(1)).subscribe();
+  editAppointment(id: string, userUid: string, data: any) {
+    this.http.post(this.url + 'appointment/editAppointment', { id, userUid, data }).pipe(take(1)).subscribe();
   }
 
-  setBill(providerData:any, generatedBill:any){
-    return this.http.post(this.url + 'payment/addTransaction',{providerData,generatedBill})
+  setBill(providerData: any, generatedBill: any) {
+    return this.http.post(this.url + 'payment/addTransaction', { providerData, generatedBill })
   }
 
-  getBill(id:string){
+  getBill(id: string) {
     return this.http.get(this.url + `payment/getBill?id=${id}`);
   }
 
-  enquire(id: string) {
-    // this.http.post(this.url + 'provider/enquire',{id}).pipe(take(1)).subscribe();
+  enquire(id: string, user: { userUid: string, name: string, email: string, phone: Number }) {
+    this.http.post(this.url + 'user/enquire',{id,user}).pipe(take(1))
+    .subscribe(data => {
+      if(data === 'success'){
+        this.successMessage('An enquiry has been placed');
+      }
+    });
   }
 
-
-
+  getEnquiries(id:string){
+    return this.http.get(this.url + `provider/enquiries?id=${id}`);
+  }
 }

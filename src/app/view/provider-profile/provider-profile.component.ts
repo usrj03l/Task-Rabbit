@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable, take } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
@@ -14,23 +15,29 @@ export class ProviderProfileComponent {
 
   defaultProfile = 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp';
   profile: any;
-  bio: string  = "Write something about yourself";
-
-  constructor(private auth: AuthService, private http: HttpClient, private router:Router,private api:ApiService) { }
+  bio: string = "Write something about yourself";
+  currentUser = JSON.parse(localStorage.getItem('userProfile') || '');
+  enquiries$ = new Observable<any>()
+  constructor(private auth: AuthService, private http: HttpClient, private router: Router, private api: ApiService) { }
 
   profileData: any;
 
   ngOnInit() {
     this.loadProfile();
+    this.loadEnquiries();
   }
 
-  async loadProfile() {
-    const id = await this.auth.getId();
+  loadProfile() {
+    const id = this.currentUser.uid;
     this.http.get('http://localhost:3000/provider/getUser/' + id).subscribe(data => this.profileData = data);
   }
 
+  loadEnquiries() {
+    this.enquiries$ = this.api.getEnquiries(this.currentUser.uid);
+  }
+
   async imageUpload() {
-    
+
     const { value: file } = await Swal.fire({
       title: 'Select image',
       input: 'file',
@@ -41,7 +48,7 @@ export class ProviderProfileComponent {
     })
 
     if (file) {
-      const id = await this.auth.getId();
+      const id = this.currentUser.uid;
       const formData = new FormData();
       formData.append('uid', String(id));
       formData.append('image', file as File);
@@ -56,12 +63,22 @@ export class ProviderProfileComponent {
 
   async updateBio() {
     const text = await this.api.textArea();
-      const id = await this.auth.getId();
-      this.http.post("http://localhost:3000/provider/setBio", { 'bio': text, 'uid': id }).subscribe();
-      this.profileData.bio = text;
+    const id = this.currentUser.uid;
+    this.http.post("http://localhost:3000/provider/setBio", { 'bio': text, 'uid': id }).subscribe();
+    this.profileData.bio = text;
   }
 
-  editProfile(){
+  editProfile() {
     this.router.navigate(['/view/edit-profile']);
+  }
+
+  chat(uid: string) {
+    this.http.post('http://localhost:3000/user/getUsers', { 'users': uid }).pipe(take(1)).subscribe((data:any) => {
+    
+      this.api.checkUsers.next(data[0]);
+      this.router.navigate(['/view/chat'])
+
+    });
+
   }
 }

@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./services-info.component.css']
 })
 export class ServicesInfoComponent {
+  currentUser = JSON.parse(localStorage.getItem('userProfile') || '');
   defaultProfile = 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp';
   hoveredIndex: number = -1;
   providerData: any;
@@ -19,7 +20,7 @@ export class ServicesInfoComponent {
   unSubscribe$ = new Subject();
   @ViewChild('target')
   target = new ElementRef<any>('');
-  constructor(private api: ApiService, private auth: AuthService,private router:Router) { }
+  constructor(private api: ApiService, private auth: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.providerData = JSON.parse(localStorage.getItem('serviceData') || '');
@@ -39,14 +40,14 @@ export class ServicesInfoComponent {
   async rating(hoveredIndex: number) {
     const rating = hoveredIndex + 1;
     const userReview = await this.api.textArea();
-    const currentUser = JSON.parse(localStorage.getItem('userProfile') || '');
+    
     const reviews = {
       rating: rating,
       review: userReview,
-      senderId: currentUser.uid,
+      senderId: this.currentUser.uid,
       recepientId: this.providerData.uid,
-      profilePic: currentUser.profilePic,
-      name: currentUser.fname + ' ' + currentUser.lname,
+      profilePic: this.currentUser.profilePic,
+      name: this.currentUser.fname + ' ' + this.currentUser.lname,
     }
     this.api.sendReviews(reviews);
   }
@@ -100,46 +101,53 @@ export class ServicesInfoComponent {
     this.target.nativeElement.scrollIntoView();
   }
 
-  bookAppointment(time:any) {
-    const currentUser = JSON.parse(localStorage.getItem('userProfile') || '');
+  bookAppointment(time: any) {
+
     const appointmentData = {
-      userUid: currentUser.uid,
-      providerName:this.providerData.orgName,
-      name: currentUser.fname + ' ' + currentUser.lname,
-      profilePic:currentUser.profilePic,
+      userUid: this.currentUser.uid,
+      providerName: this.providerData.orgName,
+      name: this.currentUser.fname + ' ' + this.currentUser.lname,
+      profilePic: this.currentUser.profilePic,
       booked: false,
-      date:time.day + ' ' + time.month,
+      date: time.day + ' ' + time.month,
       time: time.openTime + ' - ' + time.closeTime,
-      address: currentUser.street + ', ' + currentUser.street2 + ', ' + currentUser.city + ', ' + currentUser.state + ', ' + currentUser.zip,
-      phone:currentUser.phone,
-      email:currentUser.email,
-      completed:false,
-      cancelled:false
+      address: this.currentUser.street + ', ' + this.currentUser.street2 + ', ' + this.currentUser.city + ', ' + this.currentUser.state + ', ' + this.currentUser.zip,
+      phone: this.currentUser.phone,
+      email: this.currentUser.email,
+      completed: false,
+      cancelled: false
     }
 
     this.api.bookAppointment(this.providerData.uid, appointmentData)
-    .pipe(takeUntil(this.unSubscribe$))
-    .subscribe(data => {
-      if(data === 'pending'){
-        this.api.infoMessage('Your request is pending wait for confirmation.');
-      }
-      if(data === 'success'){
-        this.api.successMessage('Your request is sent successfully! Please check your appointments for confirmation.');      
-      }
-    });
+      .pipe(takeUntil(this.unSubscribe$))
+      .subscribe(data => {
+        if (data === 'pending') {
+          this.api.infoMessage('Your request is pending wait for confirmation.');
+        }
+        if (data === 'success') {
+          this.api.successMessage('Your request is sent successfully! Please check your appointments for confirmation.');
+        }
+      });
   }
 
-  setDateTime(event:any){    
+  setDateTime(event: any) {
     this.bookAppointment(event)
- }
+  }
 
- chat(providerData:any){
-  this.api.checkUsers.next(providerData);
-  this.router.navigate(['/user/chat']);
- }
+  chat(providerData: any) {
+    this.api.checkUsers.next(providerData);
+    this.router.navigate(['/user/chat']);
+  }
 
-  enquire() {
-    this.api.enquire(this.providerData.uid);
+  enquire(providerData: any) {
+    const user = {
+      userUid: this.currentUser.uid,
+      name:this.currentUser.fname + ' ' + this.currentUser.lname,
+      email:this.currentUser.email,
+      phone:this.currentUser.phone
+    }
+
+    this.api.enquire(this.providerData.uid,user);
   }
 
   ngOnDestroy() {

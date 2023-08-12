@@ -1,3 +1,10 @@
 i{
     margin-left: 20px;
 }
+
+.enquiry.card-body{
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}

@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, take } from 'rxjs';
@@ -73,12 +73,9 @@ export class ProviderProfileComponent {
   }
 
   chat(uid: string) {
-    this.http.post('http://localhost:3000/user/getUsers', { 'users': uid }).pipe(take(1)).subscribe((data:any) => {
-    
+    this.http.post('http://localhost:3000/user/getUsers', { 'users': uid }).pipe(take(1)).subscribe((data:any) => {  
       this.api.checkUsers.next(data[0]);
       this.router.navigate(['/view/chat'])
-
     });
-
   }
 }

@@ -32,9 +32,7 @@ export class UserChatComponent {
 
   constructor(private auth: AuthService, private chatService: ChatService, private http: HttpClient, private api:ApiService) { }
 
-  ngOnInit() {
-    this.loadMessage();
-    
+  ngOnInit() {    
     this.chatService.getNewMessage().subscribe((data: any) => {
       const dateTime = this.getDateTime();
       const receivedMessage = {
@@ -48,7 +46,18 @@ export class UserChatComponent {
         this.allMessages.push(receivedMessage);
         this.scrollDown();
       }
-    })
+    });
+    const user = JSON.parse(localStorage.getItem('userProfile') || '');
+    this.data = this.userMessageList = this.http.post('http://localhost:3000/message/getMessages', { 'uid': user.uid })
+    this.data.subscribe(data => {
+      if (data) {
+        this.loadMessage(this.userMessageList)
+        this.checkNewUsers()
+      } else {
+        this.checkNewUsers(false)
+      }
+    }
+    )
   }
 
   sendMessage() {
@@ -74,21 +83,19 @@ export class UserChatComponent {
     return { date: date, time: time }
   }
 
-  async loadMessage() {
-    this.currentUser = await this.auth.getId();
-    this.userMessageList = this.http.post('http://localhost:3000/message/getMessages', { 'uid': this.currentUser });
-
+  loadMessage(userMessageList: Observable<any>) {
     this.data1$ = this.userMessageList.pipe(
       map(data => data.messages.map((item: { receiverUid: any; }) => item.receiverUid)),
-      switchMap(userIdList => this.http.post('http://localhost:3000/user/getUsers', { 'users': userIdList }))  
+      switchMap(userIdList => this.http.post('http://localhost:3000/user/getUsers', { 'users': userIdList })
+      )
     )
 
     this.data2$ = this.userMessageList.pipe(
       map(data => data.messages.map((item: { receiverUid: any; }) => item.receiverUid)),
-      switchMap(userIdList => this.http.post('http://localhost:3000/provider/getUsersList', { 'users': userIdList })) 
+      switchMap(userIdList => this.http.post('http://localhost:3000/provider/getUsersList', { 'users': userIdList }))
     )
 
-    this.allUsersdata$ = this.data = merge(this.data1$,this.data2$).pipe(concatAll(),toArray(),tap(()=>this.checkNewUsers()));   
+    this.allUsersdata$ = this.data = merge(this.data1$, this.data2$).pipe(concatAll(), toArray());
   }
 
   async viewAllMessages(item: any) {
@@ -107,11 +114,14 @@ export class UserChatComponent {
       });
   }
 
-  checkNewUsers(){
-    if(this.api.checkUsers.getValue()){
-      const newUser = this.api.checkUsers.getValue();
-      this.api.checkUsers.next(null);
-      this.allUsersdata$ = this.data.pipe(startWith([newUser]),concatAll(),toArray());    
+  checkNewUsers(check = true) {
+    const newUser = this.api.checkUsers.getValue();
+    if (newUser && check) {
+      this.allUsersdata$ = this.data.pipe(startWith([newUser]), concatAll(), toArray());
+    }
+
+    if (newUser && !check) {
+      this.allUsersdata$ = this.allUsersdata$.pipe(startWith([newUser]));
     }
   } 
 

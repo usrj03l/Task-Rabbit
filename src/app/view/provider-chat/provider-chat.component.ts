@@ -83,7 +83,7 @@ export class ProviderChatComponent {
     return { date: date, time: time }
   }
 
-  async loadMessage(userMessageList: Observable<any>) {
+  loadMessage(userMessageList: Observable<any>) {
     this.data1$ = this.userMessageList.pipe(
       map(data => data.messages.map((item: { receiverUid: any; }) => item.receiverUid)),
       switchMap(userIdList => this.http.post('http://localhost:3000/user/getUsers', { 'users': userIdList })
@@ -113,12 +113,10 @@ export class ProviderChatComponent {
   checkNewUsers(check = true) {
     const newUser = this.api.checkUsers.getValue();
     if (newUser && check) {
-      this.api.checkUsers.next(null);
       this.allUsersdata$ = this.data.pipe(startWith([newUser]), concatAll(), toArray());
     }
 
     if (newUser && !check) {
-      this.api.checkUsers.next(null);
       this.allUsersdata$ = this.allUsersdata$.pipe(startWith([newUser]));
     }
   }

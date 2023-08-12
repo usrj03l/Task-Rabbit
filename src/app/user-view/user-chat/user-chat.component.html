@@ -27,10 +27,17 @@
             >
               <div class="chat_people">
                 <div class="chat_img">
-                  <img
-                    src="https://ptetutorials.com/images/user-profile.png"
-                    alt="sunil"
-                  />
+                    <img *ngIf="item.profilePic; else defaultPic"
+                      [src]=" 'http://localhost:3000/images/' + item.profilePic "  
+                      style="border-radius: 50%; height: 45px; width: 45px;"  
+                    />
+                  
+                  <ng-template #defaultPic>
+                    <img
+                      src="https://ptetutorials.com/images/user-profile.png"
+                      alt="sunil"
+                    />
+                  </ng-template>
                 </div>
                 <div class="chat_ib">
                   <h5>{{ item.email }} <span class="chat_date">Dec 25</span></h5>

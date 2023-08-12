@@ -8,6 +8,7 @@ img {
 }
 
 .inbox_people {
+  
   background: #f8f8f8 none repeat scroll 0 0;
   float: left;
   overflow: hidden;
@@ -15,6 +16,7 @@ img {
   border-right: 1px solid #c4c4c4;
 }
 .inbox_msg {
+  
   border: 1px solid #c4c4c4;
   clear: both;
   overflow: hidden;
@@ -86,10 +88,12 @@ img {
 }
 
 .chat_people {
+  
   overflow: hidden;
   clear: both;
 }
 .chat_list {
+  cursor: pointer;
   border-bottom: 1px solid #c4c4c4;
   margin: 0;
   padding: 18px 16px 10px;

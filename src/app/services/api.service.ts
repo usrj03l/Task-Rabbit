@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, take, BehaviorSubject } from 'rxjs';
 import Swal from 'sweetalert2';
-import { appointment } from '../model/model';
+import { appointment, review } from '../model/model';
 
 interface appointmentData {
   userUid: string,
@@ -55,7 +55,7 @@ export class ApiService {
       'Great!',
       message,
       'success'
-    )
+    );
   }
 
   infoMessage(message: string) {
@@ -63,15 +63,15 @@ export class ApiService {
       'Please be patient',
       message,
       'info'
-    )
+    );
   }
 
   getProviderInfo(id: string) {
     return this.http.get(this.url + 'provider/getUser/' + id);
   }
 
-  getReviews(id: string) {
-    return this.http.get(this.url + `review/getReviews?id=${id}`);
+  getReviews(id: string):Observable<review> {
+    return this.http.get<review>(this.url + `review/getReviews?id=${id}`);
   }
 
   bookAppointment(id: string, appointmentData: appointmentData) {
@@ -87,7 +87,7 @@ export class ApiService {
   }
 
   setBill(providerData: any, generatedBill: any) {
-    return this.http.post(this.url + 'payment/addTransaction', { providerData, generatedBill })
+    return this.http.post(this.url + 'payment/addTransaction', { providerData, generatedBill });
   }
 
   getBill(id: string) {

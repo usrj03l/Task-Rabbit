@@ -25,7 +25,7 @@ export class ProviderChatComponent {
   userIdList: string[] = [];
   dateTime = new Date();
   currentUser!: string | null;
-  currentUserView!: string | null;
+  currentUserView!: string ;
 
   constructor(private auth: AuthService, private chatService: ChatService, private http: HttpClient, private api: ApiService) { }
 

@@ -9,7 +9,7 @@ export interface user {
     state: string,
     zip: Number,
     socketId: string,
-    userType:string
+    userType: string
 }
 
 export interface currentUser {
@@ -26,7 +26,7 @@ export interface currentUser {
     zip: Number,
     socketId: string
     profilePic: string,
-    userType:string
+    userType: string
 
 }
 
@@ -75,4 +75,20 @@ export interface payment {
             ]
         }
     ]
-} 
+}
+
+export interface review {
+    totalRating: number,
+    totalRatingCount: number,
+    uid: string,
+    reviewList: [
+        {
+            name: string,
+            reviewerId: string,
+            profilePic: string,
+            reviewDate: string,
+            userRating: number,
+            review: string
+        }
+    ]
+}

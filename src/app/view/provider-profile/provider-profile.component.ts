@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, take } from 'rxjs';
+import { Observable, map, take, tap } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
@@ -17,10 +17,11 @@ export class ProviderProfileComponent {
   profile: any;
   bio: string = "Write something about yourself";
   currentUser = JSON.parse(localStorage.getItem('userProfile') || '');
-  enquiries$ = new Observable<any>()
+  enquiries$ = new Observable<any>();
+  profileData$ = new Observable<any>();
   constructor(private auth: AuthService, private http: HttpClient, private router: Router, private api: ApiService) { }
 
-  profileData: any;
+  
 
   ngOnInit() {
     this.loadProfile();
@@ -29,16 +30,16 @@ export class ProviderProfileComponent {
 
   loadProfile() {
     const id = this.currentUser.uid;
-    this.http.get('http://localhost:3000/provider/getUser/' + id).subscribe(data => this.profileData = data);
+    this.profileData$ = this.http.get('http://localhost:3000/provider/getUser/' + id)
   }
 
   loadEnquiries() {
     this.enquiries$ = this.api.getEnquiries(this.currentUser.uid);
   }
 
-  remove(enquiry: any) {
+  remove(enquiry: any,id:string) {
     const deleteObject = {
-      providerUid:this.profileData.uid,
+      providerUid:id,
       userUid: enquiry.userUid
     }
     this.enquiries$ = this.api.removeEnquiry(deleteObject)
@@ -72,8 +73,8 @@ export class ProviderProfileComponent {
   async updateBio() {
     const text = await this.api.textArea();
     const id = this.currentUser.uid;
-    this.http.post("http://localhost:3000/provider/setBio", { 'bio': text, 'uid': id }).subscribe();
-    this.profileData.bio = text;
+    this.http.post("http://localhost:3000/provider/setBio", { 'bio': text, 'uid': id }).pipe(take(1)).subscribe();
+    this.profileData$ = this.profileData$.pipe(tap(data => data.bio = text ));
   }
 
   editProfile() {
@@ -83,7 +84,7 @@ export class ProviderProfileComponent {
   chat(uid: string) {
     this.http.post('http://localhost:3000/user/getUsers', { 'users': uid }).pipe(take(1)).subscribe((data: any) => {
       this.api.checkUsers.next(data[0]);
-      this.router.navigate(['/view/chat'])
+      this.router.navigate(['/view/chat']);
     });
   }
 

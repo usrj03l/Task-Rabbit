@@ -1,6 +1,6 @@
 <section style="background-color: #90cbea">
   <div class="container py-5">
-    <div class="row" *ngIf="profileData">
+    <div class="row" *ngIf="profileData$ | async as profileData">
       <div class="col-lg-4">
         <div class="card mb-4">
           <div class="card-body text-center">
@@ -187,7 +187,7 @@
                       <a (click)="chat(enquiry.userUid)" class="w-25 mx-3" style="text-decoration: none; cursor: pointer; color: green;">
                         Chat
                       </a>
-                      <i (click)="remove(enquiry)" class="fa-solid fa-trash" style="color: #d33912; cursor: pointer;"></i>
+                      <i (click)="remove(enquiry,profileData.uid)" class="fa-solid fa-trash" style="color: #d33912; cursor: pointer;"></i>
                     </p>
                     <p class="mb-1" style="font-size: 20px">
                       {{ enquiry.email }}

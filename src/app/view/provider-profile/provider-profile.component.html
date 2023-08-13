@@ -171,20 +171,32 @@
           </div>
           <div class="col-md-6">
             <div class="card mb-4 mb-md-0">
-              <div class="enquiry card-body">
+              <div class="enquiry card-body" *ngIf="enquiries$ | async as enquiries">
                 <p class="mb-4">
                   <span class="text-primary font-italic me-1">Enquiries</span>
                 </p>
 
-                <ng-container *ngIf="enquiries$ | async as enquiries">
-                  <div class="details mb-5" *ngFor="let enquiry of enquiries.enquiredUser">
-                    <p class="mb-1" style="font-size: 20px"> {{ enquiry.name }} </p>
-                    <p class="mb-1" style="font-size: 20px"> {{ enquiry.email }} </p>
-                    <div class="contact d-flex">
-                      <p class="mb-1" style="font-size: 20px"> {{ enquiry.phone }} </p>
-                      <button (click)="chat(enquiry.userUid)" class="btn btn-sm btn-outline-primary w-25 mx-5">
+                <ng-container >
+                  <div
+                    class="details mb-5"
+                    *ngFor="let enquiry of enquiries.enquiredUser"
+                  >
+                    <p class="mb-1" style="font-size: 20px">
+                      {{ enquiry.name | titlecase }}
+                      
+                      <a (click)="chat(enquiry.userUid)" class="w-25 mx-3" style="text-decoration: none; cursor: pointer; color: green;">
                         Chat
-                      </button>
+                      </a>
+                      <i (click)="remove(enquiry)" class="fa-solid fa-trash" style="color: #d33912; cursor: pointer;"></i>
+                    </p>
+                    <p class="mb-1" style="font-size: 20px">
+                      {{ enquiry.email }}
+                    </p>
+                    <div class="contact d-flex">
+                      <p class="mb-1" style="font-size: 20px">
+                        {{ enquiry.phone }}
+                      </p>
+                      
                     </div>
                   </div>
                 </ng-container>

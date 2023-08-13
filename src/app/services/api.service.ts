@@ -106,4 +106,8 @@ export class ApiService {
   getEnquiries(id:string){
     return this.http.get(this.url + `provider/enquiries?id=${id}`);
   }
+
+  removeEnquiry(deleteObj:{providerUid:string,userUid:string}){
+    return this.http.post(this.url + 'provider/deleteEnquiry',{deleteObj});
+  }
 }

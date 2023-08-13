@@ -36,6 +36,14 @@ export class ProviderProfileComponent {
     this.enquiries$ = this.api.getEnquiries(this.currentUser.uid);
   }
 
+  remove(enquiry: any) {
+    const deleteObject = {
+      providerUid:this.profileData.uid,
+      userUid: enquiry.userUid
+    }
+    this.enquiries$ = this.api.removeEnquiry(deleteObject)
+  }
+
   async imageUpload() {
 
     const { value: file } = await Swal.fire({
@@ -73,9 +81,10 @@ export class ProviderProfileComponent {
   }
 
   chat(uid: string) {
-    this.http.post('http://localhost:3000/user/getUsers', { 'users': uid }).pipe(take(1)).subscribe((data:any) => {  
+    this.http.post('http://localhost:3000/user/getUsers', { 'users': uid }).pipe(take(1)).subscribe((data: any) => {
       this.api.checkUsers.next(data[0]);
       this.router.navigate(['/view/chat'])
     });
   }
+
 }

@@ -23,7 +23,6 @@
             (click)="getAllMessages(user)"
             class="chat_list "
             [ngClass]="{ active_chat : user.uid === uid }"
-
             *ngFor="let user of allUsersdata$ | async"
           >
             <div class="chat_people" >
@@ -41,11 +40,7 @@
               </ng-template>
             </div>
               <div class="chat_ib">
-                <h5>{{ user.email }} <span class="chat_date">Dec 25</span></h5>
-                <p>
-                  Test, which is a new approach to have all solutions astrology
-                  under one roof.
-                </p>
+                <h5>{{ user.fname + ' ' + user.lname | titlecase }} <span class="chat_date"></span></h5>
               </div>
             </div>
           </div>

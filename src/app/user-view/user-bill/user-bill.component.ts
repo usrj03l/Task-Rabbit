@@ -16,19 +16,7 @@ export class UserBillComponent {
   providerInfo: any
   constructor(private api: ApiService) { }
 
-  ngOnInit() {
-    //  this.billDetails$.pipe(take(1)).subscribe(data => {
-    //     this.billData = data[0];
-
-    // }); 
-
-    // this.billDetails$.pipe(take(1)).subscribe(data => this.billData = data);
-    // this.providerData$ = this.billDetails$.pipe(switchMap(provider => this.api.getProviderInfo(provider[0].providerUid)));
-    // this.providerData$.pipe(take(1)).subscribe((data: any) => this.providerInfo = data);
-
-
-
-  }
+  ngOnInit() { }
 
   downloadBill(bill:any,transaction:any) {
 

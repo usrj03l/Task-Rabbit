@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Observable, filter, map, of, tap } from 'rxjs';
-import { payment } from 'src/app/model/model';
+
 
 @Component({
   selector: 'app-user-transactions',

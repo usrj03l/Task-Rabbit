@@ -24,7 +24,7 @@
                   </tr>
                 </thead>
                 <tbody *ngIf="appointmentData$ | async as data">
-                  <tr class="inner-box" *ngFor="let item of data.userDetails">
+                  <tr class="inner-box" *ngFor="let item of data">
                     <th scope="row">
                       <div class="event-date">
                         <h4>{{ item.date }}</h4>

@@ -3,7 +3,7 @@ i{
 }
 
 .enquiry.card-body{
-    height: 500px;
+    max-height: 500px;
     display: flex;
     flex-direction: column;
     overflow-y: auto;

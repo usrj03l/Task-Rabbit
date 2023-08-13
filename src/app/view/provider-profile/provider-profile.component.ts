@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, map, take, tap } from 'rxjs';
+import { appointment } from 'src/app/model/model';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
@@ -19,13 +20,14 @@ export class ProviderProfileComponent {
   currentUser = JSON.parse(localStorage.getItem('userProfile') || '');
   enquiries$ = new Observable<any>();
   profileData$ = new Observable<any>();
-  constructor(private auth: AuthService, private http: HttpClient, private router: Router, private api: ApiService) { }
+  appointmentData$ = new Observable<any>();
 
-  
+  constructor(private auth: AuthService, private http: HttpClient, private router: Router, private api: ApiService) { }
 
   ngOnInit() {
     this.loadProfile();
     this.loadEnquiries();
+    this.loadAppointments();
   }
 
   loadProfile() {
@@ -37,16 +39,24 @@ export class ProviderProfileComponent {
     this.enquiries$ = this.api.getEnquiries(this.currentUser.uid);
   }
 
-  remove(enquiry: any,id:string) {
+  loadAppointments() {
+    const id = this.currentUser.uid;
+    this.appointmentData$ = this.api.getAppointments(id).pipe(
+      map(data => 
+        data?.userDetails.filter(data => data.completed !== true)
+        .map(data => data.name)),
+    );
+  }
+
+  remove(enquiry: any, id: string) {
     const deleteObject = {
-      providerUid:id,
+      providerUid: id,
       userUid: enquiry.userUid
     }
     this.enquiries$ = this.api.removeEnquiry(deleteObject)
   }
 
   async imageUpload() {
-
     const { value: file } = await Swal.fire({
       title: 'Select image',
       input: 'file',
@@ -74,7 +84,7 @@ export class ProviderProfileComponent {
     const text = await this.api.textArea();
     const id = this.currentUser.uid;
     this.http.post("http://localhost:3000/provider/setBio", { 'bio': text, 'uid': id }).pipe(take(1)).subscribe();
-    this.profileData$ = this.profileData$.pipe(tap(data => data.bio = text ));
+    this.profileData$ = this.profileData$.pipe(tap(data => data.bio = text));
   }
 
   editProfile() {
@@ -88,4 +98,7 @@ export class ProviderProfileComponent {
     });
   }
 
+  gotoAppointments() {
+    this.router.navigate(['/view/appointments'])
+  }
 }

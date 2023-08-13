@@ -7,13 +7,13 @@ import { ApiService } from 'src/app/services/api.service';
   selector: 'app-provider-appointments',
   templateUrl: './provider-appointments.component.html',
   styleUrls: ['./provider-appointments.component.css'],
-  
+
 })
 export class ProviderAppointmentsComponent {
 
-  currentUser:any;
-  appointmentData$ = new Observable<appointment | null>();
-  dateAndTime:any;
+  currentUser: any;
+  appointmentData$ = new Observable<any>();
+  dateAndTime: any;
 
   constructor(private api: ApiService) { }
 
@@ -22,28 +22,28 @@ export class ProviderAppointmentsComponent {
     this.loadAppointments();
   }
 
-  loadCurrentUser(){
+  loadCurrentUser() {
     this.currentUser = JSON.parse(localStorage.getItem('userProfile') || '');
   }
 
   loadAppointments() {
-    this.appointmentData$ = this.api.getAppointments(this.currentUser.uid);
+    this.appointmentData$ = this.api.getAppointments(this.currentUser.uid).pipe(
+      map(data => data?.userDetails.sort((a: any, b: any) => a.completed - b.completed))
+    );
   }
 
-  confirm(item:any){
+  confirm(item: any) {
     item.booked = true;
-    this.api.editAppointment(this.currentUser.uid,item.userUid,{booked:item.booked});
+    this.api.editAppointment(this.currentUser.uid, item.userUid, { booked: item.booked });
   }
 
-  cancel(item:any){
-    item.cancelled = true;    
-    this.api.editAppointment(this.currentUser.uid,item.userUid,{cancelled:item.cancelled});
+  cancel(item: any) {
+    item.cancelled = true;
+    this.api.editAppointment(this.currentUser.uid, item.userUid, { cancelled: item.cancelled });
   }
 
-  jobComplete(event:any,item:any){
-    item.completed = event;    
-    this.api.editAppointment(this.currentUser.uid,item.userUid,{completed:item.completed});
+  jobComplete(event: any, item: any) {
+    item.completed = event;
+    this.api.editAppointment(this.currentUser.uid, item.userUid, { completed: item.completed });
   }
-  
-
 }

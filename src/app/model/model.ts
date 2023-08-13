@@ -65,12 +65,12 @@ export interface payment {
             address: string,
             date: string,
             mode: string,
-            totalCost: Number,
+            totalCost: number,
             itemList: [
                 {
                     desc: string,
-                    qty: Number,
-                    price: Number
+                    qty: number,
+                    price: number
                 }
             ]
         }

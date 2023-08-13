@@ -30,7 +30,7 @@
                           <h4>{{ item.date }}</h4>
                         </div>
                       </th>
-                      <td class="d-flex">
+                      <td class="d-flex justify-content-center">
                         <div class="event-img">
                           <img
                             [src]="
@@ -55,10 +55,10 @@
                       </td>
                       <td>
                         <div class="r-no">
-                          <ng-template [ngIf]="!item.cancelled && !item.booked" >
+                          <ng-template [ngIf]="(!item.cancelled && !item.booked) && !item.completed" >
                             <h5 class="text-center"> Request has been send to the service provider </h5>
                           </ng-template>
-                          <ng-template [ngIf]="!item.cancelled && item.booked" >
+                          <ng-template [ngIf]="(!item.cancelled && item.booked) &&  !item.completed" >
                             <h5 class="text-center"> An appointment has been scheduled </h5>
                           </ng-template>
                           <ng-template [ngIf]="item.cancelled" #cancelled>
@@ -66,12 +66,17 @@
                               Appointment cancelled
                             </h5>
                           </ng-template>
+                          <ng-template [ngIf]="item.completed">
+                            <h5 class="text-center" style="color: rgb(89, 179, 89)">
+                              Job completed
+                            </h5>
+                          </ng-template>
                         </div>
                       </td>
                       <td>
                           <div
                             class="d-flex justify-content-center"
-                            *ngIf="(!item.booked || item.booked) && !item.cancelled"
+                            *ngIf=" item.booked && !item.cancelled && !item.completed"
                           >
                             <button
                               (click)="cancel(item,appointment)"

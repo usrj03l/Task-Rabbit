@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, take, BehaviorSubject } from 'rxjs';
 import Swal from 'sweetalert2';
-import { appointment, review } from '../model/model';
+import { appointment, payment, review } from '../model/model';
 
 interface appointmentData {
   userUid: string,
@@ -92,6 +92,10 @@ export class ApiService {
 
   getBill(id: string) {
     return this.http.get(this.url + `payment/getBill?id=${id}`);
+  }
+
+  getFullTransaction(id:string): Observable<payment>{
+    return this.http.get<payment>(this.url + `payment/getFullTransaction?id=${id}`);
   }
 
   enquire(id: string, user: { userUid: string, name: string, email: string, phone: Number }) {

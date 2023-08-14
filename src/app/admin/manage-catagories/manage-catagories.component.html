@@ -1,0 +1,60 @@
+<h2>Edit catagories</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <div id="formContainer">
+                <h3 class="mt-5">Add state</h3>
+              <label for="state"> State: </label>
+              <input
+                type="text"
+                id="state"
+                placeholder="Enter new state"
+                name="state"
+                [(ngModel)]="state"
+              />
+              <button (click)="addData()">Add</button>
+              <table class="w-50 my-5">
+                <tr>
+                  <th>State</th> 
+                </tr>
+                <tr *ngFor="let state of stateList">
+                  <td>{{ state }}</td> <span><a (click)="remove(state)" class="btn btn-danger btn-sm mx-3">remove</a></span>
+                </tr>
+              </table>
+                <div>
+                    <button (click)="save()">Save changes</button> 
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div id="formContainer">
+                <h3 class="mt-5">Add serevice types</h3>
+              <label for="state"> Service: </label>
+              <input
+                type="text"
+                id="state"
+                placeholder="Enter new service"
+                name="state"
+                [(ngModel)]="jobType"
+              />
+              <button (click)="addJob()">Add</button>
+              <table class="w-50 my-5">
+                <tr>
+                  <th>Services</th> 
+                </tr>
+                <tr *ngFor="let job of jobList">
+                  <td>{{ job }}</td> <span><a (click)="removeJob(job)" class="btn btn-danger btn-sm mx-3">remove</a></span>
+                </tr>
+              </table>
+                <div>
+                    <button (click)="saveJob()">Save changes</button> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

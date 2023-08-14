@@ -9,6 +9,7 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { HttpClientModule } from '@angular/common/http';
 import { ViewModule } from './view/view.module';
 import { UserViewModule } from './user-view/user-view.module';
+import { AdminModule } from './admin/admin.module';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { UserViewModule } from './user-view/user-view.module';
     UserViewModule,
     ViewModule,
     RegistrationModule,
+    AdminModule,
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,

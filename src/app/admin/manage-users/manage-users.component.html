@@ -1,0 +1,77 @@
+<div
+  class="search-box"
+  style="display: flex; flex-direction: column; align-items: center"
+>
+  <h2 class="my-3">Search for users</h2>
+  <form class="d-none d-md-flex input-group w-50 my-auto">
+    <input
+      autocomplete="off"
+      type="search"
+      class="form-control rounded"
+      placeholder="Search users"
+      style="min-width: 225px"
+      name="searchText"
+      [(ngModel)]="searchText"
+      (keyup)="$event.keyCode == 13 && searchUsers()"
+    />
+    <span (click)="searchUsers()" class="input-group-text border-0"
+      ><i class="fas fa-search"></i
+    ></span>
+  </form>
+</div>
+
+<div class="container mt-5" *ngIf="users$ | async as users">
+  <div class="row">
+    <div class="col-sm-4 mt-4" *ngFor="let user of users">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">
+            {{ user.fname + " " + user.lname | titlecase }}
+          </h5>
+          <img
+            [src]="'http://localhost:3000/images/' + user.profilePic"
+            alt="No img"
+            style="
+              height: 100px;
+              width: 100px;
+              float: left;
+              border-radius: 5px;
+              padding-right: 20px;
+            "
+          />
+          <div class="content">
+            <p class="card-text">Email: {{ user.email }}</p>
+            <p class="card-text">Phone: {{ user.phone }}</p>
+            <p class="card-text">
+              Address:
+              {{
+                user.street +
+                  ", " +
+                  user.street2 +
+                  ", " +
+                  user.city +
+                  ", " +
+                  user.state
+              }}
+            </p>
+            <p class="card-text">
+              Account: {{ user.disabled ? "disabled" : "active" }}
+            </p>
+          </div>
+          <a
+            (click)="disable(user.uid)"
+            class="btn btn-outline-danger mt-3"
+            *ngIf="!user.disabled"
+            >Disable</a
+          >
+          <a
+            (click)="disable(user.uid)"
+            class="btn btn-outline-success mt-3"
+            *ngIf="user.disabled"
+            >Activate</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

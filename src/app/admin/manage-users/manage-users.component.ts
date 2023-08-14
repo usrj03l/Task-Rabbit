@@ -17,11 +17,18 @@ export class ManageUsersComponent {
   constructor(private http:HttpClient,private api:ApiService) { }
 
   searchUsers(){
-    console.log(this.searchText);
     this.users$ = this.http.get(this.api.url + `admin/users?searchText=${this.searchText}`);
   }
 
-  disable(uid:string){
+  disable(user:any){
+    const uid = user.uid;
+    let disable = 'disabled'
+    if(user.disabled === true){
+      disable = 'enabled';
+    }else{
+      disable = 'disabled'
+    }
+
     Swal.fire({
       icon:'warning',
       title: 'Do you want to continue?',
@@ -30,7 +37,7 @@ export class ManageUsersComponent {
     }).then((result) => {
       if (result.isConfirmed) {        
         this.http.put(this.api.url + 'admin/user/',{uid}).subscribe();
-        Swal.fire('The account is disabled', '', 'success').then(()=> this.searchUsers());
+        Swal.fire(`The account is ${disable}`, '', 'success').then(()=> this.searchUsers());
       } else if (result.isDenied) {
         Swal.fire('Changes are not saved', '', 'info')
       }

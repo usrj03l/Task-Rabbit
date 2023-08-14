@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { ManageUsersComponent } from './manage-users/manage-users.component';
 import { ManageServiceProvidersComponent } from './manage-service-providers/manage-service-providers.component';
+import { ManageCatagoriesComponent } from './manage-catagories/manage-catagories.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,9 @@ const routes: Routes = [
       },
       {
         path:'manage-service-provider',component:ManageServiceProvidersComponent
+      },
+      {
+        path:'manage-catagories',component:ManageCatagoriesComponent
       }
     ]
   }

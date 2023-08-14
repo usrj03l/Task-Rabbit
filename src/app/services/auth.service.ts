@@ -49,11 +49,10 @@ export class AuthService {
     }
 
     await signOut(this.auth).then(()=>{
-      this.router.navigate(['/registration']);
-    })
+      this.router.navigate(['/registration/']);
+    });
     
-    location.reload();
-
+    // location.reload();
   }
 
   getId(): Promise<string | null> {

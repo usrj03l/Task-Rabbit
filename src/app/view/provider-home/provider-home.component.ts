@@ -13,10 +13,6 @@ export class ProviderHomeComponent {
 
   constructor(private auth:AuthService,private http:HttpClient){ }
 
-  ngOnInit(){
-    this.loadUser();
-  }
-
   changeView(viewType: String) {
     if (viewType === 'profile') {
       this.isView = 'profile';
@@ -28,11 +24,6 @@ export class ProviderHomeComponent {
 
   logOut() {
     this.auth.logOff('provider');
-  }
-
-  async loadUser(){
-    const id = await this.auth.getId();
-    this.http.get('http://localhost:3000/provider/getUser/' + id).subscribe(data => localStorage.setItem('userProfile',JSON.stringify(data)));
   }
 
 }

@@ -54,13 +54,13 @@
             </p>
           </div>
           <a
-            (click)="disable(user.uid)"
+            (click)="disable(user)"
             class="btn btn-outline-danger mt-3"
             *ngIf="!user.disabled"
             >Disable</a
           >
           <a
-            (click)="disable(user.uid)"
+            (click)="disable(user)"
             class="btn btn-outline-success mt-3"
             *ngIf="user.disabled"
             >Activate</a

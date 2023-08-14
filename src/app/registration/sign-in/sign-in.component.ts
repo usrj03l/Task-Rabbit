@@ -33,7 +33,8 @@ constructor(private auth:AuthService, private router:Router,private api:ApiServi
       (data:any) => {
         const profileData = data[0];
         if(profileData.disabled){
-          this.auth.logOff('user');
+          this.api.rejectMessage('Your privileges has been revoked, contact administrator');
+            this.auth.logOff('user');
         }else{
           localStorage.setItem('userProfile',JSON.stringify(profileData));
           this.router.navigate(['user']);

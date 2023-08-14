@@ -6,13 +6,15 @@ import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { ManageUsersComponent } from './manage-users/manage-users.component';
 import { FormsModule } from '@angular/forms';
 import { ManageServiceProvidersComponent } from './manage-service-providers/manage-service-providers.component';
+import { ManageCatagoriesComponent } from './manage-catagories/manage-catagories.component';
 
 
 @NgModule({
   declarations: [
     AdminHomeComponent,
     ManageUsersComponent,
-    ManageServiceProvidersComponent
+    ManageServiceProvidersComponent,
+    ManageCatagoriesComponent
   ],
   imports: [
     CommonModule,

@@ -67,6 +67,14 @@ export class ApiService {
     );
   }
 
+  rejectMessage(message:string){
+    Swal.fire(
+      'Sorry',
+      message,
+      'error'
+    )
+  }
+
   getProviderInfo(id: string) {
     return this.http.get(this.url + 'provider/getUser/' + id);
   }

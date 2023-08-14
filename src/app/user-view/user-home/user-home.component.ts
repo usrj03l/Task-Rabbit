@@ -15,18 +15,4 @@ export class UserHomeComponent {
   logOut() {
     this.auth.logOff('user');
   }
-
-  ngOnInit() { 
-    this.loadUser();
-  }
-
-  async loadUser(){
-    const id = await this.auth.getId();
-    this.http.post('http://localhost:3000/user/getUsers',{'users':id}).pipe(take(1)).subscribe(
-      (data:any) => {
-        const profileData = data[0];
-        localStorage.setItem('userProfile',JSON.stringify(profileData));
-      });
-  }
-
 }

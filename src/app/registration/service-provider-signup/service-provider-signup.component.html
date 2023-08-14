@@ -87,12 +87,10 @@
   </div>
   <div class="form-outline form-white mb-4">
     <select (change)="service($event)" class="form-control form-control-lg" name="cars" id="cars">
-      <option value="electrician">Electrician</option>
-      <option value="plumber">Plumber</option>
-      <option value="mechanic">Mechanic</option>
-      <option value="painter">Painter</option>
-      <option value="dogwalker">Dog Walker</option>
-      <option value="babysitter">Baby Sitter</option>
+      <option disabled selected value>Select a service</option>
+      <ng-container *ngFor="let service of services$ | async">
+        <option [value]="service"> {{ service | titlecase}} </option>
+      </ng-container>
     </select>
     <label class="form-label mt-2">Select your service</label>
   </div>
@@ -115,13 +113,13 @@
     <label class="form-label mt-2">City</label>
   </div>
   <div class="form-outline form-white mb-4">
-    <input
-      type="text"
-      name="state"
-      class="form-control form-control-lg"
-      [(ngModel)]="state"
-    />
-    <label class="form-label mt-2">State</label>
+    <select (change)="selectState($event)" class="form-control form-control-lg" name="cars" id="cars">
+      <option disabled selected value>State</option>
+      <ng-container *ngFor="let state of states$ | async">
+        <option [value]="state"> {{ state | titlecase}} </option>
+      </ng-container>
+    </select>
+    <label class="form-label mt-2">Select your state</label>
   </div>
   <button class="btn btn-outline-light btn-lg px-5" type="submit">
     Submit

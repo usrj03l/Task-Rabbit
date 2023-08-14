@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { user } from 'src/app/model/model';
+import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -9,7 +11,11 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./service-provider-signup.component.css']
 })
 export class ServiceProviderSignupComponent {
-  constructor(private auth: AuthService, private router: Router) { }
+
+  constructor(private auth: AuthService, private router: Router,private api:ApiService) { }
+
+  services$ = new Observable<any>();
+  states$ = new Observable<any>();
 
   fname = '';
   lname = '';
@@ -17,25 +23,32 @@ export class ServiceProviderSignupComponent {
   pass = '';
   repass = '';
   phone!: Number;
-  pan: Number | undefined;
+  pan!: Number;
   image: File | undefined;
   city = '';
   state = '';
-  aadhar: Number | undefined;
+  aadhar!: Number;
   serviceType: string = 'electrician';
   orgName: string = '';
+
+  ngOnInit(){
+    this.services$ = this.api.getServices();
+    this.states$ = this.api.getStates();
+  }
+
   expSubmit(event: any) {
     this.image = event.target.files[0];
   }
 
   service(event: any) {
     this.serviceType = event.target.value;
-    console.log(this.serviceType);
+  }
 
+  selectState(event: any) {
+    this.state = event.target.value;
   }
 
   onSubmit() {
-
     const formData = new FormData();
     formData.append('fname', this.fname);
     formData.append('lname', this.lname);
@@ -54,6 +67,5 @@ export class ServiceProviderSignupComponent {
           this.router.navigate(['/view']);
         })
     }
-
   }
 }

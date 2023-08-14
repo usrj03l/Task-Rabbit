@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-manage-catagories',
@@ -13,11 +14,11 @@ export class ManageCatagoriesComponent {
   jobList: string[] = [];
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private api:ApiService) { }
 
   ngOnInit() {
-    this.http.get<[]>('http://localhost:3000/admin/states').subscribe(data => this.stateList = data);
-    this.http.get<[]>('http://localhost:3000/admin/services').subscribe(data => this.jobList = data);
+    this.api.getStates().subscribe(data => this.stateList = data);
+    this.api.getServices().subscribe(data => this.jobList = data);
 
   }
 

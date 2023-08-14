@@ -75,6 +75,14 @@ export class ApiService {
     )
   }
 
+  getStates(){
+    return this.http.get<[]>('http://localhost:3000/admin/states');
+  }
+
+  getServices(){
+    return this.http.get<[]>('http://localhost:3000/admin/services');
+
+  }
   getProviderInfo(id: string) {
     return this.http.get(this.url + 'provider/getUser/' + id);
   }

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { ManageUsersComponent } from './manage-users/manage-users.component';
+import { ManageServiceProvidersComponent } from './manage-service-providers/manage-service-providers.component';
 
 const routes: Routes = [
   {
@@ -9,6 +10,9 @@ const routes: Routes = [
     children:[
       {
         path:'manage-users',component:ManageUsersComponent
+      },
+      {
+        path:'manage-service-provider',component:ManageServiceProvidersComponent
       }
     ]
   }

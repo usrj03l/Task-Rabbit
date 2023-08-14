@@ -1,24 +1,23 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-manage-users',
-  templateUrl: './manage-users.component.html',
-  styleUrls: ['./manage-users.component.css']
+  selector: 'app-manage-service-providers',
+  templateUrl: './manage-service-providers.component.html',
+  styleUrls: ['./manage-service-providers.component.css']
 })
-export class ManageUsersComponent {
+export class ManageServiceProvidersComponent {
 
   searchText:string = '';
-  users$ = new Observable<any>();
+  providers$ = new Observable<any>();
 
   constructor(private http:HttpClient,private api:ApiService) { }
 
   searchUsers(){
-    console.log(this.searchText);
-    this.users$ = this.http.get(this.api.url + `admin/users?searchText=${this.searchText}`);
+    this.providers$ = this.http.get(this.api.url + `admin/providers?searchText=${this.searchText}`);
   }
 
   disable(uid:string){
@@ -29,8 +28,8 @@ export class ManageUsersComponent {
       confirmButtonText: 'Continue',
     }).then((result) => {
       if (result.isConfirmed) {        
-        this.http.put(this.api.url + 'admin/user/',{uid}).subscribe();
-        Swal.fire('The account is disabled', '', 'success').then(()=> this.searchUsers());
+        this.http.put(this.api.url + 'admin/provider/',{uid}).subscribe();
+        Swal.fire('The account is disabled', '', 'success').then(()=> this.searchUsers());        
       } else if (result.isDenied) {
         Swal.fire('Changes are not saved', '', 'info')
       }

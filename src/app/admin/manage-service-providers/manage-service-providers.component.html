@@ -2,7 +2,7 @@
   class="search-box"
   style="display: flex; flex-direction: column; align-items: center"
 >
-  <h2 class="my-3">Search for users</h2>
+  <h2 class="my-3">Search for service providers</h2>
   <form class="d-none d-md-flex input-group w-50 my-auto">
     <input
       autocomplete="off"
@@ -20,19 +20,19 @@
   </form>
 </div>
 
-<div class="container mt-5" *ngIf="users$ | async as users">
+<div class="container mt-5" *ngIf="providers$ | async as providers">
   <div class="row">
-    <div class="col-sm-4 mt-4" *ngFor="let user of users">
+    <div class="col-sm-4 mt-4" *ngFor="let user of providers">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">
-            {{ user.fname + " " + user.lname | titlecase }}
+          <h5 class="card-title mb-2">
+            {{ user.orgName | titlecase }}
           </h5>
           <img
             [src]="'http://localhost:3000/images/' + user.profilePic"
             alt="No img"
             style="
-              height: 100px;
+              height: 50px;
               width: 100px;
               float: left;
               border-radius: 5px;
@@ -40,19 +40,14 @@
             "
           />
           <div class="content">
+            <p class="card-text">
+              Owner: {{ user.fname + " " + user.lname | titlecase }}
+            </p>
             <p class="card-text">Email: {{ user.email }}</p>
             <p class="card-text">Phone: {{ user.phone }}</p>
             <p class="card-text">
-              Address:
-              {{
-                user.street +
-                  ", " +
-                  user.street2 +
-                  ", " +
-                  user.city +
-                  ", " +
-                  user.state | titlecase
-              }}
+              Location:
+              {{ user.city + ", " + user.state | titlecase }}
             </p>
             <p class="card-text">
               Account: {{ user.disabled ? "disabled" : "active" }}

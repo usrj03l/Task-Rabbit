@@ -12,12 +12,16 @@
           class="list-group-item list-group-item-action py-2 ripple"
           aria-current="true"
         >
-          <i class="fas fa-tachometer-alt fa-fw me-3"></i
-          ><span>Manage users</span>
+          <i class="fa-solid fa-users"> </i>
+          <span> Manage users</span>
         </a>
-        <a class="list-group-item list-group-item-action py-2 ripple">
-          <i class="fas fa-chart-area fa-fw me-3"></i
-          ><span>Webiste traffic</span>
+        <a
+          routerLink="/admin-home/manage-service-provider"
+          routerLinkActive="active"
+          class="list-group-item list-group-item-action py-2 ripple"
+        >
+          <i class="fa-solid fa-users-rectangle"> </i>
+          <span> Manage services</span>
         </a>
         <a class="list-group-item list-group-item-action py-2 ripple"
           ><i class="fas fa-lock fa-fw me-3"></i><span>Password</span></a
@@ -75,8 +79,6 @@
           loading="lazy"
         />
       </a>
-
-      
 
       <ul class="navbar-nav ms-auto d-flex flex-row">
         <li class="nav-item dropdown">

@@ -12,7 +12,7 @@ export class UserSearchComponent {
 
   searchQuery: string = '';
   serviceType: string = '';
-  city: string = '';
+  state: string = '';
   result: any
 
   @ViewChild('resultsSection') resultsSection!: ElementRef;
@@ -20,13 +20,13 @@ export class UserSearchComponent {
   constructor(private http: HttpClient, private router:Router) { }
 
   sendQuery() {
-    this.http.get(`http://localhost:3000/provider/search?q=${this.searchQuery}&serviceType=${this.serviceType}&city=${this.city}`)
+    this.http.get(`http://localhost:3000/provider/search?q=${this.searchQuery}&serviceType=${this.serviceType}&state=${this.state}`)
     .pipe(take(1))
       .subscribe(data => this.result = data);
   }
 
   selectCity(event: any) {
-    this.city = event.target.value;
+    this.state = event.target.value;
   }
 
   selectService(event: any) {

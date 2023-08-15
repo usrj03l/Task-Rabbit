@@ -76,7 +76,7 @@
                       <td>
                           <div
                             class="d-flex justify-content-center"
-                            *ngIf=" item.booked && !item.cancelled && !item.completed"
+                            *ngIf=" !item.cancelled && !item.completed"
                           >
                             <button
                               (click)="cancel(item,appointment)"

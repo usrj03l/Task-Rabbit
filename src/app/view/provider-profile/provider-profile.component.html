@@ -22,7 +22,7 @@
               {{ profileData.serviceType | titlecase }}
             </p>
             <p class="text-muted mb-4">
-              {{ profileData.state + "," + profileData.city | titlecase }}
+              {{ (profileData.state | titlecase) + "," + (profileData.city | titlecase) }}
             </p>
             <div class="d-flex justify-content-center mb-2">
               <button

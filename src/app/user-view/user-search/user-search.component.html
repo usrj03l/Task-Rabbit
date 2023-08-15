@@ -43,10 +43,10 @@
             aria-label="Default select example"
             (change)="selectCity($event)"
           >
-            <option value="" selected>City</option>
-            <option value="alappuzha">alappuzha</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            <option value="" selected>State</option>
+            <option value="Kerala">Kerala</option>
+            <option value="Karnataka">Karnataka</option>
+            <option value="Goa">Goa</option>
           </select>
           <select
             class="form-select mt-3 mx-3"
@@ -71,7 +71,7 @@
   >
     <h2 id="results" class="pb-5 pt-5 mt-3">Search Results:</h2>
     <div class="col-lg-12 col-md-6 col-sm-3 d-flex justify-content-center">
-      <ng-template [ngIf]="result!== 'No docs'" [ngIfElse]="noRes">
+      <ng-template [ngIf]="result !== 'No docs'" [ngIfElse]="noRes">
         <app-card [data]="result"></app-card>
       </ng-template>
       <ng-template #noRes>

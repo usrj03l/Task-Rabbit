@@ -38,9 +38,10 @@
                     aria-expanded="false"
                   >
                     <img
-                      src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img (31).webp"
+                    [src]="'http://localhost:3000/images/' + currentUser.profilePic"
                       class="rounded-circle"
                       height="42"
+                      width="42"
                       alt="Avatar"
                       loading="lazy"
                     />

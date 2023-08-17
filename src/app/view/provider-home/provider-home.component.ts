@@ -12,6 +12,8 @@ export class ProviderHomeComponent {
   isView = 'profile';
 
   constructor(private auth:AuthService,private http:HttpClient){ }
+  
+  currentUser = JSON.parse(localStorage.getItem('userProfile') || '');
 
   changeView(viewType: String) {
     if (viewType === 'profile') {

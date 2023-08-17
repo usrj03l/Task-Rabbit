@@ -29,10 +29,10 @@ export class ServiceProviderLoginComponent {
       (data:any) => {
         const profileData = data;
         if(profileData.disabled){
-          this.api.rejectMessage('Your privileges has been revoked, contact administrator');
+          this.api.rejectMessage('Your privileges has been revoked');
           setTimeout(()=>{
             this.auth.logOff('provider');
-          },2500)
+          },2500);
         }else{
           localStorage.setItem('userProfile',JSON.stringify(profileData));
           this.router.navigate(['view']);

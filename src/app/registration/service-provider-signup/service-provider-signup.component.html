@@ -1,70 +1,77 @@
 <h2 class="fw-bold mb-2 text-uppercase">Create a service account</h2>
 <p class="text-white-50 mb-5">Please enter your details!</p>
-<form (ngSubmit)="onSubmit()">
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" novalidate>
   <div class="form-outline form-white mb-4">
     <input
       type="text"
       name="fname"
       class="form-control form-control-lg"
-      [(ngModel)]="fname"
+      formControlName="fname"
     />
     <label class="form-label mt-2">First Name</label>
+    <app-form-validate [control]="registrationForm.controls.fname"></app-form-validate>
   </div>
   <div class="form-outline form-white mb-4">
     <input
       type="text"
       name="lname"
       class="form-control form-control-lg"
-      [(ngModel)]="lname"
+      formControlName="lname"
     />
     <label class="form-label mt-2">Last Name</label>
+    <app-form-validate [control]="registrationForm.controls.lname"></app-form-validate>
   </div>
   <div class="form-outline form-white mb-4">
     <input
       type="text"
       name="lname"
       class="form-control form-control-lg"
-      [(ngModel)]="orgName"
+      formControlName="orgName"
     />
     <label class="form-label mt-2">Organization Name</label>
+    <app-form-validate [control]="registrationForm.controls.orgName"></app-form-validate>
   </div>
   <div class="form-outline form-white mb-4">
     <input
       type="email"
       name="email"
       class="form-control form-control-lg"
-      [(ngModel)]="email"
+      formControlName="email"
     />
     <label class="form-label mt-2">Email</label>
+    <app-form-validate [control]="registrationForm.controls.email"></app-form-validate>
   </div>
   <div class="form-outline form-white mb-4">
     <input
       type="password"
       name="password"
       class="form-control form-control-lg"
-      [(ngModel)]="pass"
+      formControlName="pass"  
     />
     <label class="form-label mt-2" for="typePasswordX">Enter Password</label>
+    <app-form-validate [control]="registrationForm.controls.pass"></app-form-validate>
   </div>
   <div class="form-outline form-white mb-4">
     <input
       type="password"
       name="Repassword"
       class="form-control form-control-lg"
-      [(ngModel)]="repass"
+      formControlName="repass"
     />
     <label class="form-label mt-2" for="typeRepasswordX"
       >Re-enter Password</label
     >
+    <span *ngIf="registrationForm.value['pass'] !== registrationForm.value['repass'] "><p style="color: red;">Password does not match</p></span>
   </div>
   <div class="form-outline form-white mb-4">
     <input
       type="text"
       name="phone"
       class="form-control form-control-lg"
-      [(ngModel)]="phone"
+      formControlName="phone" 
     />
     <label class="form-label mt-2">Phone Number</label>
+    <app-form-validate [control]="registrationForm.controls.phone"></app-form-validate>
   </div>
 
   <div class="form-outline form-white mb-4">
@@ -72,27 +79,30 @@
       type="text"
       name="pan"
       class="form-control form-control-lg"
-      [(ngModel)]="pan"
+      formControlName="pan"
     />
     <label class="form-label mt-2">PAN Number</label>
+    <app-form-validate [control]="registrationForm.controls.pan"></app-form-validate>
   </div>
   <div class="form-outline form-white mb-4">
     <input
       type="text"
       name="aadhar"
       class="form-control form-control-lg"
-      [(ngModel)]="aadhar"
+      formControlName="aadhar"      
     />
     <label class="form-label mt-2">Aadhar Number</label>
+    <app-form-validate [control]="registrationForm.controls.aadhar"></app-form-validate>
   </div>
   <div class="form-outline form-white mb-4">
-    <select (change)="service($event)" class="form-control form-control-lg" name="cars" id="cars">
+    <select  class="form-control form-control-lg" name="cars" id="c" formControlName="serviceType">
       <option disabled selected value>Select a service</option>
       <ng-container *ngFor="let service of services$ | async">
         <option [value]="service"> {{ service | titlecase}} </option>
       </ng-container>
     </select>
     <label class="form-label mt-2">Select your service</label>
+    <app-form-validate [control]="registrationForm.controls.serviceType"></app-form-validate>
   </div>
   <div class="form-outline form-white mb-4">
     <input
@@ -100,28 +110,37 @@
       name="image"
       class="form-control form-control-lg"
       (change)="expSubmit($event)"
+      formControlName="image"
     />
     <label class="form-label mt-2">Experience Certificate</label>
+    <app-form-validate [control]="registrationForm.controls.image"></app-form-validate>
   </div>
   <div class="form-outline form-white mb-4">
     <input
       type="text"
       name="city"
       class="form-control form-control-lg"
-      [(ngModel)]="city"
+      formControlName="city"
     />
     <label class="form-label mt-2">City</label>
+    <app-form-validate [control]="registrationForm.controls.city"></app-form-validate>
   </div>
   <div class="form-outline form-white mb-4">
-    <select (change)="selectState($event)" class="form-control form-control-lg" name="cars" id="cars">
+      <select 
+       class="form-control form-control-lg" 
+       name="cars" 
+       id="cars" 
+       formControlName="state"
+      >
       <option disabled selected value>State</option>
       <ng-container *ngFor="let state of states$ | async">
-        <option [value]="state"> {{ state | titlecase}} </option>
+      <option [value]="state"> {{ state | titlecase}} </option>
       </ng-container>
     </select>
     <label class="form-label mt-2">Select your state</label>
+    <app-form-validate [control]="registrationForm.controls.state"></app-form-validate>
   </div>
-  <button class="btn btn-outline-light btn-lg px-5" type="submit">
+  <button [disabled]="registrationForm.invalid" class="btn btn-outline-light btn-lg px-5" type="submit">
     Submit
   </button>
 </form>

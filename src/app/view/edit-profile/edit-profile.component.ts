@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -43,7 +43,7 @@ export class EditProfileComponent {
     fQues: this.fb.array([])
   });
 
-  ngOnInit() { }
+  ngOnInit() { } 
 
   get aboutInfo() {
     return (<FormArray>this.contactForm.get('aboutUs'));

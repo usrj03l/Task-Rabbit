@@ -2,12 +2,12 @@ export interface user {
     fname: string,
     lname: string,
     email: string,
-    phone: Number,
+    phone: number | string,
     street: string,
     street2: string,
     city: string,
     state: string,
-    zip: Number,
+    zip: number | string,
     socketId: string,
     userType: string
 }
@@ -18,12 +18,12 @@ export interface currentUser {
     fname: string,
     lname: string,
     email: string,
-    phone: Number,
+    phone: number,
     street: string,
     street2: string,
     city: string,
     state: string,
-    zip: Number,
+    zip: number,
     socketId: string
     profilePic: string,
     userType: string

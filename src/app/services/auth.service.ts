@@ -5,11 +5,10 @@ import {
   createUserWithEmailAndPassword,
   signOut
 } from '@angular/fire/auth';
-import { user } from '../model/model';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ApiService } from './api.service';
-import { Observable } from 'rxjs';
+import {  take } from 'rxjs';
 
 
 @Injectable({
@@ -17,7 +16,7 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
 
-  constructor(private auth: Auth, private http: HttpClient, private router: Router,private api:ApiService) { }
+  constructor(private auth: Auth, private http: HttpClient, private router: Router, private api: ApiService) { }
 
   async createUser(userData: any, creds: any, type = 'user') {
     let uid;
@@ -28,11 +27,21 @@ export class AuthService {
       })
 
     if (type === 'user') {
-      const sendData = { uid: uid, ...userData }; 
-      return this.http.post("http://localhost:3000/user/add", sendData).subscribe();
+      const sendData = { uid: uid, ...userData };
+      return this.http.post("http://localhost:3000/user/add", sendData)
+        .pipe(take(1))
+        .subscribe(data => {
+          localStorage.setItem('userProfile', JSON.stringify(data))
+          this.router.navigate(['/user']);
+        });
     } else {
       userData.append('uid', uid);
-      return this.http.post("http://localhost:3000/provider/add", userData).subscribe();
+      return this.http.post("http://localhost:3000/provider/add", userData)
+        .pipe(take(1))
+        .subscribe(data => {
+          localStorage.setItem('userProfile', JSON.stringify(data))
+          this.router.navigate(['/view']);
+        });
     }
   }
 
@@ -44,14 +53,15 @@ export class AuthService {
     const uid = await this.getId();
     if (userType === 'user') {
       this.http.post('http://localhost:3000/user/removeSocket', { 'uid': uid }).subscribe();
-    }else{
+    } else {
       this.http.post('http://localhost:3000/provider/removeSocket', { 'uid': uid }).subscribe();
     }
 
-    await signOut(this.auth).then(()=>{
+    await signOut(this.auth).then(() => {
       this.router.navigate(['/registration/']);
+      localStorage.removeItem('userProfile');
     });
-    
+
     location.reload();
   }
 

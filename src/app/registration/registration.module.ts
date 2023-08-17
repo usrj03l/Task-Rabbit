@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { RegistrationRoutingModule } from './registration-routing.module';
 import { SignInComponent } from './sign-in/sign-in.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { RegHomeComponent } from './reg-home/reg-home.component';
 import { ToggleButtonComponent } from './toggle-button/toggle-button.component';
 import { ServiceProviderLoginComponent } from './service-provider-login/service-provider-login.component';
 import { SignUpHomeComponent } from './sign-up-home/sign-up-home.component';
 import { ServiceProviderSignupComponent } from './service-provider-signup/service-provider-signup.component';
+import { SharedComponentsModule } from '../shared-components/shared-components.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,9 @@ import { ServiceProviderSignupComponent } from './service-provider-signup/servic
   imports: [
     CommonModule,
     RegistrationRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    SharedComponentsModule
   ]
 })
 export class RegistrationModule { }

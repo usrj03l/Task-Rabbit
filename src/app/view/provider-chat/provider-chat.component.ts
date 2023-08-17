@@ -119,9 +119,7 @@ export class ProviderChatComponent {
 
   checkNewUsers(check = true) {
     const newUser = this.api.checkUsers.getValue();
-
     if (newUser && check) {
-
       this.data.pipe(take(1)).subscribe(data => {
         const ck = data.filter((c: any) => c.uid === newUser.uid)
         if (ck.length > 0) {

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
-import { Observable, Subject, concatAll, map, merge, switchMap, takeUntil, tap, toArray, startWith } from 'rxjs';
+import { Observable, Subject, concatAll, map, merge, switchMap, takeUntil, tap, toArray, startWith, take } from 'rxjs';
 import { message } from 'src/app/model/model';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -117,12 +117,26 @@ export class UserChatComponent {
   checkNewUsers(check = true) {
     const newUser = this.api.checkUsers.getValue();
     if (newUser && check) {
-      this.allUsersdata$ = this.data.pipe(startWith([newUser]), concatAll(), toArray());
+      this.data.pipe(take(1)).subscribe(data => {
+        const ck = data.filter((c: any) => c.uid === newUser.uid)
+        if (ck.length > 0) {
+          return;
+        } else {
+          this.insertNewUser(newUser);
+        }
+      }
+      )
     }
 
     if (newUser && !check) {
       this.allUsersdata$ = this.allUsersdata$.pipe(startWith([newUser]));
     }
+    this.api.checkUsers.next(null);
+  }
+
+  insertNewUser(newUser:any){
+    this.allUsersdata$ = this.data.pipe(startWith([newUser]), concatAll(), toArray());
+    this.viewAllMessages(newUser)
   } 
 
   scrollDown() {

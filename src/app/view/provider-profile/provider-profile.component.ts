@@ -5,6 +5,7 @@ import { Observable, map, take, tap } from 'rxjs';
 import { appointment } from 'src/app/model/model';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { ChatService } from 'src/app/services/chat.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -22,7 +23,7 @@ export class ProviderProfileComponent {
   profileData$ = new Observable<any>();
   appointmentData$ = new Observable<any>();
 
-  constructor(private auth: AuthService, private http: HttpClient, private router: Router, private api: ApiService) { }
+  constructor(private auth: AuthService, private http: HttpClient, private router: Router, private api: ApiService,private chatService:ChatService) { }
 
   ngOnInit() {
     this.loadProfile();

@@ -52,7 +52,7 @@ export class AuthService {
       this.router.navigate(['/registration/']);
     });
     
-    // location.reload();
+    location.reload();
   }
 
   getId(): Promise<string | null> {

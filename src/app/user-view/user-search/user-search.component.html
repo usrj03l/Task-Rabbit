@@ -43,10 +43,10 @@
             aria-label="Default select example"
             (change)="selectCity($event)"
           >
-            <option value="" selected>State</option>
-            <option value="Kerala">Kerala</option>
-            <option value="Karnataka">Karnataka</option>
-            <option value="Goa">Goa</option>
+            <option value="" selected >State</option>
+            <ng-container *ngFor="let state of states$ | async">
+              <option [value]="state">{{ state | titlecase }}</option>
+            </ng-container>
           </select>
           <select
             class="form-select mt-3 mx-3"
@@ -55,10 +55,10 @@
             (change)="selectService($event)"
             aria-placeholder="Service"
           >
-            <option value="">Service</option>
-            <option value="Electrician">Electrician</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            <option selected value="">Service</option>
+            <ng-container *ngFor="let service of services$ | async">
+              <option [value]="service">{{ service | titlecase }}</option>
+            </ng-container>
           </select>
         </div>
       </div>

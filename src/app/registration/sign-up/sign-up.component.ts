@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { user } from 'src/app/model/model';
+import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -10,7 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class SignUpComponent {
 
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(private auth: AuthService, private router: Router,private api:ApiService) { }
 
   fname = ''
   lname = ''
@@ -23,7 +25,16 @@ export class SignUpComponent {
   city = ''
   state = ''
   zip!: Number;
+  states$ = new Observable<any>();
 
+  ngOnInit(){
+    this.states$ = this.api.getStates(); 
+  }
+
+  selectState(event: any) {
+    this.state = event.target.value;
+  }
+  
   onSubmit() {
 
     const userData: user = {

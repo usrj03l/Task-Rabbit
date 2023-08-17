@@ -18,9 +18,6 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav ms-auto">
-            <a class="nav-item nav-link active px-3" routerLink="profile"
-              >Profile</a
-            >
             <a class="nav-item nav-link active px-3" routerLink="chat">Messages</a>
             <a class="nav-item nav-link active px-3" routerLink="transactions"
               >Payments</a
@@ -31,9 +28,39 @@
             <a class="nav-item nav-link active px-3" routerLink="reviews"
               >Reviews</a
             >
-            <a (click)="logOut()" class="nav-item nav-link active px-3"
-                >Log Out</a
-              >
+              <ul class="navbar-nav ms-auto d-flex flex-row">
+                <li class="nav-item dropdown" style="cursor: pointer;">
+                  <a
+                    class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center"
+                    id="navbarDropdownMenuLink"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <img
+                      src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img (31).webp"
+                      class="rounded-circle"
+                      height="42"
+                      alt="Avatar"
+                      loading="lazy"
+                    />
+                  </a>
+                  <ul
+                    class="dropdown-menu dropdown-menu-end"
+                    aria-labelledby="navbarDropdownMenuLink"
+                  >
+                    <li>
+                      <a class="dropdown-item" routerLink="profile">My profile</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" routerLink="/view/edit-profile">Settings</a>
+                    </li>
+                    <li>
+                      <a (click)="logOut()" class="dropdown-item">Logout</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
           </div>
         </div>
       </nav>

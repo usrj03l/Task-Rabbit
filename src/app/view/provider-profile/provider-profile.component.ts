@@ -88,10 +88,6 @@ export class ProviderProfileComponent {
     this.profileData$ = this.profileData$.pipe(tap(data => data.bio = text));
   }
 
-  editProfile() {
-    this.router.navigate(['/view/edit-profile']);
-  }
-
   chat(uid: string) {
     this.http.post('http://localhost:3000/user/getUsers', { 'users': uid }).pipe(take(1)).subscribe((data: any) => {
       this.api.checkUsers.next(data[0]);

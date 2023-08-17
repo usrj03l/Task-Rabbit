@@ -3,12 +3,6 @@
   <hr />
   <div class="row">
     <div class="col-md-9 personal-info">
-      <div class="alert alert-info alert-dismissable">
-        <a class="panel-close close" data-dismiss="alert">×</a>
-        <i class="fa fa-coffee"></i>
-        This is an <strong>.alert</strong>. Use this to show important messages
-        to the user.
-      </div>
       <h3>Personal info</h3>
 
       <form
@@ -24,6 +18,7 @@
               class="form-control"
               type="text"
               name="fname"
+              [placeholder]="currentUser.fname"
               formControlName="fname"
             />
             <app-form-validate
@@ -39,6 +34,7 @@
               class="form-control"
               type="text"
               name="lname"
+              [placeholder]="currentUser.lname"
               formControlName="lname"
             />
             <app-form-validate
@@ -53,6 +49,7 @@
               class="form-control"
               type="text"
               name="orgName"
+              [placeholder]="currentUser.orgName"
               formControlName="orgName"
             />
             <app-form-validate
@@ -67,6 +64,7 @@
               class="form-control"
               type="text"
               name="establishmentYear"
+              [placeholder]="currentUser.establishmentYear"
               formControlName="establishmentYear"
             />
             <app-form-validate
@@ -81,6 +79,7 @@
               class="form-control"
               type="text"
               name="aadhar"
+              [placeholder]="currentUser.aadhar"
               formControlName="aadhar"
             />
             <app-form-validate
@@ -95,6 +94,7 @@
               class="form-control"
               type="text"
               name="pan"
+              [placeholder]="currentUser.pan"
               formControlName="pan"
             />
             <app-form-validate
@@ -110,7 +110,7 @@
                 <input
                   type="time"
                   class="form-control"
-                  value="openTime"
+                  value="openTime"                  
                   formControlName="openTime"
                 />
                 <app-form-validate

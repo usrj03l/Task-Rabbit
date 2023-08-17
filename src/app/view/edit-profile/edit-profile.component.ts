@@ -11,6 +11,8 @@ import { AuthService } from 'src/app/services/auth.service';
 export class EditProfileComponent {
 
   constructor(private fb: FormBuilder,private api:ApiService, private auth:AuthService) { }
+  
+  currentUser = JSON.parse(localStorage.getItem('userProfile') || '');
 
   contactForm = this.fb.group({
     fname: ['', [Validators.maxLength(64)]],

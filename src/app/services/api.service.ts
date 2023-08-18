@@ -67,7 +67,7 @@ export class ApiService {
     );
   }
 
-  rejectMessage(message:string){
+  rejectMessage(message: string) {
     Swal.fire(
       'Sorry',
       message,
@@ -75,11 +75,11 @@ export class ApiService {
     )
   }
 
-  getStates(){
+  getStates() {
     return this.http.get<[]>('http://localhost:3000/admin/states');
   }
 
-  getServices(){
+  getServices() {
     return this.http.get<[]>('http://localhost:3000/admin/services');
 
   }
@@ -87,7 +87,7 @@ export class ApiService {
     return this.http.get(this.url + 'provider/getUser/' + id);
   }
 
-  getReviews(id: string):Observable<review> {
+  getReviews(id: string): Observable<review> {
     return this.http.get<review>(this.url + `review/getReviews?id=${id}`);
   }
 
@@ -99,8 +99,8 @@ export class ApiService {
     return this.http.get<appointment | null>(this.url + `appointment/getAppointments?id=${id}&userUid=${userUid}`);
   }
 
-  editAppointment(id: string, userUid: string, data: any) {
-    this.http.post(this.url + 'appointment/editAppointment', { id, userUid, data }).pipe(take(1)).subscribe();
+  editAppointment(id: string, userUid: string, docId: string, data: {}) {
+    this.http.post(this.url + 'appointment/editAppointment', { id, userUid, docId, data }).pipe(take(1)).subscribe();
   }
 
   setBill(providerData: any, generatedBill: any) {
@@ -111,24 +111,24 @@ export class ApiService {
     return this.http.get(this.url + `payment/getBill?id=${id}`);
   }
 
-  getFullTransaction(id:string): Observable<payment>{
+  getFullTransaction(id: string): Observable<payment> {
     return this.http.get<payment>(this.url + `payment/getFullTransaction?id=${id}`);
   }
 
   enquire(id: string, user: { userUid: string, name: string, email: string, phone: Number }) {
-    this.http.post(this.url + 'user/enquire',{id,user}).pipe(take(1))
-    .subscribe(data => {
-      if(data === 'success'){
-        this.successMessage('An enquiry has been placed');
-      }
-    });
+    this.http.post(this.url + 'user/enquire', { id, user }).pipe(take(1))
+      .subscribe(data => {
+        if (data === 'success') {
+          this.successMessage('An enquiry has been placed');
+        }
+      });
   }
 
-  getEnquiries(id:string){
+  getEnquiries(id: string) {
     return this.http.get(this.url + `provider/enquiries?id=${id}`);
   }
 
-  removeEnquiry(deleteObj:{providerUid:string,userUid:string}){
-    return this.http.post(this.url + 'provider/deleteEnquiry',{deleteObj});
+  removeEnquiry(deleteObj: { providerUid: string, userUid: string }) {
+    return this.http.post(this.url + 'provider/deleteEnquiry', { deleteObj });
   }
 }

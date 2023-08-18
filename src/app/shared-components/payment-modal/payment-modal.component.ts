@@ -71,6 +71,7 @@ export class PaymentModalComponent {
 
     const generatedBill = {
       userUid: this.user.userUid,
+      transactionId: Math.floor(Date.now() * Math.random()),
       name: this.user.name,
       address: this.user.address,
       phone: this.user.phone,

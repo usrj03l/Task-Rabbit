@@ -66,7 +66,7 @@
                       >
                         <div
                           class="d-flex justify-content-center"
-                          *ngIf="!item.booked"
+                          *ngIf="!item.booked && !item.completed"
                         >
                           <button
                             (click)="confirm(item)"

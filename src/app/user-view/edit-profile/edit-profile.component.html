@@ -1,0 +1,134 @@
+<div class="container">
+  <h1>Edit Profile</h1>
+  <hr />
+  <div class="row">
+    <div class="col-md-9 personal-info">
+      <h3>Personal info</h3>
+
+      <form [formGroup]="profileForm" class="form-horizontal" novalidate>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">First name:</label>
+          <div class="col-lg-8">
+            <input
+              class="form-control"
+              type="text"
+              name="fname"
+              [placeholder]="currentUser.fname"
+              formControlName="fname"
+            />
+            <app-form-validate
+              label="First Name:"
+              [control]="profileForm.controls.fname"
+            ></app-form-validate>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Last name:</label>
+          <div class="col-lg-8">
+            <input
+              class="form-control"
+              type="text"
+              name="lname"
+              [placeholder]="currentUser.lname"
+              formControlName="lname"
+            />
+            <app-form-validate
+              [control]="profileForm.controls.lname"
+            ></app-form-validate>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Phone:</label>
+          <div class="col-lg-8">
+            <input
+              class="form-control"
+              type="text"
+              name="phone"
+              [placeholder]="currentUser.phone"
+              formControlName="phone"
+            />
+            <app-form-validate
+              [control]="profileForm.controls.phone"
+            ></app-form-validate>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">City</label>
+          <div class="col-lg-8">
+            <input
+              class="form-control"
+              type="text"
+              name="city"
+              [placeholder]="currentUser.city"
+              formControlName="city"
+            />
+            <app-form-validate
+              [control]="profileForm.controls.city"
+            ></app-form-validate>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Street</label>
+          <div class="col-lg-8">
+            <input
+              class="form-control"
+              type="text"
+              name="street"
+              [placeholder]="currentUser.street"
+              formControlName="street"
+            />
+            <app-form-validate
+              [control]="profileForm.controls.street"
+            ></app-form-validate>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Street2</label>
+          <div class="col-lg-8">
+            <input
+              class="form-control"
+              type="text"
+              name="street2"
+              [placeholder]="currentUser.street2"
+              formControlName="street2"
+            />
+            <app-form-validate
+              [control]="profileForm.controls.street2"
+            ></app-form-validate>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Pin</label>
+          <div class="col-lg-8">
+            <input
+              class="form-control"
+              type="text"
+              name="pin"
+              [placeholder]="currentUser.zip"
+              formControlName="pin"
+            />
+            <app-form-validate
+              [control]="profileForm.controls.pin"
+            ></app-form-validate>
+          </div>
+        </div>
+        <div class="form-group my-4"></div>
+        <div class="form-group">
+          <label class="col-md-3 control-label"></label>
+          <div class="col-md-8">
+            <input
+              [disabled]="profileForm.invalid"
+              type="button"
+              class="btn btn-primary"
+              value="Save Changes"
+              (click)="onSubmit()"
+            />
+            <span></span>
+            <input type="reset" class="btn btn-default" value="Cancel" />
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<hr />

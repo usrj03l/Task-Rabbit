@@ -9,6 +9,7 @@ import { UserPaymentsComponent } from './user-payments/user-payments.component';
 import { UserAppointmentsComponent } from './user-appointments/user-appointments.component';
 import { UserChatComponent } from './user-chat/user-chat.component';
 import { ServicesInfoComponent } from './services-info/services-info.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,9 @@ const routes: Routes = [
       },
       {
         path:"profile",component:UserProfileComponent
+      },
+      {
+        path:"edit-profile",component:EditProfileComponent
       },
       {
         path:"payments",component:UserPaymentsComponent

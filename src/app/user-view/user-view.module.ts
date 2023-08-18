@@ -11,9 +11,10 @@ import { UserBillComponent } from './user-bill/user-bill.component';
 import { UserPaymentsComponent } from './user-payments/user-payments.component';
 import { UserAppointmentsComponent } from './user-appointments/user-appointments.component';
 import { UserChatComponent } from './user-chat/user-chat.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ServicesInfoComponent } from './services-info/services-info.component';
 import { SharedComponentsModule } from '../shared-components/shared-components.module';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { SharedComponentsModule } from '../shared-components/shared-components.m
     UserAppointmentsComponent,
     UserChatComponent,
     ServicesInfoComponent,
+    EditProfileComponent,
     
   ],
   imports: [
@@ -35,6 +37,7 @@ import { SharedComponentsModule } from '../shared-components/shared-components.m
     UserViewRoutingModule,
     SharedComponentsModule,
     FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class UserViewModule { }

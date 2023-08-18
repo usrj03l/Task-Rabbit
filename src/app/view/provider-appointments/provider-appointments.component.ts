@@ -34,16 +34,16 @@ export class ProviderAppointmentsComponent {
 
   confirm(item: any) {
     item.booked = true;
-    this.api.editAppointment(this.currentUser.uid, item.userUid, item._id, { booked: item.booked });
+    this.api.editAppointment(this.currentUser.uid, item._id, { booked: item.booked });
   }
 
   cancel(item: any) {
     item.cancelled = true;
-    this.api.editAppointment(this.currentUser.uid, item.userUid, item._id, { cancelled: item.cancelled });
+    this.api.editAppointment(this.currentUser.uid, item._id, { cancelled: item.cancelled });
   }
 
   jobComplete(event: any, item: any) {
     item.completed = event;
-    this.api.editAppointment(this.currentUser.uid, item.userUid, item._id, { completed: item.completed });
+    this.api.editAppointment(this.currentUser.uid, item._id, { completed: item.completed });
   }
 }

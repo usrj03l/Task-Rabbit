@@ -32,6 +32,6 @@ export class UserAppointmentsComponent {
 
   cancel(item: any, appointment: any) {
     item.cancelled = true;
-    this.api.editAppointment(appointment.uid, item.userUid, item._id , { cancelled: item.cancelled });
+    this.api.editAppointment(appointment.uid, item._id , { cancelled: item.cancelled });
   }
 }

@@ -99,8 +99,8 @@ export class ApiService {
     return this.http.get<appointment | null>(this.url + `appointment/getAppointments?id=${id}&userUid=${userUid}`);
   }
 
-  editAppointment(id: string, userUid: string, docId: string, data: {}) {
-    this.http.post(this.url + 'appointment/editAppointment', { id, userUid, docId, data }).pipe(take(1)).subscribe();
+  editAppointment(id: string, docId: string, data: {}) {
+    this.http.post(this.url + 'appointment/editAppointment', { id, docId, data }).pipe(take(1)).subscribe();
   }
 
   setBill(providerData: any, generatedBill: any) {

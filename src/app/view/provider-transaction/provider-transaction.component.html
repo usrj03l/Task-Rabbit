@@ -1,72 +1,66 @@
 <div class="wrapper rounded" *ngIf="transactions$ | async as transactions">
-    <nav
-      class="navbar navbar-expand-lg navbar-dark dark d-lg-flex align-items-lg-start"
+  <nav
+    class="navbar navbar-expand-lg navbar-dark dark d-lg-flex align-items-lg-start"
+  >
+    <a class="navbar-brand"
+      >Transactions
+      <p class="text-muted pl-1">Welcome to your transactions</p>
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
     >
-      <a class="navbar-brand" 
-        >Transactions
-        <p class="text-muted pl-1">Welcome to your transactions</p>
-      </a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-lg-auto ">
-          
-          <li class="nav-item">
-            <a ><span class="fa fa-search"></span></a>
-            <input type="search" class="dark" placeholder="Search" />
-          </li>
-        </ul>
-      </div>
-    </nav>
-    <div class="row mt-2 pt-2">
-      <div class="col-md-6" id="income">
-        <div class="d-flex justify-content-start align-items-center">
-          
-          <h4 class="text mx-3">INCOME:</h4> 
-          <h4 class="text-white ml-4 money"> ₹{{ totalIncome }} </h4>
-        </div>
-      </div>
-    </div>
-    <div class="d-flex justify-content-between align-items-center mt-3">
-      <ul class="nav nav-tabs w-75">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-lg-auto">
         <li class="nav-item">
-          <a class="nav-link active">History</a>
+          <a><span class="fa fa-search"></span></a>
+          <input type="search" class="dark" placeholder="Search" />
         </li>
       </ul>
     </div>
-    <div class="table-responsive mt-3">
-      <table class="table table-dark table-borderless">
-        <thead>
-          <tr>
-            <th scope="col" style="text-align: center;">Activity</th>
-            <th scope="col" style="text-align: center;">Mode</th>
-            <th scope="col" style="text-align: center;">Date</th>
-            <th scope="col" style="text-align: center;">Amount</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let transaction of transactions">
-            <td scope="row"  style="text-align: center;">
-               {{ transaction.name | titlecase }}
-            </td>
-            <td  style="text-align: center;"> {{ transaction.mode | titlecase }} </td>
-            <td class="text-muted"  style="text-align: center;"> {{ transaction.date }} </td>
-            <td   style="text-align: center;">
-              ₹{{ transaction.totalCost }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+  </nav>
+  <div class="row mt-2 pt-2">
+    <div class="col-md-6" id="income">
+      <div class="d-flex justify-content-start align-items-center">
+        <h4 class="text mx-3">INCOME:</h4>
+        <h4 class="text-white ml-4 money">₹{{ totalIncome }}</h4>
+      </div>
     </div>
-    
   </div>
-  
+  <div class="d-flex justify-content-between align-items-center mt-3">
+    <ul class="nav nav-tabs w-75">
+      <li class="nav-item">
+        <a class="nav-link active">History</a>
+      </li>
+    </ul>
+  </div>
+  <div class="table-responsive mt-3">
+    <table class="table table-dark table-borderless">
+      <thead>
+        <tr>
+          <th scope="col" style="text-align: center">Activity</th>
+          <th scope="col" style="text-align: center">Mode</th>
+          <th scope="col" style="text-align: center">Date</th>
+          <th scope="col" style="text-align: center">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let transaction of transactions">
+          <td scope="row" style="text-align: center">
+            {{ transaction.name | titlecase }}
+          </td>
+          <td style="text-align: center">{{ transaction.mode | titlecase }}</td>
+          <td style="text-align: center">{{ transaction.date }}</td>
+          <td style="text-align: center">₹{{ transaction.totalCost }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

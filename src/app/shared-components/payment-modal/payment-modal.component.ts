@@ -67,10 +67,7 @@ export class PaymentModalComponent {
     const provider = {
       uid: this.currentUser.uid,
       orgName: this.currentUser.orgName
-    }
-
-    console.log(this.user);
-    
+    }    
 
     const generatedBill = {
       userUid: this.user.userUid,

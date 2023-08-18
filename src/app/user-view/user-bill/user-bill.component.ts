@@ -32,8 +32,8 @@ export class UserBillComponent {
         logo: {
           src: "http://localhost:3000/images/company-logo.jpg",
           type: 'JPG', //optional, when src= data:uri (nodejs case)
-          width: 53.33, //aspect ratio = width/height
-          height: 26.66,
+          width: 33.33, //aspect ratio = width/height
+          height: 33.66,
           margin: {
             top: 0, //negative or positive num, from the current position
             left: 0 //negative or positive num, from the current position
@@ -64,7 +64,7 @@ export class UserBillComponent {
           email: bill.email,
         },
         invoice: {
-          label: "Invoice #: ",
+          label: "Transaction Id : " + bill.transactionId,
           num: 19,
           invDate: "Payment Date: " + bill.date,
           invGenDate: "Invoice Date: " + bill.date,

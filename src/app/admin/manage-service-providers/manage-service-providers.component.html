@@ -28,18 +28,27 @@
           <h5 class="card-title mb-2">
             {{ user.orgName | titlecase }}
           </h5>
-          <img
-            [src]="'http://localhost:3000/images/' + user.profilePic"
-            alt="No img"
+          <div class="image mt-3">
+            <img
+              [src]="'http://localhost:3000/images/' + user.profilePic"
+              alt="No img"
+              style="
+                height: 50px;
+                width: 100px;
+                float: left;
+                border-radius: 5px;
+              "
+            />
+          </div>
+          <div
+            class="content"
             style="
-              height: 50px;
-              width: 100px;
-              float: left;
-              border-radius: 5px;
-              padding-right: 20px;
+              margin-top: 80px;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
             "
-          />
-          <div class="content">
+          >
             <p class="card-text">
               Owner: {{ user.fname + " " + user.lname | titlecase }}
             </p>
@@ -53,18 +62,20 @@
               Account: {{ user.disabled ? "disabled" : "active" }}
             </p>
           </div>
-          <a
-            (click)="disable(user)"
-            class="btn btn-outline-danger mt-3"
-            *ngIf="!user.disabled"
-            >Disable</a
-          >
-          <a
-            (click)="disable(user)"
-            class="btn btn-outline-success mt-3"
-            *ngIf="user.disabled"
-            >Activate</a
-          >
+          <div class="button" style="display: flex; flex-direction: column; align-items: center;">
+            <a
+              (click)="disable(user)"
+              class="btn btn-outline-danger mt-3"
+              *ngIf="!user.disabled"
+              >Disable</a
+            >
+            <a
+              (click)="disable(user)"
+              class="btn btn-outline-success mt-3"
+              *ngIf="user.disabled"
+              >Activate</a
+            >
+          </div>
         </div>
       </div>
     </div>

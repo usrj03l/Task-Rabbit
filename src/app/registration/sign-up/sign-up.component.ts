@@ -21,7 +21,7 @@ export class SignUpComponent {
     email: ['', [Validators.required, Validators.email]],
     pass: ['', [Validators.required, Validators.minLength(6)]],
     repass: ['', [Validators.required, Validators.minLength(6)]],
-    phone: ['', [Validators.required, Validators.minLength(10)]],
+    phone: ['', [Validators.required,Validators.minLength(10),Validators.maxLength(10)]],
     city: ['', [Validators.required, Validators.minLength(1)]],
     street: ['', [Validators.required, Validators.minLength(1)]],
     street2: ['', [Validators.required, Validators.minLength(1)]],

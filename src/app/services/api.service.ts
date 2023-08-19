@@ -99,20 +99,28 @@ export class ApiService {
     return this.http.get<appointment | null>(this.url + `appointment/getAppointments?id=${id}&userUid=${userUid}`);
   }
 
-  editAppointment(id: string, docId: string, data: {}) {
-    this.http.post(this.url + 'appointment/editAppointment', { id, docId, data }).pipe(take(1)).subscribe();
-  }
-
-  setBill(providerData: any, generatedBill: any) {
-    return this.http.post(this.url + 'payment/addTransaction', { providerData, generatedBill });
-  }
-
   getBill(id: string) {
     return this.http.get(this.url + `payment/getBill?id=${id}`);
   }
 
   getFullTransaction(id: string): Observable<payment> {
     return this.http.get<payment>(this.url + `payment/getFullTransaction?id=${id}`);
+  }
+
+  getEnquiries(id: string) {
+    return this.http.get(this.url + `provider/enquiries?id=${id}`);
+  }
+
+  editAppointment(id: string, docId: string, data: {}) {
+    this.http.post(this.url + 'appointment/editAppointment', { id, docId, data }).pipe(take(1)).subscribe();
+  }
+
+  editUserprofile(formData:any,id:string){
+    this.http.put(this.url + 'user/editProfile',{formData,id}).subscribe();
+  }
+
+  setBill(providerData: any, generatedBill: any) {
+    return this.http.post(this.url + 'payment/addTransaction', { providerData, generatedBill });
   }
 
   enquire(id: string, user: { userUid: string, name: string, email: string, phone: Number }) {
@@ -122,10 +130,6 @@ export class ApiService {
           this.successMessage('An enquiry has been placed');
         }
       });
-  }
-
-  getEnquiries(id: string) {
-    return this.http.get(this.url + `provider/enquiries?id=${id}`);
   }
 
   removeEnquiry(deleteObj: { providerUid: string, userUid: string }) {

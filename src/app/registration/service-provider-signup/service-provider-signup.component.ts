@@ -22,7 +22,7 @@ export class ServiceProviderSignupComponent {
     email: ['', [Validators.required, Validators.email]],
     pass: ['', [Validators.required, Validators.minLength(6)]],
     repass: ['', [Validators.required, Validators.minLength(6)]],
-    phone: ['', [Validators.required, Validators.minLength(10)]],
+    phone: ['', [Validators.required, Validators.minLength(10),Validators.maxLength(10)]],
     orgName: ['', [
       Validators.maxLength(50),
       Validators.required,

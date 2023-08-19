@@ -17,7 +17,6 @@
               formControlName="fname"
             />
             <app-form-validate
-              label="First Name:"
               [control]="profileForm.controls.fname"
             ></app-form-validate>
           </div>
@@ -105,10 +104,10 @@
               type="text"
               name="pin"
               [placeholder]="currentUser.zip"
-              formControlName="pin"
+              formControlName="zip"
             />
             <app-form-validate
-              [control]="profileForm.controls.pin"
+              [control]="profileForm.controls.zip"
             ></app-form-validate>
           </div>
         </div>

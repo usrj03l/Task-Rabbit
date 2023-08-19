@@ -4,6 +4,7 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { RegHomeComponent } from './reg-home/reg-home.component';
 import { SignUpHomeComponent } from './sign-up-home/sign-up-home.component';
+import { registrationGuard } from '../guards/registration.guard';
 
 const routes: Routes = [
   {
@@ -18,7 +19,8 @@ const routes: Routes = [
       {
         path: "signup", component: SignUpHomeComponent
       }
-    ]
+    ],
+    canActivate:[registrationGuard]
   }
 ];
 

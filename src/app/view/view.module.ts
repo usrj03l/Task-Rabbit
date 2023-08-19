@@ -25,8 +25,8 @@ import { SharedComponentsModule } from '../shared-components/shared-components.m
         EditProfileComponent,
     ],
     imports: [
-        CommonModule,
         ViewRoutingModule,
+        CommonModule,
         FormsModule,
         ReactiveFormsModule,
         SharedComponentsModule

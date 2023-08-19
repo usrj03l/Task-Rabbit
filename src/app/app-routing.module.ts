@@ -7,6 +7,9 @@ const routes: Routes = [
  {
   path:"",redirectTo:"registration/login",pathMatch:"full"
  },
+ {
+  path:"**",redirectTo:"registration/login",pathMatch:"full"
+ }
 ];
 
 @NgModule({

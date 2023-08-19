@@ -10,13 +10,17 @@ import { UserAppointmentsComponent } from './user-appointments/user-appointments
 import { UserChatComponent } from './user-chat/user-chat.component';
 import { ServicesInfoComponent } from './services-info/services-info.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { userGuard } from '../guards/user.guard';
 
 const routes: Routes = [
   {
     path:"user",component:UserHomeComponent,
     children:[
       {
-        path:"",component:UserSearchComponent
+        path:"",redirectTo:"search",pathMatch:"full"
+      },
+      {
+        path:"search",component:UserSearchComponent
       },
       {
         path:"profile",component:UserProfileComponent
@@ -35,8 +39,12 @@ const routes: Routes = [
       },
       {
         path:'service-info',component:ServicesInfoComponent
+      },
+      {
+        path:"**",redirectTo:"search",pathMatch:"full"
       }
-    ]
+    ],
+    canActivate:[userGuard]
   }
 ];
 

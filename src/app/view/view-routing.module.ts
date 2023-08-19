@@ -7,6 +7,7 @@ import { ProviderAppointmentsComponent } from './provider-appointments/provider-
 import { ProviderReviewsComponent } from './provider-reviews/provider-reviews.component';
 import { ProviderChatComponent } from './provider-chat/provider-chat.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { serviceGuardGuard } from '../guards/service-guard.guard';
 
 const routes: Routes = [
   {
@@ -32,9 +33,13 @@ const routes: Routes = [
       },
       {
         path:"edit-profile",component:EditProfileComponent
+      },
+      {
+        path:"**",redirectTo:"profile",pathMatch:'full'
       }
-
-    ]
+    ],
+    canActivate:[serviceGuardGuard]
+    
   },
   
 ];

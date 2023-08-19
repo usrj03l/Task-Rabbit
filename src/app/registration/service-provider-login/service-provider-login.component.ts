@@ -21,6 +21,7 @@ export class ServiceProviderLoginComponent {
       .then(() => {
         this.checkUserAccountStatus();
       })
+      .catch(err => this.api.rejectMessage('Invalid credentials'));
   }
 
   async checkUserAccountStatus(){

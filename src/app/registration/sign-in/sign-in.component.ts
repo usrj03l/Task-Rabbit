@@ -24,7 +24,7 @@ constructor(private auth:AuthService, private router:Router,private api:ApiServi
     .then(()=>{
       this.checkUserAccountStatus();
     })
-
+    .catch(err => this.api.rejectMessage('Invalid credentials'));
   }
 
   async checkUserAccountStatus(){

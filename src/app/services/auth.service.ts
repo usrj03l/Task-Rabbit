@@ -7,8 +7,8 @@ import {
 } from '@angular/fire/auth';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { take } from 'rxjs';
 import { ApiService } from './api.service';
-import {  take } from 'rxjs';
 
 
 @Injectable({
@@ -18,14 +18,19 @@ export class AuthService {
 
   constructor(private auth: Auth, private http: HttpClient, private router: Router, private api: ApiService) { }
 
-  async createUser(userData: any, creds: any, type = 'user') {
+  createUser(userData: any, creds: any, type = 'user') {
     let uid;
 
-    await createUserWithEmailAndPassword(this.auth, creds.email, creds.pass)
+    createUserWithEmailAndPassword(this.auth, creds.email, creds.pass)
       .then(userCredential => {
         uid = userCredential.user.uid;
+        this.createUserAccount(userData, type, uid);
+        console.log(uid);
       })
+      .catch(err => this.api.rejectMessage('User already exists'));
+  }
 
+  createUserAccount(userData: any, type = 'user', uid: string) {
     if (type === 'user') {
       const sendData = { uid: uid, ...userData };
       return this.http.post("http://localhost:3000/user/add", sendData)
@@ -45,8 +50,8 @@ export class AuthService {
     }
   }
 
-  async login(email: string, pass: string) {
-    return await signInWithEmailAndPassword(this.auth, email, pass);
+  login(email: string, pass: string) {
+    return signInWithEmailAndPassword(this.auth, email, pass);
   }
 
   async logOff(userType: string) {

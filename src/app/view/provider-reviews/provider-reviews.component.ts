@@ -9,14 +9,14 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./provider-reviews.component.css']
 })
 export class ProviderReviewsComponent {
-  currentUser = JSON.parse(localStorage.getItem('userProfile') || '');
+  currentUser:any;
   reviews$ = new Observable<review>();
   ratings$ = new Observable<number[]>();
   totalRatingCount:number = 0;
   constructor(private api: ApiService) { }
 
   ngOnInit() {
-
+    this.currentUser = JSON.parse(localStorage.getItem('userProfile') || '');
     this.reviews$ = this.api.getReviews(this.currentUser.uid);
 
     this.ratings$ = this.reviews$.pipe(

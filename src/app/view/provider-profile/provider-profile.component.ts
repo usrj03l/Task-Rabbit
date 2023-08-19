@@ -18,7 +18,7 @@ export class ProviderProfileComponent {
   defaultProfile = 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp';
   profile: any;
   bio: string = "Write something about yourself";
-  currentUser = JSON.parse(localStorage.getItem('userProfile') || '');
+  currentUser:any
   enquiries$ = new Observable<any>();
   profileData$ = new Observable<any>();
   appointmentData$ = new Observable<any>();
@@ -26,6 +26,7 @@ export class ProviderProfileComponent {
   constructor(private auth: AuthService, private http: HttpClient, private router: Router, private api: ApiService,private chatService:ChatService) { }
 
   ngOnInit() {
+    this.currentUser = JSON.parse(localStorage.getItem('userProfile') || '');
     this.loadProfile();
     this.loadEnquiries();
     this.loadAppointments();

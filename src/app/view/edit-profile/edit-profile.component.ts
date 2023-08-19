@@ -12,7 +12,7 @@ export class EditProfileComponent {
 
   constructor(private fb: FormBuilder,private api:ApiService, private auth:AuthService) { }
   
-  currentUser = JSON.parse(localStorage.getItem('userProfile') || '');
+  currentUser:any;
 
   contactForm = this.fb.group({
     fname: ['', [Validators.maxLength(64)]],
@@ -43,7 +43,9 @@ export class EditProfileComponent {
     fQues: this.fb.array([])
   });
 
-  ngOnInit() { } 
+  ngOnInit() {
+    this.currentUser = JSON.parse(localStorage.getItem('userProfile') || '');
+   } 
 
   get aboutInfo() {
     return (<FormArray>this.contactForm.get('aboutUs'));

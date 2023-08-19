@@ -26,13 +26,12 @@ export class ProviderChatComponent {
   dateTime = new Date();
   currentUser!: string | null;
   currentUserView!: string;
-  user = JSON.parse(localStorage.getItem('userProfile') || '');
+  user:any
 
   constructor(private auth: AuthService, private chatService: ChatService, private http: HttpClient, private api: ApiService) { }
 
   ngOnInit() {
-    // this.loadMessage();
-
+    this.user = JSON.parse(localStorage.getItem('userProfile') || '');
     this.chatService.getNewMessage().subscribe((data: any) => {
       const dateTime = this.getDateTime();
       const receivedMessage = {

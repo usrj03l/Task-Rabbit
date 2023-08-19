@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./services-info.component.css']
 })
 export class ServicesInfoComponent {
-  currentUser = JSON.parse(localStorage.getItem('userProfile') || '');
+  currentUser:any;
   defaultProfile = 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp';
   hoveredIndex: number = -1;
   providerData: any;
@@ -23,6 +23,7 @@ export class ServicesInfoComponent {
   constructor(private api: ApiService, private auth: AuthService, private router: Router) { }
 
   ngOnInit() {
+    this.currentUser = JSON.parse(localStorage.getItem('userProfile') || '');
     this.providerData = JSON.parse(localStorage.getItem('serviceData') || '');
     this.time[0] = this.formatTime((this.providerData.orgDetails.openTime));
     this.time[1] = this.formatTime((this.providerData.orgDetails.closeTime));

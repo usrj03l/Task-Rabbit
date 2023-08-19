@@ -10,7 +10,7 @@ export class EditProfileComponent {
 
   constructor(private fb: FormBuilder) { }
 
-  currentUser = JSON.parse(localStorage.getItem('userProfile') || '');
+  currentUser:any;
 
   profileForm = this.fb.group({
     fname: ['', [Validators.maxLength(64)]],
@@ -23,6 +23,9 @@ export class EditProfileComponent {
     pin: ['', [Validators.required,Validators.minLength(6),Validators.maxLength(6)]]
   })
 
+  ngOnInit(){
+    this.currentUser = JSON.parse(localStorage.getItem('userProfile') || '');
+  }
   onSubmit() {
 
   }

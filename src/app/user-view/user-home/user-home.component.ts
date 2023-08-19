@@ -13,8 +13,13 @@ export class UserHomeComponent {
 
   constructor(private auth: AuthService, private chat: ChatService,private http:HttpClient) {  }
 
-  currentUser = JSON.parse(localStorage.getItem('userProfile') || '');
+  currentUser:any;
+  ngOnInit(){
+    this.currentUser = JSON.parse(localStorage.getItem('userProfile') || '');
 
+  }
+
+  
   logOut() {
     this.auth.logOff('user');
   }

@@ -55,6 +55,12 @@ export class AuthService {
   }
 
   async logOff(userType: string) {
+
+    if(userType === 'admin'){
+      this.authLogOff();
+      return;
+    }
+
     const uid = await this.getId();
     if (userType === 'user') {
       this.http.post('http://localhost:3000/user/removeSocket', { 'uid': uid }).subscribe();
@@ -62,9 +68,15 @@ export class AuthService {
       this.http.post('http://localhost:3000/provider/removeSocket', { 'uid': uid }).subscribe();
     }
 
+    this.authLogOff();
+    
+  }
+
+  async authLogOff(){
     await signOut(this.auth).then(() => {
       this.router.navigate(['/registration/']);
       localStorage.removeItem('userProfile');
+      localStorage.removeItem('serviceData');
     });
 
     location.reload();

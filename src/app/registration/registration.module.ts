@@ -10,6 +10,7 @@ import { ServiceProviderLoginComponent } from './service-provider-login/service-
 import { SignUpHomeComponent } from './sign-up-home/sign-up-home.component';
 import { ServiceProviderSignupComponent } from './service-provider-signup/service-provider-signup.component';
 import { SharedComponentsModule } from '../shared-components/shared-components.module';
+import { AdminLoginComponent } from './admin-login/admin-login.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { SharedComponentsModule } from '../shared-components/shared-components.m
     ToggleButtonComponent,
     ServiceProviderLoginComponent,
     SignUpHomeComponent,
-    ServiceProviderSignupComponent
+    ServiceProviderSignupComponent,
+    AdminLoginComponent
   ],
   imports: [
     CommonModule,

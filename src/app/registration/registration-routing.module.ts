@@ -5,6 +5,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { RegHomeComponent } from './reg-home/reg-home.component';
 import { SignUpHomeComponent } from './sign-up-home/sign-up-home.component';
 import { registrationGuard } from '../guards/registration.guard';
+import { AdminLoginComponent } from './admin-login/admin-login.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,9 @@ const routes: Routes = [
       },
       {
         path: "signup", component: SignUpHomeComponent
+      },
+      {
+        path:"admin", component:AdminLoginComponent
       }
     ],
     canActivate:[registrationGuard]

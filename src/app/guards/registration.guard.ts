@@ -5,6 +5,11 @@ export const registrationGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const user = JSON.parse(localStorage.getItem('userProfile')!)
 
+  if(user && user.userType === 'admin'){
+    router.navigate(['admin-home']);
+    return true;
+  }
+
   if (user && user.userType === 'user') {
     router.navigate(['user']);
     return true;

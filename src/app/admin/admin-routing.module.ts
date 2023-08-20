@@ -4,6 +4,7 @@ import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { ManageUsersComponent } from './manage-users/manage-users.component';
 import { ManageServiceProvidersComponent } from './manage-service-providers/manage-service-providers.component';
 import { ManageCatagoriesComponent } from './manage-catagories/manage-catagories.component';
+import { adminGuard } from '../guards/admin.guard';
 
 const routes: Routes = [
   {
@@ -18,7 +19,8 @@ const routes: Routes = [
       {
         path:'manage-catagories',component:ManageCatagoriesComponent
       }
-    ]
+    ],
+    canActivate:[adminGuard]
   }
 ];
 
